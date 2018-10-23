@@ -18,7 +18,7 @@ class RemoCommandsTest extends TestCase implements CommandTesterInterface
     public function setUp()
     {
         // Store the command classes we are going to test
-        $this->commandClasses = [ \SiteProcess\Cli\RemoCommands::class ];
+        $this->commandClasses = [ \SiteProcess\Remo\RemoCommands::class ];
         $this->setupCommandTester('TestFixtureApp', '1.0.1');
     }
 
@@ -41,21 +41,15 @@ class RemoCommandsTest extends TestCase implements CommandTesterInterface
         return [
 
             [
-                '2 times 2 is 4',
-                self::STATUS_OK,
-                'multiply', 2, 2,
-            ],
-
-            [
-                'Multiply two numbers together',
+                'Run a command identified by a site alias',
                 self::STATUS_OK,
                 'list',
             ],
 
             [
-                'Not enough arguments (missing: "b").',
+                'Not enough arguments (missing: "siteAlias")',
                 self::STATUS_ERROR,
-                'multiply', 7,
+                'run',
             ],
         ];
     }

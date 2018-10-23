@@ -21,4 +21,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 DEPENDENCY LICENSES:
 
-Name  Version  License  
+Name                      Version  License  
+consolidation/site-alias  1.1.5    MIT      
+symfony/process           v4.1.6   MIT      

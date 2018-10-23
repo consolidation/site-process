@@ -19,7 +19,9 @@
         }
     },
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.1",
+        "consolidation/site-alias": "^1.1",
+        "symfony/process": "^3.4|^4"
     },
     "require-dev": {
         "consolidation/Robo": "^1.3",
