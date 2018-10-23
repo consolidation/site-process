@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleProject\Cli;
+namespace SiteProcess\Cli;
 
 class ExampleCommands extends \Robo\Tasks
 {
@@ -11,7 +11,7 @@ class ExampleCommands extends \Robo\Tasks
      */
     public function multiply($a, $b)
     {
-        $model = new \ExampleProject\Example($a);
+        $model = new \SiteProcess\Example($a);
         $result = $model->multiply($b);
 
         $this->io()->text("$a times $b is $result");

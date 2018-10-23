@@ -1,5 +1,5 @@
 {
-    "name": "g1a/starter",
+    "name": "consolidation/site-process",
     "description": "Template project for PHP libraries.",
     "license": "MIT",
     "authors": [
@@ -8,15 +8,14 @@
             "email": "greg.1.anderson@greenknowe.org"
         }
     ],
-    "autoload":{
-        "psr-4":{
-            "CustomizeProject\\": "customize",
-            "ExampleProject\\": "src"
+    "autoload": {
+        "psr-4": {
+            "SiteProcess\\": "src"
         }
     },
-    "autoload-dev":{
-        "psr-4":{
-            "ExampleProject\\": "tests/src"
+    "autoload-dev": {
+        "psr-4": {
+            "SiteProcess\\": "tests/src"
         }
     },
     "require": {
@@ -32,9 +31,6 @@
         "squizlabs/php_codesniffer": "^2.8"
     },
     "scripts": {
-        "customize": [
-            "CustomizeProject\\Customizer::customize"
-        ],
         "phar:install-tools": [
             "mkdir -p tools",
             "curl -L https://github.com/humbug/box/releases/download/3.0.0/box.phar -o tools/box",
@@ -57,9 +53,6 @@
             "release VERSION"
         ],
         "scenario": "scenarios/install",
-        "post-create-project-cmd": [
-            "@customize"
-        ],
         "post-update-cmd": [
             "dependency-licenses"
         ]
