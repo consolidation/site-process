@@ -17,30 +17,28 @@ There are two choices for LICENSE badges:
 [![License](https://poser.pugx.org/consolidation/site-process/license)](https://github.com/consolidation/site-process//master/LICENSE)
 -->
 
-## FINISH CUSTOMIZATION
+## Overview
 
-Follow the steps in this section to complete the customization of your new project.
+Site Process is a thin wrapper around the [Symfony Process Component](https://symfony.com/doc/3.4/components/process) that allows applications to use the [Site Alias library](https://github.com/consolidation/site-alias) to specify the target for a remote call.
 
-### Services
+For comparison purposes, the `Process` obejct may be created to run an application on the local system using the standard Symfony Process Component API like so:
+```
+$process = new Process(['ls', '-lsa']);
+```
+Similarly, a remote call can be done using the general-purpose `SiteProcess` API:
+```
+$process = new SiteProcess($site_alias, ['ls', '-lsa', '{root}']);
+```
+In this example, if `$site_alias` represents a site on the same system, then the `ls -lsa` command will run locally. If, on the other hand, it represents a remote site, then the `ls -lsa` command will be wrapped in an ssh call to the remote system. In either case, the `{root}` reference will be replaced with the value of the attribute of the site alias named `root`. An exception will be thrown if the named attribute does not exist.
 
-Enable those services shown below that have not already been configured:
-
-| Feature                   | Setup
-| ------------------------- | ----------------
-| Collaborative repository  | [DONE](https://github.com/consolidation/site-process)
-| Linux permutation testing | [DONE](https://travis-ci.org/consolidation/site-process)
-| Windows testing           | [Enable Appveyor CI](https://ci.appveyor.com/projects/new)
-| Static analysis           | [Enable Scrutinizer CI](https://scrutinizer-ci.com/g/new)
-| Code coverage             | [Enable Coveralls](https://coveralls.io/repos/new)
-| Package manager           | [Register with Packagist](https://packagist.org/packages/submit)
-| Dependency updates        | [Enable Dependencies.io](https://app.dependencies.io/add-project)
-
-### Commandline Tool
-
-To customize the name of your commandline tool:
-
-- Rename the file `example` (the executable / front controller)
-- Replace any `example` or `example.phar` in [box.json.dist](/box.json.dist) and [.gitignore](/.gitignore) with the desired name for your phar
+Options may also be specified as an associative array provided as a third parameter:
+```
+$process = new SiteProcess($site_alias, ['git', 'status'], ['untracked-files' => 'no']);
+```
+This is equivalent to:
+```
+$process = new SiteProcess($site_alias, ['git', '--untracked-files=no', 'status']);
+```
 
 ### Release Script
 
@@ -65,53 +63,7 @@ deploy:
 
 The `secure:` line should be filled in by `travis setup releases`.
 
-### Documentation
 
-Once you have finished setting up your project, delete this section and fill out the other sections of this README.
-
-Also look over:
-
-- [GitHub issue templates](https://github.com/consolidation/site-process/issues/templates/edit)
-- [GitHub pull request template](/.github/pull_request_template.md)
-- [Contributing guide](/CONTRIBUTING) (Decide about your code of conduct)
-
-## Getting Started
-
-Explain how to get a copy of this project up and running on a new user's local machine.
-
-See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-List the things that are needed to install the software and how to install them. For most PHP projects, it should usually be sufficient to run:
-
-```
-composer install
-```
-
-If you wish to build the phar for this project, install the `box` phar builder via:
-
-```
-composer phar:install-tools
-```
-
-### Installing
-
-Provide a step by step series of examples that show how to install this project.
-
-Say what the step will be. If the phar for this project is the primary output, and not a mere development utility, then perhaps the first step will be to build the phar:
-
-```
-composer phar:build
-```
-
-It may then be sufficient to install via:
-
-```
-cp example.phar /usr/local/bin
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
 
 ## Running the tests
 
@@ -132,7 +84,7 @@ Add additional notes about how to deploy this on a live system.
 
 If your project has been set up to automatically deploy its .phar with every GitHub release, then you will be able to deploy by the following procedure:
 
-- Edit the `VERSION` file to contain the version to release, and commit the change.
+- Edit the `VERSION` file to contain the version to release with `-dev` appended, and commit the change.
 - Run `composer release`
 
 ## Built With

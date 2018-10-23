@@ -5,7 +5,7 @@ namespace SiteProcess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-class ExampleCommandsTest extends TestCase implements CommandTesterInterface
+class RemoCommandsTest extends TestCase implements CommandTesterInterface
 {
     use CommandTesterTrait;
 
@@ -18,12 +18,12 @@ class ExampleCommandsTest extends TestCase implements CommandTesterInterface
     public function setUp()
     {
         // Store the command classes we are going to test
-        $this->commandClasses = [ \SiteProcess\Cli\ExampleCommands::class ];
+        $this->commandClasses = [ \SiteProcess\Cli\RemoCommands::class ];
         $this->setupCommandTester('TestFixtureApp', '1.0.1');
     }
 
     /**
-     * Data provider for testExampleCommands.
+     * Data provider for testRemoCommands.
      *
      * Return an array of arrays, each of which contains the data for one test.
      * The parameters in each array should be:
@@ -36,7 +36,7 @@ class ExampleCommandsTest extends TestCase implements CommandTesterInterface
      * to be the argv value to pass to the command. The application name
      * is automatically unshifted into argv[0] first.
      */
-    public function exampleTestCommandParameters()
+    public function remoTestCommandParameters()
     {
         return [
 
@@ -61,13 +61,13 @@ class ExampleCommandsTest extends TestCase implements CommandTesterInterface
     }
 
     /**
-     * Test our example commandfile class. Each time this function is called,
+     * Test our remo commandfile class. Each time this function is called,
      * it will be passed the expected output and expected status code; the
      * remainder of the arguments passed will be used as $argv.
      *
-     * @dataProvider exampleTestCommandParameters
+     * @dataProvider remoTestCommandParameters
      */
-    public function testExampleCommands($expectedOutput, $expectedStatus, $variable_args)
+    public function testRemoCommands($expectedOutput, $expectedStatus, $variable_args)
     {
         // Set this to the path to a fixture configuration file if you'd like to use one.
         $configurationFile = false;

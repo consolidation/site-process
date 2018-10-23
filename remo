@@ -2,7 +2,7 @@
 <?php
 
 /**
- * Example commandline front controller
+ * 'Remo' commandline front controller
  *
  * The commandline tool is useful for providing ad-hoc access to our class implementations
  */
@@ -26,7 +26,7 @@ $classLoader = require $autoloaderPath;
 $argv = $_SERVER['argv'];
 $appName = "SiteProcess";
 $appVersion = trim(file_get_contents(__DIR__ . '/VERSION'));
-$commandClasses = [ \SiteProcess\Cli\ExampleCommands::class ];
+$commandClasses = [ \SiteProcess\Cli\RemoCommands::class ];
 $selfUpdateRepository = 'consolidation/site-process';
 $configPrefix = 'SITEPROCESS';
 $configFilePath = getenv($configPrefix . '_CONFIG') ?: getenv('HOME') . '/.site-process/site-process.yml';

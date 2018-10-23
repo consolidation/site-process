@@ -1,5 +1,6 @@
 {
-  "main": "example",
-  "output": "example.phar",
-  "files": ["example", "VERSION"]
+  "main": "remo",
+  "output": "remo.phar",
+  "files": ["remo", "VERSION"],
+  "directories": ["src","vendor"]
 }

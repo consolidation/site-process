@@ -2,7 +2,7 @@
 
 namespace SiteProcess\Cli;
 
-class ExampleCommands extends \Robo\Tasks
+class RemoCommands extends \Robo\Tasks
 {
     /**
      * Multiply two numbers together
