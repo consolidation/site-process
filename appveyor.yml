@@ -60,4 +60,4 @@ test_script:
 # environment variables
 environment:
   global:
-      php_ver_target: 7.0
+      php_ver_target: 7.1

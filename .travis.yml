@@ -11,7 +11,7 @@ matrix:
   fast_finish: true
   include:
     - php: 7.2
-      env: 'DEPENCENCIES=highest'
+      env: 'DEPENDENCIES=highest'
     - php: 7.2
     - php: 7.1
     - php: 7.1
@@ -24,7 +24,7 @@ cache:
     - $HOME/.composer/cache
 
 install:
-  - 'composer scenario "${SCENARIO}" "${DEPENDENCIES}"'
+  # - 'composer scenario "${SCENARIO}" "${DEPENDENCIES}"'
 
 script:
   - composer test

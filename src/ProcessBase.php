@@ -83,11 +83,10 @@ class ProcessBase extends Process
         } elseif ($this->getVerbose()) {
             $this->getLogger()->info('Executing: ' . $cmd);
         }
-        $return = parent::start($callback);
+        parent::start($callback);
         // Set command back to original value in case anyone asks.
         if ($this->getSimulated()) {
             $this->setCommandLine($cmd);
         }
-        return $return;
     }
 }
