@@ -1,6 +1,6 @@
 <?php
 
-namespace SiteProcess;
+namespace Consolidation\SiteProcess;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -18,7 +18,7 @@ class RemoCommandsTest extends TestCase implements CommandTesterInterface
     public function setUp()
     {
         // Store the command classes we are going to test
-        $this->commandClasses = [ \SiteProcess\Remo\RemoCommands::class ];
+        $this->commandClasses = [ \Consolidation\SiteProcess\Remo\RemoCommands::class ];
         $this->setupCommandTester('TestFixtureApp', '1.0.1');
     }
 

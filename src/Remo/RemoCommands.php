@@ -1,6 +1,6 @@
 <?php
 
-namespace SiteProcess\Remo;
+namespace Consolidation\SiteProcess\Remo;
 
 class RemoCommands extends \Robo\Tasks
 {

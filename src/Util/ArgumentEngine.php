@@ -1,5 +1,5 @@
 <?php
-namespace SiteProcess;
+namespace Consolidation\SiteProcess;
 
 use Consolidation\SiteAlias\AliasRecord;
 use Symfony\Component\Process\Process;

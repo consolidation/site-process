@@ -1,6 +1,6 @@
 <?php
 
-namespace SiteProcess;
+namespace Consolidation\SiteProcess;
 
 use PHPUnit\Framework\TestCase;
 

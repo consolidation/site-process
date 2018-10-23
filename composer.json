@@ -10,12 +10,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "SiteProcess\\": "src"
+            "Consolidation\\SiteProcess\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SiteProcess\\": "tests/src"
+            "Consolidation\\SiteProcess\\": "tests/src"
         }
     },
     "require": {

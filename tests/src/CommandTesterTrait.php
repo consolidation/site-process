@@ -1,6 +1,6 @@
 <?php
 
-namespace SiteProcess;
+namespace Consolidation\SiteProcess;
 
 use Symfony\Component\Console\Output\BufferedOutput;
 
