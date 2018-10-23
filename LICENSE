@@ -21,4 +21,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 DEPENDENCY LICENSES:
 
-Name  Version  License  
+Name             Version  License  
+symfony/process  v3.4.17  MIT      
