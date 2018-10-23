@@ -24,6 +24,7 @@ cache:
     - $HOME/.composer/cache
 
 install:
+  - composer install
   # - 'composer scenario "${SCENARIO}" "${DEPENDENCIES}"'
 
 script:
