@@ -8,11 +8,10 @@ class ArgumentEngine
 {
     public function selectArgs(AliasRecord $siteAlias, $args, $options = [])
     {
-    		$result = $args;
-
-    		$result = $this->appendOptions($result, $options);
-    		$result = $this->sshWrap($siteAlias, $result);
-    		$result = $this->interpolate($siteAlias, implode(' ', $result));
+    		$args = $this->appendOptions($args, $options);
+    		$result = $this->sshWrap($siteAlias, $args);
+    		// @todo fix.
+    		// $result = $this->interpolate($siteAlias, $result);
 
     		return $result;
     }
@@ -28,23 +27,18 @@ class ArgumentEngine
     	  return $result;
     }
 
-    protected function sshWrap(AliasRecord $siteAlias, $result)
+    protected function sshWrap(AliasRecord $siteAlias, $args)
     {
-    		// Exit early if not remote
-    	  if (!$siteAlias->isRemote()) {
-    	  	  return $result;
-    	  }
-    	  
-    	  $ssh = [
-    	      'ssh',
-              // Is this needed or desired?
-              '-o PasswordAuthentication=example',
-              // Commands should add this themselves?
-              '-t',
-              $siteAlias->remoteHostWithUser(),
-          ];
+    	if (!$siteAlias->isRemote()) {
+            return $args;
+        }
 
-    	  return $ssh + $result;
+        return [
+            'ssh',
+            $siteAlias->get('ssh.options', '-o PasswordAuthentication=no'),
+            $siteAlias->remoteHostWithUser(),
+            implode(' ', $args),
+        ];
     }
 
     protected function interpolate(AliasRecord $siteAlias, $message)
