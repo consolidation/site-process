@@ -2,14 +2,13 @@
 namespace Consolidation\SiteProcess;
 
 use Consolidation\SiteAlias\AliasRecord;
-use SiteProcess\Util\ArgumentEngine;
-use Symfony\Component\Process\Process;
+use Consolidation\SiteProcess\Util\ArgumentEngine;
 
-class SiteProcess extends Process
+class SiteProcess extends ProcessBase
 {
     public function __construct(AliasRecord $siteAlias, $args, $options = [])
     {
         $argumentEngine = new ArgumentEngine();
-        parent::construct($argumentEngine->selectArgs($siteAlias, $args, $options));
+        parent::__construct($argumentEngine->selectArgs($siteAlias, $args, $options));
     }
 }

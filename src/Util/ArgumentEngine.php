@@ -1,5 +1,5 @@
 <?php
-namespace Consolidation\SiteProcess;
+namespace Consolidation\SiteProcess\Util;
 
 use Consolidation\SiteAlias\AliasRecord;
 use Symfony\Component\Process\Process;
@@ -12,7 +12,7 @@ class ArgumentEngine
 
     		$result = $this->appendOptions($result, $options);
     		$result = $this->sshWrap($siteAlias, $result);
-    		$result = $this->interpolate($siteAlias, $result);
+    		$result = $this->interpolate($siteAlias, implode(' ', $result));
 
     		return $result;
     }
@@ -31,14 +31,20 @@ class ArgumentEngine
     protected function sshWrap(AliasRecord $siteAlias, $result)
     {
     		// Exit early if not remote
-    	  if (!$siteAlias.has('remote')) {
+    	  if (!$siteAlias->isRemote()) {
     	  	  return $result;
     	  }
+    	  
+    	  $ssh = [
+    	      'ssh',
+              // Is this needed or desired?
+              '-o PasswordAuthentication=example',
+              // Commands should add this themselves?
+              '-t',
+              $siteAlias->remoteHostWithUser(),
+          ];
 
-    	  // TODO: Pull out ssh info from site alias and wrap
-    	  // commands in $result in an ssh command.
-
-    	  return $result;
+    	  return $ssh + $result;
     }
 
     protected function interpolate(AliasRecord $siteAlias, $message)
