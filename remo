@@ -4,7 +4,7 @@
 /**
  * 'Remo' commandline front controller
  *
- * The commandline tool is useful for providing ad-hoc access to our class implementations
+ * Use site aliases to make remote calls.
  */
 
 // If we're running from phar load the phar autoload file.
@@ -24,12 +24,12 @@ $classLoader = require $autoloaderPath;
 
 // Customization variables
 $argv = $_SERVER['argv'];
-$appName = "SiteProcess";
+$appName = "Remo";
 $appVersion = trim(file_get_contents(__DIR__ . '/VERSION'));
 $commandClasses = [ \Consolidation\SiteProcess\Remo\RemoCommands::class ];
 $selfUpdateRepository = 'consolidation/site-process';
-$configPrefix = 'SITEPROCESS';
-$configFilePath = getenv($configPrefix . '_CONFIG') ?: getenv('HOME') . '/.site-process/site-process.yml';
+$configPrefix = 'REMO';
+$configFilePath = getenv($configPrefix . '_CONFIG') ?: getenv('HOME') . '/.remo/remo.yml';
 
 // Define our Runner, and pass it the command classes we provide.
 $runner = new \Robo\Runner($commandClasses);
