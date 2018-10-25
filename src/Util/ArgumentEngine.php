@@ -19,7 +19,7 @@ class ArgumentEngine
     protected function appendOptions($result, $options)
     {
         foreach ($options as $option => $value) {
-            if ($value === true) {
+            if ($value === true || $value == null) {
                 $result[] = "--$option";
             }
             elseif ($value === false) {
