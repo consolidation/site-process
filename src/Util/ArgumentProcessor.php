@@ -31,7 +31,8 @@ class ArgumentProcessor
         );
 
         // Do any necessary interpolation on the selected arguments.
-        $processedArgs = $this->interpolate($siteAlias, $selectedArgs);
+        // @todo fix.
+        $processedArgs = $selectedArgs; // $this->interpolate($siteAlias, $selectedArgs);
 
         // Wrap the command with 'ssh' or some other transport if this is
         // a remote command; otherwise, leave it as-is.

@@ -3,6 +3,7 @@ namespace Consolidation\SiteProcess;
 
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\ArgumentEngine;
+use Consolidation\SiteProcess\Util\ArgumentProcessor;
 
 class SiteProcess extends ProcessBase
 {
