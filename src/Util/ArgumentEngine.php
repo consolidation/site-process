@@ -19,8 +19,15 @@ class ArgumentEngine
     protected function appendOptions($result, $options)
     {
         foreach ($options as $option => $value) {
-            // TODO: escape as necessary
-            $result[] = "--{$option}={$value}";
+            if ($value === true) {
+                $result[] = "--$option";
+            }
+            elseif ($value === false) {
+                // Ignore this option.
+            }
+            else {
+                $result[] = "--{$option}={$value}";
+            }
         }
 
           return $result;
