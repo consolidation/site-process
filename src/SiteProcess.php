@@ -4,11 +4,24 @@ namespace Consolidation\SiteProcess;
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
 
+/**
+ * A wrapper around Symfony Process that uses site aliases
+ * (https://github.com/consolidation/site-alias)
+ *
+ * - Interpolate arguments using values from the alias
+ *   e.g. `$process = new SiteProcess($alias, ['git', '-C', '{{root}}']);`
+ * - Make remote calls via ssh as if they were local.
+ */
 class SiteProcess extends ProcessBase
 {
+    /**
+     * Process arguments and options per the site alias and build the
+     * actual command to run.
+     */
     public function __construct(AliasRecord $siteAlias, $args, $options = [], $optionsPassedAsArgs = [])
     {
         $processor = new ArgumentProcessor();
-        parent::__construct($processor->selectArgs($siteAlias, $args, $options, $optionsPassedAsArgs));
+        $processedArgs = $processor->selectArgs($siteAlias, $args, $options, $optionsPassedAsArgs);
+        parent::__construct($processedArgs);
     }
 }
