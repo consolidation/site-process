@@ -6,9 +6,9 @@ use Consolidation\SiteProcess\Util\ArgumentEngine;
 
 class SiteProcess extends ProcessBase
 {
-    public function __construct(AliasRecord $siteAlias, $args, $options = [])
+    public function __construct(AliasRecord $siteAlias, $args, $options = [], $optionsPassedAsArgs = [])
     {
-        $argumentEngine = new ArgumentEngine();
-        parent::__construct($argumentEngine->selectArgs($siteAlias, $args, $options));
+        $processor = new ArgumentProcessor();
+        parent::__construct($processor->selectArgs($siteAlias, $args, $options, $optionsPassedAsArgs));
     }
 }
