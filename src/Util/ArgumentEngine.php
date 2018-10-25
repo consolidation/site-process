@@ -21,11 +21,9 @@ class ArgumentEngine
         foreach ($options as $option => $value) {
             if ($value === true) {
                 $result[] = "--$option";
-            }
-            elseif ($value === false) {
+            } elseif ($value === false) {
                 // Ignore this option.
-            }
-            else {
+            } else {
                 $result[] = "--{$option}={$value}";
             }
         }
