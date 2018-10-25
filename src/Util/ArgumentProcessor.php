@@ -57,7 +57,7 @@ class ArgumentProcessor
     {
         $result = [];
         foreach ($options as $option => $value) {
-            if ($value === true || $value == null) {
+            if ($value === true || $value === null) {
                 $result[] = "--$option";
             } elseif ($value === false) {
                 // Ignore this option.
