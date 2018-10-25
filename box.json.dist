@@ -1,6 +1,25 @@
 {
-  "main": "remo",
+  "alias": "remo.phar",
+  "chmod": "0755",
+  "compactors": [],
+  "directories": ["src"],
+  "files": ["remo", "README.md", "VERSION"],
+  "finder": [
+    {
+      "name": "*.php",
+      "exclude": [
+        "test",
+        "tests",
+        "Test",
+        "Tests",
+        "Tester"
+      ],
+      "in": "vendor"
+    }
+  ],
+  "git-commit": "git-commit",
+  "git-version": "git-version",
   "output": "remo.phar",
-  "files": ["remo", "VERSION"],
-  "directories": ["src","vendor"]
+   "main": "remo",
+  "stub": true
 }

@@ -19,7 +19,7 @@
         }
     },
     "require": {
-        "php": ">=7.1",
+        "php": ">=5.6.0",
         "consolidation/site-alias": "^1.1",
         "symfony/process": "^3.4|^4"
     },
@@ -34,11 +34,12 @@
     },
     "scripts": {
         "phar:install-tools": [
+            "gem install mime-types -v 2.6.2",
+            "curl -LSs https://box-project.github.io/box2/installer.php | php",
             "mkdir -p tools",
-            "curl -L https://github.com/humbug/box/releases/download/3.0.0/box.phar -o tools/box",
-            "chmod +x tools/box"
+            "mv -f box.phar tools/box"
         ],
-        "phar:build": "env PATH=tools:$PATH box compile",
+        "phar:build": "env PATH=tools:$PATH box build",
         "cs": "phpcs --standard=PSR2 -n src",
         "cbf": "phpcbf --standard=PSR2 -n src",
         "unit": "phpunit --colors=always",
@@ -56,6 +57,7 @@
         ],
         "scenario": "scenarios/install",
         "post-update-cmd": [
+            "create-scenario phpunit5 'phpunit/phpunit:^5.7.27' --platform-php '5.6.33'",
             "dependency-licenses"
         ]
     },
@@ -63,7 +65,7 @@
         "optimize-autoloader": true,
         "sort-packages": true,
         "platform": {
-            "php": "7.1.13"
+            "php": "7.0.8"
         }
     },
     "extra": {
