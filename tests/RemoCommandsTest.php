@@ -47,7 +47,7 @@ class RemoCommandsTest extends TestCase implements CommandTesterInterface
             ],
 
             [
-                'Not enough arguments (missing: "siteAlias")',
+                'Not enough arguments (missing: "aliasName")',
                 self::STATUS_ERROR,
                 'run',
             ],
