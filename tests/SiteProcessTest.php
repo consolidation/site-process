@@ -3,6 +3,8 @@
 namespace Consolidation\SiteProcess;
 
 use PHPUnit\Framework\TestCase;
+use Consolidation\SiteProcess\Util\ArgumentProcessor;
+use Consolidation\SiteAlias\AliasRecord;
 
 class SiteProcessTest extends TestCase
 {
@@ -11,11 +13,7 @@ class SiteProcessTest extends TestCase
      */
     public function siteProcessTestValues()
     {
-        return [
-            [4, 2, 2,],
-            [9, 3, 3,],
-            [56, 7, 8,],
-        ];
+        return CommonTestDataFixtures::argumentTestValues();
     }
 
     /**
@@ -23,10 +21,19 @@ class SiteProcessTest extends TestCase
      *
      * @dataProvider siteProcessTestValues
      */
-    public function testSiteProcess($expected, $constructor_parameter, $value)
+    public function testSiteProcess(
+        $ignoredExpectedForArgumentProcessorTest,
+        $expected,
+        $siteAliasData,
+        $args,
+        $options,
+        $optionsPassedAsArgs)
     {
-        //$process = new SiteProcess($constructor_parameter);
-        $actual = $expected;
+        $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
+
+        $siteProcess = new SiteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
+        $actual = $siteProcess->getCommandLine();
+
         $this->assertEquals($expected, $actual);
     }
 }

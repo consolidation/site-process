@@ -3,6 +3,7 @@ namespace Consolidation\SiteProcess\Util;
 
 use Consolidation\SiteAlias\AliasRecord;
 use Symfony\Component\Process\Process;
+use Consolidation\Config\Util\Interpolator;
 
 class ArgumentProcessor
 {
@@ -26,13 +27,12 @@ class ArgumentProcessor
             $leadingArgs,
             $convertedOptions,
             $dashDash,
-            $optionsPassedAsArgs,
+            $convertedOptionsPassedAsArgs,
             $remaingingArgs
         );
 
         // Do any necessary interpolation on the selected arguments.
-        // @todo fix.
-        $processedArgs = $selectedArgs; // $this->interpolate($siteAlias, $selectedArgs);
+        $processedArgs = $this->interpolate($siteAlias, $selectedArgs);
 
         // Wrap the command with 'ssh' or some other transport if this is
         // a remote command; otherwise, leave it as-is.
@@ -89,6 +89,7 @@ class ArgumentProcessor
 
     protected function interpolate(AliasRecord $siteAlias, $args)
     {
+        $interpolator = new Interpolator();
         return array_map(
             function ($arg) use ($siteAlias, $interpolator) {
                 return $interpolator->interpolate($siteAlias, $arg, false);
