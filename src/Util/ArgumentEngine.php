@@ -8,12 +8,12 @@ class ArgumentEngine
 {
     public function selectArgs(AliasRecord $siteAlias, $args, $options = [])
     {
-            $args = $this->appendOptions($args, $options);
-            $result = $this->sshWrap($siteAlias, $args);
-            // @todo fix.
-            // $result = $this->interpolate($siteAlias, $result);
+        $args = $this->appendOptions($args, $options);
+        $result = $this->sshWrap($siteAlias, $args);
+        // @todo fix.
+        // $result = $this->interpolate($siteAlias, $result);
 
-            return $result;
+        return $result;
     }
 
     protected function appendOptions($result, $options)
@@ -49,7 +49,7 @@ class ArgumentEngine
 
     protected function interpolate(AliasRecord $siteAlias, $message)
     {
-            $replacements = $this->replacements($siteAlias, $message);
+        $replacements = $this->replacements($siteAlias, $message);
         return strtr($message, $replacements);
     }
 
@@ -58,7 +58,7 @@ class ArgumentEngine
         if (!preg_match_all('#{{([a-zA-Z0-9._-]+)}}#', $message, $matches, PREG_SET_ORDER)) {
             return [];
         }
-          $replacements = [];
+        $replacements = [];
         foreach ($matches as $matchSet) {
             list($sourceText, $key) = $matchSet;
             $replacementText = $siteAlias->get($key, $default);
@@ -66,6 +66,6 @@ class ArgumentEngine
                     $replacements[$sourceText] = $replacementText;
             }
         }
-          return $replacements;
+        return $replacements;
     }
 }
