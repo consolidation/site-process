@@ -24,4 +24,16 @@ class SiteProcess extends ProcessBase
         $processedArgs = $processor->selectArgs($siteAlias, $args, $options, $optionsPassedAsArgs);
         parent::__construct($processedArgs);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommandLine()
+    {
+        $commandLine = parent::getCommandLine();
+        if ($this->isTty()) {
+            $commandLine = preg_replace('#^([^a-z]*)ssh([^a-z ]*)#', '\1ssh\2 -t', $commandLine);
+        }
+        return $commandLine;
+    }
 }

@@ -24,16 +24,17 @@ class SiteProcessTest extends TestCase
     public function testSiteProcess(
         $ignoredExpectedForArgumentProcessorTest,
         $expected,
+        $useTty,
         $siteAliasData,
         $args,
         $options,
         $optionsPassedAsArgs)
     {
         $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
-
         $siteProcess = new SiteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
-        $actual = $siteProcess->getCommandLine();
+        $siteProcess->setTty($useTty);
 
+        $actual = $siteProcess->getCommandLine();
         $this->assertEquals($expected, $actual);
     }
 }

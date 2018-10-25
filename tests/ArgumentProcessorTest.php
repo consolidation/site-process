@@ -24,14 +24,18 @@ class ArgumentProcessorTest extends TestCase
     public function testArgumentProcessor(
         $expected,
         $ignoredExpectedForSiteProcessTest,
+        $useTty,
         $siteAliasData,
         $args,
         $options,
         $optionsPassedAsArgs)
     {
+        $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
         $processor = new ArgumentProcessor();
 
-        $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
+        if ($useTty) {
+            $this->markTestSkipped('Tty tests not applicable to argument processor.');
+        }
 
         $actual = $processor->selectArgs($siteAlias, $args, $options, $optionsPassedAsArgs);
         $actual = '["' . implode('", "', $actual) . '"]';
