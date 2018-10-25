@@ -23,4 +23,4 @@ DEPENDENCY LICENSES:
 
 Name                      Version  License  
 consolidation/site-alias  1.1.5    MIT      
-symfony/process           v4.1.6   MIT      
+symfony/process           v3.4.17  MIT      
