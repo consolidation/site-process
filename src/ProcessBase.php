@@ -6,6 +6,7 @@ use Drush\Drush;
 use Psr\Log\LoggerInterface;
 use Robo\Common\IO;
 use Robo\Contract\IOAwareInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
 
 /**
@@ -16,6 +17,9 @@ use Symfony\Component\Process\Process;
  */
 class ProcessBase extends Process
 {
+    /**
+     * @var SymfonyStyle
+     */
     protected $io;
 
     private $simulated = false;
@@ -26,6 +30,14 @@ class ProcessBase extends Process
      * @var LoggerInterface
      */
     private $logger;
+
+    /**
+     * @return SymfonyStyle $io
+     */
+    public function io($io)
+    {
+        return $this->io;
+    }
 
     /**
      * @param $io
