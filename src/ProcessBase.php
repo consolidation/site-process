@@ -34,7 +34,7 @@ class ProcessBase extends Process
     /**
      * @return SymfonyStyle $io
      */
-    public function io($io)
+    public function io()
     {
         return $this->io;
     }
@@ -129,5 +129,14 @@ class ProcessBase extends Process
         } else {
             echo $buffer;
         }
+    }
+
+    /**
+     * Should return a closure. For now return a callable.
+     *
+     * @return callable
+     */
+    public static function showRealtime() {
+        return '\Consolidation\SiteProcess\ProcessBase::realTime';
     }
 }
