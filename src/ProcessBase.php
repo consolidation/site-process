@@ -2,7 +2,10 @@
 
 namespace Consolidation\SiteProcess;
 
+use Drush\Drush;
 use Psr\Log\LoggerInterface;
+use Robo\Common\IO;
+use Robo\Contract\IOAwareInterface;
 use Symfony\Component\Process\Process;
 
 /**
@@ -13,6 +16,8 @@ use Symfony\Component\Process\Process;
  */
 class ProcessBase extends Process
 {
+    protected $io;
+
     private $simulated = false;
 
     private $verbose = false;
@@ -21,6 +26,14 @@ class ProcessBase extends Process
      * @var LoggerInterface
      */
     private $logger;
+
+    /**
+     * @param $io
+     */
+    public function setIo($io)
+    {
+        $this->io = $io;
+    }
 
     /**
      * @return bool
@@ -81,12 +94,28 @@ class ProcessBase extends Process
             // Run a command that always succeeds.
             $this->setCommandLine('exit 0');
         } elseif ($this->getVerbose()) {
+            $this->io()->section('Start: ' . $cmd);
             $this->getLogger()->info('Executing: ' . $cmd);
+            $this->io()->section('End: ' . $cmd);
         }
         parent::start($callback);
         // Set command back to original value in case anyone asks.
         if ($this->getSimulated()) {
             $this->setCommandLine($cmd);
+        }
+    }
+
+    /**
+     * Helper method when you want real-time output from a Process call. See
+     * @param $type
+     * @param $buffer
+     */
+    public static function realTime($type, $buffer)
+    {
+        if (Process::ERR === $type) {
+            echo $buffer;
+        } else {
+            echo $buffer;
         }
     }
 }
