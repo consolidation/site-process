@@ -45,6 +45,16 @@ class SiteProcessTest extends TestCase
             ],
 
             [
+                "'ssh' '-o PasswordAuthentication=no' 'www-admin@server.net' 'cd /srv/www/docroot && ls -al'",
+                false,
+                false,
+                ['host' => 'server.net', 'user' => 'www-admin', 'root' => '/srv/www/docroot'],
+                ['ls', '-al'],
+                [],
+                [],
+            ],
+
+            [
                 "'ssh' '-o PasswordAuthentication=no' 'www-admin@server.net' 'cd src && ls -al'",
                 'src',
                 false,
@@ -125,6 +135,9 @@ class SiteProcessTest extends TestCase
         $siteProcess->setTty($useTty);
         if ($cd) {
             $siteProcess->setWorkingDirectory($cd);
+        }
+        else {
+            $siteProcess->useSiteRoot();
         }
 
         $actual = $siteProcess->getCommandLine();

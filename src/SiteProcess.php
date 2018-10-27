@@ -51,6 +51,15 @@ class SiteProcess extends ProcessBase
         return parent::setWorkingDirectory($cwd);
     }
 
+    public function useSiteRoot()
+    {
+        if (!$this->siteAlias->hasRoot()) {
+            return $this;
+        }
+
+        return $this->setWorkingDirectory($this->siteAlias->root());
+    }
+
     /**
      * Take all of our individual arguments and process them for use.
      */
