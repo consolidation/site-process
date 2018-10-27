@@ -29,22 +29,22 @@ class ProcessBase extends Process
     /**
      * @var string
      */
-    private $aliasName;
+    private $alias;
 
     /**
      * @return string
      */
-    public function getAliasName()
+    public function getAlias()
     {
-        return $this->aliasName;
+        return $this->alias;
     }
 
     /**
      * @param string $aliasName
      */
-    public function setAliasName($aliasName)
+    public function setAlias($aliasName)
     {
-        $this->aliasName = $aliasName;
+        $this->alias = $aliasName;
     }
 
     /**
@@ -127,7 +127,7 @@ class ProcessBase extends Process
             // Run a command that always succeeds.
             $this->setCommandLine('exit 0');
         } elseif ($this->getVerbose()) {
-            if ($this->getAliasName()) {
+            if ($this->getAlias()) {
                 $this->io()->section('Start: ' . $cmd);
             }
             $this->getLogger()->info('Executing: ' . $cmd);
@@ -137,7 +137,7 @@ class ProcessBase extends Process
         if ($this->getSimulated()) {
             $this->setCommandLine($cmd);
         }
-        if ($this->getAliasName() && $this->getVerbose()) {
+        if ($this->getAlias() && $this->getVerbose()) {
             $this->io()->section('End: ' . $cmd);
         }
     }
