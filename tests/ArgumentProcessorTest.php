@@ -13,7 +13,39 @@ class ArgumentProcessorTest extends TestCase
      */
     public function argumentProcessorTestValues()
     {
-        return CommonTestDataFixtures::argumentTestValues();
+        return [
+            [
+                '["ls", "-al"]',
+                [],
+                ['ls', '-al'],
+                [],
+                [],
+            ],
+
+            [
+                '["drush", "status", "--fields=root,uri"]',
+                [],
+                ['drush', 'status'],
+                ['fields' => 'root,uri'],
+                [],
+            ],
+
+            [
+                '["drush", "rsync", "a", "b", "--", "--exclude=vendor"]',
+                [],
+                ['drush', 'rsync', 'a', 'b',],
+                [],
+                ['exclude' => 'vendor'],
+            ],
+
+            [
+                '["drush", "rsync", "a", "b", "--", "--exclude=vendor", "--include=vendor/autoload.php"]',
+                [],
+                ['drush', 'rsync', 'a', 'b', '--', '--include=vendor/autoload.php'],
+                [],
+                ['exclude' => 'vendor'],
+            ],
+        ];
     }
 
     /**
@@ -23,8 +55,6 @@ class ArgumentProcessorTest extends TestCase
      */
     public function testArgumentProcessor(
         $expected,
-        $ignoredExpectedForSiteProcessTest,
-        $useTty,
         $siteAliasData,
         $args,
         $options,
@@ -32,10 +62,6 @@ class ArgumentProcessorTest extends TestCase
     {
         $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
         $processor = new ArgumentProcessor();
-
-        if ($useTty) {
-            $this->markTestSkipped('Tty tests not applicable to argument processor.');
-        }
 
         $actual = $processor->selectArgs($siteAlias, $args, $options, $optionsPassedAsArgs);
         $actual = '["' . implode('", "', $actual) . '"]';
