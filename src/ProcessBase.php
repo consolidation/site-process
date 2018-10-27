@@ -8,6 +8,7 @@ use Robo\Common\IO;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Process\Process;
 use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 /**
  * A wrapper around Symfony Process.
@@ -37,14 +38,26 @@ class ProcessBase extends Process
     private $logger;
 
     /**
-     * realtimeOutput returns the output stream that realtime output
+     * realtimeStdout returns the output stream that realtime output
      * should be sent to (if applicable)
      *
      * @return OutputStyle $output
      */
-    public function realtimeOutput()
+    public function realtimeStdout()
     {
         return $this->output;
+    }
+
+    protected function realtimeStderr()
+    {
+        if ($this->stderr) {
+            return $this->stderr;
+        }
+        if (method_exists($this->output, 'getErrorStyle')) {
+            return $this->output->getErrorStyle();
+        }
+
+        return $this->realtimeStdout();
     }
 
     /**
@@ -56,7 +69,7 @@ class ProcessBase extends Process
     public function setRealtimeOutput($output, $stderr = null)
     {
         $this->output = $output;
-        $this->stderr = $stderr;
+        $this->stderr = $stderr instanceof ConsoleOutputInterface ? $stderr->getErrorOutput() : $stderr;
     }
 
     /**
@@ -134,7 +147,7 @@ class ProcessBase extends Process
      */
     public function showRealtime()
     {
-        $realTimeOutput = new RealtimeOutputHandler($this->realtimeOutput(), $this->stderr ?: $this->realtimeOutput()->getErrorOutput());
+        $realTimeOutput = new RealtimeOutputHandler($this->realtimeStdout(), $this->realtimeStderr());
         $realTimeOutput->configure($this);
         return [$realTimeOutput, 'handleOutput'];
     }
