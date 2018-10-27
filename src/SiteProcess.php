@@ -31,7 +31,7 @@ class SiteProcess extends ProcessBase
     public function getCommandLine()
     {
         $commandLine = parent::getCommandLine();
-        if ($this->isTty()) {
+        if ($this->isTty() && !preg_match('#^([^a-z]*)ssh([^a-z ]*) *-t#', $commandLine)) {
             $commandLine = preg_replace('#^([^a-z]*)ssh([^a-z ]*)#', '\1ssh\2 -t', $commandLine);
             $this->setCommandLine($commandLine);
         }
