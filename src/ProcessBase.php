@@ -5,9 +5,9 @@ namespace Consolidation\SiteProcess;
 use Drush\Drush;
 use Psr\Log\LoggerInterface;
 use Robo\Common\IO;
-use Robo\Contract\IOAwareInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Process\Process;
+use Consolidation\SiteProcess\Util\RealtimeOutput;
 
 /**
  * A wrapper around Symfony Process.
@@ -18,9 +18,9 @@ use Symfony\Component\Process\Process;
 class ProcessBase extends Process
 {
     /**
-     * @var SymfonyStyle
+     * @var OutputStyle
      */
-    protected $io;
+    protected $output;
 
     private $simulated = false;
 
@@ -53,19 +53,25 @@ class ProcessBase extends Process
     private $logger;
 
     /**
-     * @return SymfonyStyle $io
+     * realtimeOutput returns the output stream that realtime output
+     * should be sent to (if applicable)
+     *
+     * @return OutputStyle $output
      */
-    public function io()
+    public function realtimeOutput()
     {
-        return $this->io;
+        return $this->output;
     }
 
     /**
-     * @param $io
+     * setRealtimeOutput allows the caller to inject an OutputStyle object
+     * that will be used to stream realtime output if applicable.
+     *
+     * @param OutputStyle $output
      */
-    public function setIo($io)
+    public function setRealtimeOutput($output)
     {
-        $this->io = $io;
+        $this->output = $output;
     }
 
     /**
@@ -128,7 +134,7 @@ class ProcessBase extends Process
             $this->setCommandLine('exit 0');
         } elseif ($this->getVerbose()) {
             if ($this->getAlias()) {
-                $this->io()->section('Start: ' . $cmd);
+                $this->realtimeOutput()->section('Start: ' . $cmd);
             }
             $this->getLogger()->info('Executing: ' . $cmd);
         }
@@ -138,30 +144,18 @@ class ProcessBase extends Process
             $this->setCommandLine($cmd);
         }
         if ($this->getAlias() && $this->getVerbose()) {
-            $this->io()->section('End: ' . $cmd);
+            $this->realtimeOutput()->section('End: ' . $cmd);
         }
     }
 
     /**
-     * Helper method when you want real-time output from a Process call. See
-     * @param $type
-     * @param $buffer
-     */
-    public static function realTime($type, $buffer)
-    {
-        if (Process::ERR === $type) {
-            echo $buffer;
-        } else {
-            echo $buffer;
-        }
-    }
-
-    /**
-     * Should return a closure. For now return a callable.
+     * Return a realTime output object.
      *
      * @return callable
      */
-    public static function showRealtime() {
-        return '\Consolidation\SiteProcess\ProcessBase::realTime';
+    public function showRealtime() {
+        $realTimeOutput = new RealtimeOutputHandler($this->realtimeOutput(), $this->realtimeOutput()->getErrorOutput());
+        $realTimeOutput->configure($this);
+        return [$realTimeOutput, 'handleOutput'];
     }
 }
