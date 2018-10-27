@@ -27,27 +27,6 @@ class ProcessBase extends Process
     private $verbose = false;
 
     /**
-     * @var string
-     */
-    private $alias;
-
-    /**
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * @param string $aliasName
-     */
-    public function setAlias($aliasName)
-    {
-        $this->alias = $aliasName;
-    }
-
-    /**
      * @var LoggerInterface
      */
     private $logger;
@@ -127,18 +106,12 @@ class ProcessBase extends Process
             // Run a command that always succeeds.
             $this->setCommandLine('exit 0');
         } elseif ($this->getVerbose()) {
-            if ($this->getAlias()) {
-                $this->io()->section('Start: ' . $cmd);
-            }
             $this->getLogger()->info('Executing: ' . $cmd);
         }
         parent::start($callback);
         // Set command back to original value in case anyone asks.
         if ($this->getSimulated()) {
             $this->setCommandLine($cmd);
-        }
-        if ($this->getAlias() && $this->getVerbose()) {
-            $this->io()->section('End: ' . $cmd);
         }
     }
 

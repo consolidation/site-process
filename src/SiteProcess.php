@@ -37,4 +37,19 @@ class SiteProcess extends ProcessBase
         }
         return $commandLine;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function start(callable $callback = null)
+    {
+        $cmd = $this->getCommandLine();
+        if ($this->getVerbose()) {
+            $this->io()->section('Start: ' . $cmd);
+        }
+        parent::start($callback);
+        if ($this->getVerbose()) {
+            $this->io()->section('End: ' . $cmd);
+        }
+    }
 }
