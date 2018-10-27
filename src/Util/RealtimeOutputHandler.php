@@ -4,7 +4,7 @@ namespace Consolidation\SiteProcess\Util;
 use Consolidation\SiteAlias\AliasRecord;
 use Symfony\Component\Process\Process;
 use Consolidation\Config\Util\Interpolator;
-use Symfony\Component\Console\Input\OutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * RealtimeOutput can be provided to a process object when you want
@@ -41,9 +41,9 @@ class RealtimeOutputHandler
     public function handleOutput($type, $buffer)
     {
         if (Process::ERR === $type) {
-            $this->stdout->write('ERR > ' . $buffer);
+            $this->stderr->write('ERR > ' . $buffer);
         } else {
-            $this->stderr->write($buffer);
+            $this->stdout->write($buffer);
         }
     }
 }

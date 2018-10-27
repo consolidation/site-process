@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 use Robo\Common\IO;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Process\Process;
-use Consolidation\SiteProcess\Util\RealtimeOutput;
+use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
 
 /**
  * A wrapper around Symfony Process.
@@ -21,6 +21,11 @@ class ProcessBase extends Process
      * @var OutputStyle
      */
     protected $output;
+
+    /**
+     * @var OutputInterface
+     */
+    protected $stderr;
 
     private $simulated = false;
 
@@ -48,9 +53,10 @@ class ProcessBase extends Process
      *
      * @param OutputStyle $output
      */
-    public function setRealtimeOutput($output)
+    public function setRealtimeOutput($output, $stderr = null)
     {
         $this->output = $output;
+        $this->stderr = $stderr;
     }
 
     /**
@@ -128,7 +134,7 @@ class ProcessBase extends Process
      */
     public function showRealtime()
     {
-        $realTimeOutput = new RealtimeOutputHandler($this->realtimeOutput(), $this->realtimeOutput()->getErrorOutput());
+        $realTimeOutput = new RealtimeOutputHandler($this->realtimeOutput(), $this->stderr ?: $this->realtimeOutput()->getErrorOutput());
         $realTimeOutput->configure($this);
         return [$realTimeOutput, 'handleOutput'];
     }
