@@ -137,7 +137,7 @@ class SiteProcessTest extends TestCase
             $siteProcess->setWorkingDirectory($cd);
         }
         else {
-            $siteProcess->useSiteRoot();
+            $siteProcess->chdirToSiteRoot();
         }
 
         $actual = $siteProcess->getCommandLine();
