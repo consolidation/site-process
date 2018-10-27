@@ -7,7 +7,6 @@ use Consolidation\SiteProcess\SiteProcess;
 use Consolidation\SiteAlias\SiteAliasManagerAwareInterface;
 use Consolidation\SiteAlias\SiteAliasManagerAwareTrait;
 
-
 class RemoCommands extends \Robo\Tasks
 {
     use SiteAliasManagerAwareTrait;

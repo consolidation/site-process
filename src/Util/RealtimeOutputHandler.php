@@ -5,7 +5,6 @@ use Consolidation\SiteAlias\AliasRecord;
 use Symfony\Component\Process\Process;
 use Consolidation\Config\Util\Interpolator;
 use Symfony\Component\Console\Input\OutputInterface;
-use Symfony\Component\Process\Process;
 
 /**
  * RealtimeOutput can be provided to a process object when you want
@@ -13,7 +12,7 @@ use Symfony\Component\Process\Process;
  */
 class RealtimeOutputHandler
 {
-    protected $stderr;
+    protected $stdout;
     protected $stderr;
 
     /**
@@ -32,7 +31,6 @@ class RealtimeOutputHandler
      */
     public function configure(Process $process)
     {
-
     }
 
     /**
