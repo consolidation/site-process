@@ -41,7 +41,7 @@ class RealtimeOutputHandler
     public function handleOutput($type, $buffer)
     {
         if (Process::ERR === $type) {
-            $this->stdout->write($buffer);
+            $this->stdout->write('ERR > ' . $buffer);
         } else {
             $this->stderr->write($buffer);
         }
