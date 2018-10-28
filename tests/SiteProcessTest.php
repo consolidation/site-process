@@ -35,6 +35,16 @@ class SiteProcessTest extends TestCase
             ],
 
             [
+                "ls -al /path1 /path2",
+                false,
+                false,
+                [],
+                ['ls', '-al', '/path1', '/path2'],
+                [],
+                [],
+            ],
+
+            [
                 "ssh -o PasswordAuthentication=no www-admin@server.net 'ls -al'",
                 false,
                 false,
@@ -75,11 +85,21 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "ssh -t -o PasswordAuthentication=no www-admin@server.net 'cd src && ls -al'",
+                "ssh -t -o PasswordAuthentication=no www-admin@server.net 'cd src && ls -al /path1 /path2'",
                 'src',
                 true,
                 ['host' => 'server.net', 'user' => 'www-admin'],
-                ['ls', '-al'],
+                ['ls', '-al', '/path1', '/path2'],
+                [],
+                [],
+            ],
+
+            [
+                "ssh -t -o PasswordAuthentication=no www-admin@server.net 'cd src && ls -al /path1 /path2'",
+                'src',
+                true,
+                ['host' => 'server.net', 'user' => 'www-admin'],
+                ['ls', '-al', '/path1', '/path2'],
                 [],
                 [],
             ],
