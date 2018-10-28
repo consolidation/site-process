@@ -8,8 +8,10 @@ use Robo\Common\IO;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Process\Process;
 use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
+use Consolidation\SiteProcess\Util\Escape;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteProcess\Util\Shell;
 
 /**
  * SshTransport knows how to wrap a command such that it runs on a remote
@@ -18,6 +20,7 @@ use Consolidation\SiteAlias\AliasRecord;
 class SshTransport implements TransportInterface
 {
     protected $tty;
+    protected $siteAlias;
 
     public function __construct(AliasRecord $siteAlias)
     {
@@ -57,7 +60,7 @@ class SshTransport implements TransportInterface
             [
                 'cd',
                 $cd,
-                '&&',
+                Shell::op('&&'),
             ],
             $args
         );
@@ -70,7 +73,7 @@ class SshTransport implements TransportInterface
     protected function getTransportOptions()
     {
         $transportOptions = [
-            $this->siteAlias->get('ssh.options', '-o PasswordAuthentication=no'),
+            Shell::preEscaped($this->siteAlias->get('ssh.options', '-o PasswordAuthentication=no')),
             $this->siteAlias->remoteHostWithUser(),
         ];
         if ($this->tty) {
@@ -85,7 +88,8 @@ class SshTransport implements TransportInterface
      */
     protected function getCommandToExecute($args)
     {
-        // @TODO: Methinks this needs to be escaped for the target system.
+        // Escape each argument for the target system and then join
+        $args = Escape::argsForSite($this->siteAlias, $args);
         $commandToExecute = implode(' ', $args);
 
         return [$commandToExecute];

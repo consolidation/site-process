@@ -6,6 +6,8 @@ use Consolidation\SiteProcess\Util\ArgumentProcessor;
 use Consolidation\SiteProcess\Transport\LocalTransport;
 use Consolidation\SiteProcess\Transport\SshTransport;
 use Consolidation\Config\Util\Interpolator;
+use Consolidation\SiteProcess\Util\ShellOperatorInterface;
+use Consolidation\SiteProcess\Util\Escape;
 
 /**
  * A wrapper around Symfony Process that uses site aliases
@@ -108,8 +110,10 @@ class SiteProcess extends ProcessBase
     {
         $commandLine = parent::getCommandLine();
         if (empty($commandLine)) {
-            $this->setCommandLine($this->processArgs());
-            $commandLine = parent::getCommandLine();
+            $processedArgs = $this->processArgs();
+            $commandLine = Escape::argsForSite($this->siteAlias, $processedArgs);
+            $commandLine = implode(' ', $commandLine);
+            $this->setCommandLine($commandLine);
         }
         return $commandLine;
     }
@@ -154,6 +158,9 @@ class SiteProcess extends ProcessBase
         $interpolator = new Interpolator();
         return array_map(
             function ($arg) use ($interpolator) {
+                if ($arg instanceof ShellOperatorInterface) {
+                    return $arg;
+                }
                 return $interpolator->interpolate($this->siteAlias, $arg, false);
             },
             $args

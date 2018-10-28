@@ -5,12 +5,26 @@ use Consolidation\SiteAlias\AliasRecord;
 use Symfony\Component\Process\Process;
 use Consolidation\Config\Util\Interpolator;
 use Symfony\Component\Console\Output\OutputInterface;
+use Consolidation\SiteProcess\Util\ShellOperatorInterface;
 
 /**
  * Escape will shell-escape commandline arguments for different platforms.
  */
 class Escape
 {
+    /**
+     * argsForSite escapes each argument in an array for the given site.
+     */
+    public static function argsForSite(AliasRecord $siteAlias, $args)
+    {
+        return array_map(
+            function ($arg) use ($siteAlias) {
+                return Escape::forSite($siteAlias, $arg);
+            },
+            $args
+        );
+    }
+
     /**
      * forSite escapes the provided argument for the specified alias record.
      */
@@ -22,21 +36,24 @@ class Escape
     /**
      * shellArg escapes the provided argument for the specified OS
      *
-     * @param string $arg The argument to escape
+     * @param string|ShellOperatorInterface $arg The argument to escape
      * @param string|null $os The OS to escape for. Optional; defaults to LINUX
      *
      * @return string The escaped string
      */
     public static function shellArg($arg, $os = null)
     {
-        // Short-circuit escaping for simple params (keep stuff readable)
-        if (preg_match('|^[a-zA-Z0-9.:/_-]*$|', $arg)) {
-            return $arg;
-        } elseif (static::isWindows($os)) {
-            return static::windowsArg($arg);
-        } else {
-            return static::linuxArg($arg);
+        // Short-circuit escaping for simple params (keep stuff readable);
+        // also skip escaping for shell operators (e.g. &&), which must not
+        // be escaped.
+        if (($arg instanceof ShellOperatorInterface) || preg_match('|^[a-zA-Z0-9@=.:/_-]*$|', $arg)) {
+            return (string) $arg;
         }
+
+        if (static::isWindows($os)) {
+            return static::windowsArg($arg);
+        }
+        return static::linuxArg($arg);
     }
 
     /**

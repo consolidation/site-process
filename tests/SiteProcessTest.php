@@ -15,7 +15,7 @@ class SiteProcessTest extends TestCase
     {
         return [
             [
-                "'ls' '-al'",
+                "ls -al",
                 false,
                 false,
                 [],
@@ -25,7 +25,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'ls' '-al'",
+                "ls -al",
                 'src',
                 false,
                 [],
@@ -35,7 +35,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'ssh' '-o PasswordAuthentication=no' 'www-admin@server.net' 'ls -al'",
+                "ssh -o PasswordAuthentication=no www-admin@server.net 'ls -al'",
                 false,
                 false,
                 ['host' => 'server.net', 'user' => 'www-admin'],
@@ -45,7 +45,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'ssh' '-o PasswordAuthentication=no' 'www-admin@server.net' 'cd /srv/www/docroot && ls -al'",
+                "ssh -o PasswordAuthentication=no www-admin@server.net 'cd /srv/www/docroot && ls -al'",
                 false,
                 false,
                 ['host' => 'server.net', 'user' => 'www-admin', 'root' => '/srv/www/docroot'],
@@ -55,7 +55,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'ssh' '-o PasswordAuthentication=no' 'www-admin@server.net' 'cd src && ls -al'",
+                "ssh -o PasswordAuthentication=no www-admin@server.net 'cd src && ls -al'",
                 'src',
                 false,
                 ['host' => 'server.net', 'user' => 'www-admin'],
@@ -65,7 +65,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'ssh' '-t' '-o PasswordAuthentication=no' 'www-admin@server.net' 'ls -al'",
+                "ssh -t -o PasswordAuthentication=no www-admin@server.net 'ls -al'",
                 false,
                 true,
                 ['host' => 'server.net', 'user' => 'www-admin'],
@@ -75,7 +75,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'ssh' '-t' '-o PasswordAuthentication=no' 'www-admin@server.net' 'cd src && ls -al'",
+                "ssh -t -o PasswordAuthentication=no www-admin@server.net 'cd src && ls -al'",
                 'src',
                 true,
                 ['host' => 'server.net', 'user' => 'www-admin'],
@@ -85,7 +85,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'drush' 'status' '--fields=root,uri'",
+                "drush status '--fields=root,uri'",
                 false,
                 false,
                 [],
@@ -95,7 +95,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'drush' 'rsync' 'a' 'b' '--' '--exclude=vendor'",
+                "drush rsync a b -- --exclude=vendor",
                 false,
                 false,
                 [],
@@ -105,7 +105,7 @@ class SiteProcessTest extends TestCase
             ],
 
             [
-                "'drush' 'rsync' 'a' 'b' '--' '--exclude=vendor' '--include=vendor/autoload.php'",
+                "drush rsync a b -- --exclude=vendor --include=vendor/autoload.php",
                 false,
                 false,
                 [],
