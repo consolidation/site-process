@@ -23,7 +23,7 @@ DEPENDENCY LICENSES:
 
 Name                      Version  License  
 consolidation/config      1.1.1    MIT      
-consolidation/site-alias  1.1.5    MIT      
+consolidation/site-alias  1.1.6    MIT      
 dflydev/dot-access-data   v1.1.0   MIT      
 grasmash/expander         1.0.0    MIT      
 symfony/process           v3.4.17  MIT      
