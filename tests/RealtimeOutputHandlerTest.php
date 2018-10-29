@@ -54,6 +54,11 @@ class RealtimeOutputHandlerTest extends TestCase
         $process->run($process->showRealtime());
 
         $this->assertEquals($expectedStdout, trim($stdout->fetch()));
-        $this->assertContains($expectedStderr, trim($stderr->fetch()));
+        if (empty($expectedStderr)) {
+            $this->assertEquals('', trim($stderr->fetch()));
+        }
+        else {
+            $this->assertContains($expectedStderr, trim($stderr->fetch()));
+        }
     }
 }
