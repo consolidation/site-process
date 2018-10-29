@@ -1536,16 +1536,16 @@
         },
         {
             "name": "php-http/message",
-            "version": "1.7.0",
+            "version": "v1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message.git",
-                "reference": "741f2266a202d59c4ed75436671e1b8e6f475ea3"
+                "reference": "a296f8bca76071711fe10e5f2a3350bd2295dbba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message/zipball/741f2266a202d59c4ed75436671e1b8e6f475ea3",
-                "reference": "741f2266a202d59c4ed75436671e1b8e6f475ea3",
+                "url": "https://api.github.com/repos/php-http/message/zipball/a296f8bca76071711fe10e5f2a3350bd2295dbba",
+                "reference": "a296f8bca76071711fe10e5f2a3350bd2295dbba",
                 "shasum": ""
             },
             "require": {
@@ -1604,7 +1604,7 @@
                 "message",
                 "psr-7"
             ],
-            "time": "2018-08-15T06:37:30+00:00"
+            "time": "2018-10-29T11:56:34+00:00"
         },
         {
             "name": "php-http/message-factory",
