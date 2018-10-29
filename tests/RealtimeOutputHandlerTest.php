@@ -31,7 +31,7 @@ class RealtimeOutputHandlerTest extends TestCase
 
             [
                 '',
-                'ERR > ls: no/such/file: No such file or directory',
+                'no/such/file: No such file or directory',
                 ['ls', 'no/such/file'],
             ],
         ];
@@ -54,6 +54,6 @@ class RealtimeOutputHandlerTest extends TestCase
         $process->run($process->showRealtime());
 
         $this->assertEquals($expectedStdout, trim($stdout->fetch()));
-        $this->assertEquals($expectedStderr, trim($stderr->fetch()));
+        $this->assertContains($expectedStderr, trim($stderr->fetch()));
     }
 }
