@@ -18,6 +18,8 @@ class RealtimeOutputHandler
     /**
      * Provide the output streams to use for stdout and stderr
      */
+    const MARKER_ERR = '> ';
+
     public function __construct(OutputInterface $stdout, OutputInterface $stderr)
     {
         $this->stdout = $stdout;
@@ -41,7 +43,7 @@ class RealtimeOutputHandler
     public function handleOutput($type, $buffer)
     {
         if (Process::ERR === $type) {
-            $this->stderr->write('ERR > ' . $buffer);
+            $this->stderr->write(self::MARKER_ERR . $buffer);
         } else {
             $this->stdout->write($buffer);
         }
