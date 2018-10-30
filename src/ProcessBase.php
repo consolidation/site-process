@@ -146,7 +146,8 @@ class ProcessBase extends Process
      * @return array
      *   An associative array.
      */
-    public function getOutputAsJson() {
+    public function getOutputAsJson()
+    {
         if (!$output = $this->getOutput()) {
             throw new \InvalidArgumentException('Output is empty.');
         }
