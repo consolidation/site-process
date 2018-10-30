@@ -141,6 +141,23 @@ class ProcessBase extends Process
     }
 
     /**
+     * Get Process output and decode its JSON.
+     *
+     * @return array
+     *   An associative array.
+     */
+    public function getOutputAsJson() {
+        if (!$output = $this->getOutput()) {
+            throw new \InvalidArgumentException('Output is empty.');
+        }
+        // @todo strip any surrounding strings from the JSON.
+        if (!$json = json_decode($output, true)) {
+            throw new \InvalidArgumentException('Unable to decode output into JSON.');
+        }
+        return $json;
+    }
+
+    /**
      * Return a realTime output object.
      *
      * @return callable
