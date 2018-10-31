@@ -8,14 +8,6 @@ Put a one-line description of your project here.
 [![Coverage Status](https://coveralls.io/repos/github/consolidation/site-process/badge.svg?branch=master)](https://coveralls.io/github/consolidation/site-process?branch=master) 
 [![License](https://img.shields.io/badge/license-MIT-408677.svg)](LICENSE)
 
-<!-- 
-There are two choices for LICENSE badges:
-
-1. License using shields.io (above): Can contain any text you want, and has no prerequisites, but must be manually updated if you change the license.
-2. License using poser.pugx.org (below): shows the license that Packagist.org read from your composer.json file. Must register with Packagist to use Poser.
-
-[![License](https://poser.pugx.org/consolidation/site-process/license)](https://github.com/consolidation/site-process//master/LICENSE)
--->
 
 ## Overview
 
