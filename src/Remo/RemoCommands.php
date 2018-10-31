@@ -6,6 +6,7 @@ use Consolidation\SiteProcess\SiteProcess;
 
 use Consolidation\SiteAlias\SiteAliasManagerAwareInterface;
 use Consolidation\SiteAlias\SiteAliasManagerAwareTrait;
+use Consolidation\SiteAlias\SiteAliasManager;
 
 class RemoCommands extends \Robo\Tasks
 {
@@ -18,16 +19,24 @@ class RemoCommands extends \Robo\Tasks
      */
     public function run($aliasName, array $args, $options = ['foo' => 'bar'])
     {
-        $this->io()->text("Not implemented yet.");
-
         // The site alias manager has not been added to the DI container yet.
         if (!$this->hasSiteAliasManager()) {
-            throw new \Exception('DI container has not been provided the alias manager yet. Implement me!');
+            // TODO: Provide some way to initialize the alias file loaders, so
+            // that there is some way to specify where alias files may be
+            // loaded from.
+            $manager = new SiteAliasManager();
+            // $manager->setRoot($root);
+            $this->setSiteAliasManager($manager);
         }
 
         // In theory this might do something once we get an alias manager.
         $siteAlias = $this->siteAliasManager()->get($aliasName);
-        $process = new \SiteProcess\SiteProcess($siteAlias, $args);
-        $process->mustRun();
+        if (!$siteAlias) {
+            throw new \Exception("Alias name $aliasName not found.");
+        }
+        $process = new SiteProcess($siteAlias, $args);
+        $process->setRealtimeOutput($this->io());
+        $process->setTty($this->input()->isInteractive());
+        $process->mustRun($process->showRealtime());
     }
 }
