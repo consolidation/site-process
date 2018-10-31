@@ -62,16 +62,16 @@
         },
         {
             "name": "consolidation/site-alias",
-            "version": "1.1.6",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/site-alias.git",
-                "reference": "eb062894c4c0e617cd6549e0ad4d2554e81885f2"
+                "reference": "0a4c49f91e44b0b7bb288f3547875a136a7ed704"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/site-alias/zipball/eb062894c4c0e617cd6549e0ad4d2554e81885f2",
-                "reference": "eb062894c4c0e617cd6549e0ad4d2554e81885f2",
+                "url": "https://api.github.com/repos/consolidation/site-alias/zipball/0a4c49f91e44b0b7bb288f3547875a136a7ed704",
+                "reference": "0a4c49f91e44b0b7bb288f3547875a136a7ed704",
                 "shasum": ""
             },
             "require": {
@@ -113,8 +113,8 @@
                     "email": "greg.1.anderson@greenknowe.org"
                 }
             ],
-            "description": "Template project for PHP libraries.",
-            "time": "2018-10-28T00:37:34+00:00"
+            "description": "Manage alias records for local and remote sites.",
+            "time": "2018-10-31T01:29:05+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -1434,16 +1434,16 @@
         },
         {
             "name": "php-http/message",
-            "version": "1.7.0",
+            "version": "v1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/message.git",
-                "reference": "741f2266a202d59c4ed75436671e1b8e6f475ea3"
+                "reference": "a296f8bca76071711fe10e5f2a3350bd2295dbba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message/zipball/741f2266a202d59c4ed75436671e1b8e6f475ea3",
-                "reference": "741f2266a202d59c4ed75436671e1b8e6f475ea3",
+                "url": "https://api.github.com/repos/php-http/message/zipball/a296f8bca76071711fe10e5f2a3350bd2295dbba",
+                "reference": "a296f8bca76071711fe10e5f2a3350bd2295dbba",
                 "shasum": ""
             },
             "require": {
@@ -1502,7 +1502,7 @@
                 "message",
                 "psr-7"
             ],
-            "time": "2018-08-15T06:37:30+00:00"
+            "time": "2018-10-29T11:56:34+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -3477,7 +3477,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.9.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -3535,16 +3535,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.9.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "d0cd638f4634c16d8df4508e847f14e9e43168b8"
+                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d0cd638f4634c16d8df4508e847f14e9e43168b8",
-                "reference": "d0cd638f4634c16d8df4508e847f14e9e43168b8",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/c79c051f5b3a46be09205c73b80b346e4153e494",
+                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494",
                 "shasum": ""
             },
             "require": {
@@ -3590,7 +3590,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-08-06T14:22:27+00:00"
+            "time": "2018-09-21T13:07:52+00:00"
         },
         {
             "name": "symfony/stopwatch",
