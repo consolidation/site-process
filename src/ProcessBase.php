@@ -171,6 +171,6 @@ class ProcessBase extends Process
     {
         $realTimeOutput = new RealtimeOutputHandler($this->realtimeStdout(), $this->realtimeStderr());
         $realTimeOutput->configure($this);
-        return [$realTimeOutput, 'handleOutput'];
+        return $realTimeOutput;
     }
 }
