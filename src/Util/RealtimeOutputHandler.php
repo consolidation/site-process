@@ -71,6 +71,7 @@ class RealtimeOutputHandler
     {
         $this->stdout = new NullOutput();
         $this->stdoutMarker = '';
+        return $this;
     }
 
     /**
@@ -83,6 +84,7 @@ class RealtimeOutputHandler
     {
         $this->stderr = new NullOutput();
         $this->stderrMarker = '';
+        return $this;
     }
 
     /**
