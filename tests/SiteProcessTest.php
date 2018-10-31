@@ -163,4 +163,53 @@ class SiteProcessTest extends TestCase
         $actual = $siteProcess->getCommandLine();
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * Data provider for testSiteProcessJson.
+     */
+    public function siteProcessJsonTestValues()
+    {
+        return [
+            [
+                'Output is empty.',
+                '',
+            ],
+            [
+                'Unable to decode output into JSON.',
+                'No json data here',
+            ],
+            [
+                '{"foo":"bar"}',
+                '{"foo":"bar"}',
+            ],
+            [
+                '{"foo":"bar"}',
+                'Ignored leading data {"foo":"bar"} Ignored trailing data',
+            ],
+        ];
+    }
+
+    /**
+     * Test the SiteProcess class.
+     *
+     * @dataProvider siteProcessJsonTestValues
+     */
+    public function testSiteProcessJson(
+        $expected,
+        $data)
+    {
+        $args = ['echo', $data];
+        $siteAlias = new AliasRecord([], '@alias.dev');
+        $siteProcess = new SiteProcess($siteAlias, $args);
+        $siteProcess->mustRun();
+
+        try {
+            $actual = $siteProcess->getOutputAsJson();
+            $actual = json_encode($actual, true);
+        }
+        catch (\Exception $e) {
+            $actual = $e->getMessage();
+        }
+        $this->assertEquals($expected, $actual);
+    }
 }

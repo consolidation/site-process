@@ -15,6 +15,8 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
  *
  * - Supports simulated mode. Typically enabled via a --simulate option.
  * - Supports verbose mode - logs all runs.
+ * - Can convert output json data into php array (convenience method)
+ * - Provides a "realtime output" helper
  */
 class ProcessBase extends Process
 {
@@ -148,10 +150,12 @@ class ProcessBase extends Process
      */
     public function getOutputAsJson()
     {
-        if (!$output = $this->getOutput()) {
+        $output = trim($this->getOutput());
+        if (empty($output)) {
             throw new \InvalidArgumentException('Output is empty.');
         }
-        // @todo strip any surrounding strings from the JSON.
+        $output = preg_replace('#^[^{]*#', '', $output);
+        $output = preg_replace('#[^}]*$#', '', $output);
         if (!$json = json_decode($output, true)) {
             throw new \InvalidArgumentException('Unable to decode output into JSON.');
         }
