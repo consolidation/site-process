@@ -1,6 +1,6 @@
 {
     "name": "consolidation/site-process",
-    "description": "Template project for PHP libraries.",
+    "description": "A thin wrapper around the Symfony Process Component that allows applications to use the Site Alias library to specify the target for a remote call.",
     "license": "MIT",
     "authors": [
         {
