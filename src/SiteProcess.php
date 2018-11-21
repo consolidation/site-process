@@ -21,11 +21,11 @@ class SiteProcess extends ProcessBase
 {
     /** @var AliasRecord */
     protected $siteAlias;
-    /** @var string */
+    /** @var string[] */
     protected $args;
-    /** @var string */
+    /** @var string[] */
     protected $options;
-    /** @var string */
+    /** @var string[] */
     protected $optionsPassedAsArgs;
     /** @var string */
     protected $cd;
