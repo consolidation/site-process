@@ -67,7 +67,7 @@ class DockerComposeTransport implements TransportInterface
     {
         $transportOptions[] = $this->siteAlias->get('service');
         if ($options = $this->siteAlias->get('exec.options')) {
-            array_unshift($transportOptions, Shell::preEscaped($options));
+            array_unshift($transportOptions, $options);
         }
         // Adding -T breaks sql:cli and php:cli so we never do it for now.
         if (false && $this->tty) {
