@@ -98,7 +98,7 @@ class SiteProcess extends ProcessBase
     protected static function getTransport(AliasRecord $siteAlias)
     {
 
-        if ($siteAlias->isDockerCompose()) {
+        if ($siteAlias->isContainer()) {
             return new DockerComposeTransport($siteAlias);
         }
 
