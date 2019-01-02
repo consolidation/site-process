@@ -67,7 +67,7 @@ class DockerComposeTransport implements TransportInterface
     {
         $transportOptions[] = $this->siteAlias->get('service');
         if ($options = $this->siteAlias->get('exec.options')) {
-            array_unshift($transportOptions, $options);
+            array_unshift($transportOptions, Shell::preEscaped($options));
         }
         if (!$this->tty) {
             array_unshift($transportOptions, '-T');
