@@ -1,6 +1,6 @@
-# SiteProcess
+# Site Process
 
-Put a one-line description of your project here.
+A thin wrapper around the Symfony Process Component that allows applications to use the Site Alias library to specify the target for a remote call. 
 
 [![Travis CI](https://travis-ci.org/consolidation/site-process.svg?branch=master)](https://travis-ci.org/consolidation/site-process)
 [![Windows CI](https://ci.appveyor.com/api/projects/status/{{PUT_APPVEYOR_STATUS_BADGE_ID_HERE}}?svg=true)](https://ci.appveyor.com/project/consolidation/site-process)
