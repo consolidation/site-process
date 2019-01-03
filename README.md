@@ -32,31 +32,6 @@ This is equivalent to:
 $process = new SiteProcess($site_alias, ['git', '--untracked-files=no', 'status']);
 ```
 
-### Release Script
-
-To automatically attach a .phar (or some other build result) to every GitHub release:
-
-- Run `travis setup releases` and answer the prompts. Answer "yes" to all yes/no questions.
-- Edit resulting `.travis.yml` file to include the missing `skip_cleanup:` and `tags:` directives.
-
-When you are done, the `deploy:` section should look something like this:
-
-```
-deploy:
-  provider: releases
-  api_key:
-    secure: KmKwmt...[REDACTED]...LlE=
-  file: example.phar
-  skip_cleanup: true
-  on:
-    tags: true
-    repo: consolidation/site-process
-```
-
-The `secure:` line should be filled in by `travis setup releases`.
-
-
-
 ## Running the tests
 
 The test suite may be run locally by way of some simple composer scripts:
@@ -72,16 +47,10 @@ The test suite may be run locally by way of some simple composer scripts:
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system.
-
-If your project has been set up to automatically deploy its .phar with every GitHub release, then you will be able to deploy by the following procedure:
-
 - Edit the `VERSION` file to contain the version to release with `-dev` appended, and commit the change.
 - Run `composer release`
 
 ## Built With
-
-List significant dependencies that developers of this project will interact with.
 
 * [Composer](https://getcomposer.org/) - Dependency Management
 * [Robo](https://robo.li/) - PHP Task Runner
@@ -97,7 +66,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Greg Anderson** - created project from template.
+* [Greg Anderson](https://github.com/greg-1-anderson)
+* [Moshe Weitzman](http://weitzman.github.com)
 
 See also the list of [contributors](https://github.com/consolidation/site-process/contributors) who participated in this project.
 
@@ -107,7 +77,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
 * Thanks to PurpleBooth for the [example README template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)

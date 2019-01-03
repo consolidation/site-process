@@ -2,6 +2,7 @@
 namespace Consolidation\SiteProcess;
 
 use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteProcess\Transport\DockerComposeTransport;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
 use Consolidation\SiteProcess\Transport\LocalTransport;
 use Consolidation\SiteProcess\Transport\SshTransport;
@@ -96,6 +97,11 @@ class SiteProcess extends ProcessBase
      */
     protected static function getTransport(AliasRecord $siteAlias)
     {
+
+        if ($siteAlias->isContainer()) {
+            return new DockerComposeTransport($siteAlias);
+        }
+
         if ($siteAlias->isLocal()) {
             return new LocalTransport();
         }
