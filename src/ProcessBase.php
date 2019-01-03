@@ -2,9 +2,7 @@
 
 namespace Consolidation\SiteProcess;
 
-use Drush\Drush;
 use Psr\Log\LoggerInterface;
-use Robo\Common\IO;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Process\Process;
 use Consolidation\SiteProcess\Util\RealtimeOutputHandler;

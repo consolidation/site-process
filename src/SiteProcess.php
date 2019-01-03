@@ -30,6 +30,8 @@ class SiteProcess extends ProcessBase
     protected $optionsPassedAsArgs;
     /** @var string */
     protected $cd;
+    /** @var TransportManager */
+    protected $transportManager;
 
     /**
      * Process arguments and options per the site alias and build the
@@ -68,7 +70,7 @@ class SiteProcess extends ProcessBase
      */
     protected function processArgs()
     {
-        $transport = static::getTransport($this->siteAlias);
+        $transport = $this->getTransport($this->siteAlias);
         $transport->configure($this);
 
         $processor = new ArgumentProcessor();
@@ -92,21 +94,26 @@ class SiteProcess extends ProcessBase
         return $transport->wrap($processedArgs);
     }
 
-    /**
-     * TODO: Could we perhaps support variable transport mechanisms?
-     */
-    protected static function getTransport(AliasRecord $siteAlias)
+    public function setTransportManager($transportManager)
     {
+        $this->transportManager = $transportManager;
+    }
 
-        if ($siteAlias->isContainer()) {
-            return new DockerComposeTransport($siteAlias);
+    protected function getTransportManager()
+    {
+        if (!$this->transportManager) {
+            $this->transportManager = TransportManager::createDefault();
         }
+        return $this->transportManager;
+    }
 
-        if ($siteAlias->isLocal()) {
-            return new LocalTransport();
-        }
-
-        return new SshTransport($siteAlias);
+    /**
+     * Ask the transport manager for the correct transport for the
+     * provided alias.
+     */
+    protected function getTransport(AliasRecord $siteAlias)
+    {
+        return $this->getTransportManager()->getTransport($siteAlias);
     }
 
     /**
