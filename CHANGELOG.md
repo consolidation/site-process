@@ -1,6 +1,10 @@
 # Changelog
 
-### Unreleased
+### 0.2.0 - 2019/Jan/3
+
+* Add Transport Manager.
+
+### 0.1.18 - 2019/Jan/2
 
 * Add Docker Compose transport.
 
