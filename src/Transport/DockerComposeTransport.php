@@ -2,9 +2,7 @@
 
 namespace Consolidation\SiteProcess\Transport;
 
-use Drush\Drush;
 use Psr\Log\LoggerInterface;
-use Robo\Common\IO;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Process\Process;
 use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
@@ -14,7 +12,8 @@ use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\Shell;
 
 /**
- * DockerComposeTransport knows how to wrap a command such that it executes on a Docker Compose service.
+ * DockerComposeTransport knows how to wrap a command such that it executes
+ * on a Docker Compose service.
  */
 class DockerComposeTransport implements TransportInterface
 {
@@ -57,6 +56,7 @@ class DockerComposeTransport implements TransportInterface
     public function addChdir($cd, $args)
     {
         $this->cd = $cd;
+        return $args;
     }
 
     /**
@@ -65,15 +65,15 @@ class DockerComposeTransport implements TransportInterface
      */
     protected function getTransportOptions()
     {
-        $transportOptions[] = $this->siteAlias->get('docker.service');
-        if ($options = $this->siteAlias->get('docker.exec.options')) {
+        $transportOptions[] = $this->siteAlias->get('docker.service', '');
+        if ($options = $this->siteAlias->get('docker.exec.options', '')) {
             array_unshift($transportOptions, Shell::preEscaped($options));
         }
         if (!$this->tty) {
             array_unshift($transportOptions, '-T');
         }
         if ($this->cd) {
-            array_unshift($transportOptions, ['--workdir', $this->cd]);
+            $transportOptions = array_merge(['--workdir', $this->cd], $transportOptions);
         }
         return array_filter($transportOptions);
     }
