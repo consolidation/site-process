@@ -8,6 +8,7 @@ use Consolidation\SiteProcess\Factory\SshTransportFactory;
 use Consolidation\SiteProcess\Factory\DockerComposeTransportFactory;
 use Consolidation\SiteProcess\Factory\TransportFactoryInterface;
 use Consolidation\SiteProcess\Transport\LocalTransport;
+use Symfony\Component\Process\Process;
 
 /**
  * TransportManager manages a collection of transport factories, and
@@ -28,6 +29,18 @@ class TransportManager
         $transportManager->add(new DockerComposeTransportFactory());
 
         return $transportManager;
+    }
+
+    /**
+     * Return a site process configured with an appropriate transport
+     *
+     * @return Process
+     */
+    public function siteProcess(AliasRecord $siteAlias, $args = [], $options = [], $optionsPassedAsArgs = [])
+    {
+        $transport = $this->getTransport($siteAlias);
+        $process = new SiteProcess($siteAlias, $transport, $args, $options, $optionsPassedAsArgs);
+        return $process;
     }
 
     /**
