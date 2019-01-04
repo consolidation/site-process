@@ -15,6 +15,7 @@ class SshTransportFactory implements TransportFactoryInterface
      */
     public function check(AliasRecord $siteAlias)
     {
+        // TODO: deprecate and eventually remove 'isRemote()', and move the logic here.
         return $siteAlias->isRemote();
     }
 

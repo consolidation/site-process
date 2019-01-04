@@ -12,7 +12,8 @@ use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\Shell;
 
 /**
- * DockerComposeTransport knows how to wrap a command such that it executes on a Docker Compose service.
+ * DockerComposeTransport knows how to wrap a command such that it executes
+ * on a Docker Compose service.
  */
 class DockerComposeTransport implements TransportInterface
 {

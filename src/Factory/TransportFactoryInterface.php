@@ -11,6 +11,9 @@ use Consolidation\SiteProcess\Transport\TransportInterface;
  *
  *  - Determining whether a provided site alias is applicable to this transport
  *  - Creating an instance of a transport for an applicable site alias.
+ *
+ * There is always a transport for every factory, and visa-versa.
+ * @see Consolidation\SiteProcess\Transport\TransportInterface
  */
 interface TransportFactoryInterface
 {

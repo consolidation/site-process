@@ -16,6 +16,7 @@ class DockerComposeTransportFactory implements TransportFactoryInterface
      */
     public function check(AliasRecord $siteAlias)
     {
+        // TODO: deprecate and eventually remove 'isContainer()', and move the logic here.
         return $siteAlias->isContainer();
     }
 

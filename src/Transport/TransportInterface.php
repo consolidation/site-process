@@ -7,6 +7,9 @@ use Symfony\Component\Process\Process;
 /**
  * SshTransport knows how to wrap a command such that it runs on a remote
  * system via the ssh cli.
+ *
+ * There is always a transport for every factory, and visa-versa.
+ * @see Consolidation\SiteProcess\Factory\TransportFactoryInterface
  */
 interface TransportInterface
 {

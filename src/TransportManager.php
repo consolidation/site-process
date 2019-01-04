@@ -10,8 +10,8 @@ use Consolidation\SiteProcess\Factory\TransportFactoryInterface;
 use Consolidation\SiteProcess\Transport\LocalTransport;
 
 /**
- * TransportManager collects all of the transports and handles
- * dispatches to them.
+ * TransportManager manages a collection of transport factories, and
+ * will produce transport instances as needed for provided site aliases.
  */
 class TransportManager
 {
