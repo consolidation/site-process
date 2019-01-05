@@ -70,6 +70,16 @@
     },
     "extra": {
         "scenarios": {
+            "symfony4": {
+                "require": {
+                    "symfony/process": "^4"
+                },
+                "config": {
+                    "platform": {
+                        "php": "7.2"
+                    }
+                }
+            },
             "phpunit5": {
                 "require-dev": {
                     "phpunit/phpunit": "^5.7.27"

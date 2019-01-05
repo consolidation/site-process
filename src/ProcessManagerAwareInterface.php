@@ -9,7 +9,7 @@ interface ProcessManagerAwareInterface
     /**
      * @param ProcessManager $processManager
      */
-    public function setProcessManager($processManager);
+    public function setProcessManager(ProcessManager $processManager);
 
     /**
      * @return ProcessManager

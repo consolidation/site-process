@@ -11,7 +11,7 @@ trait ProcessManagerAwareTrait
     /**
      * @inheritdoc
      */
-    public function setProcessManager($processManager)
+    public function setProcessManager(ProcessManager $processManager)
     {
         $this->processManager = $processManager;
     }
