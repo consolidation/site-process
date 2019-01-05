@@ -11,10 +11,13 @@ use Consolidation\SiteProcess\Transport\LocalTransport;
 use Symfony\Component\Process\Process;
 
 /**
- * TransportManager manages a collection of transport factories, and
+ * ProcessManager will create a SiteProcess to run a command on a given
+ * site as indicated by a SiteAlias.
+ *
+ * ProcessManager also manages a collection of transport factories, and
  * will produce transport instances as needed for provided site aliases.
  */
-class TransportManager
+class ProcessManager
 {
     protected $transportFactories = [];
 
@@ -23,12 +26,12 @@ class TransportManager
      */
     public static function createDefault()
     {
-        $transportManager = new self();
+        $processManager = new self();
 
-        $transportManager->add(new SshTransportFactory());
-        $transportManager->add(new DockerComposeTransportFactory());
+        $processManager->add(new SshTransportFactory());
+        $processManager->add(new DockerComposeTransportFactory());
 
-        return $transportManager;
+        return $processManager;
     }
 
     /**

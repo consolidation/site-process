@@ -160,9 +160,9 @@ class SiteProcessTest extends TestCase
         $options,
         $optionsPassedAsArgs)
     {
-        $transportManager = TransportManager::createDefault();
+        $processManager = ProcessManager::createDefault();
         $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
-        $siteProcess = $transportManager->siteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
+        $siteProcess = $processManager->siteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
         $siteProcess->setTty($useTty);
         if ($cd) {
             $siteProcess->setWorkingDirectory($cd);
@@ -210,9 +210,9 @@ class SiteProcessTest extends TestCase
         $data)
     {
         $args = ['echo', $data];
-        $transportManager = TransportManager::createDefault();
+        $processManager = ProcessManager::createDefault();
         $siteAlias = new AliasRecord([], '@alias.dev');
-        $siteProcess = $transportManager->siteProcess($siteAlias, $args);
+        $siteProcess = $processManager->siteProcess($siteAlias, $args);
         $siteProcess->mustRun();
 
         try {
