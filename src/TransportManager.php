@@ -34,6 +34,10 @@ class TransportManager
     /**
      * Return a site process configured with an appropriate transport
      *
+     * @param AliasRecord $siteAlias Target for command
+     * @param $args Command arguments
+     * @param $options Associative array of command options
+     * @param $optionsPassedAsArgs Associtive array of options to be passed as arguments (after double-dash)
      * @return Process
      */
     public function siteProcess(AliasRecord $siteAlias, $args = [], $options = [], $optionsPassedAsArgs = [])
@@ -50,11 +54,15 @@ class TransportManager
     public function add(TransportFactoryInterface $factory)
     {
         $this->transportFactories[] = $factory;
+        return $this;
     }
 
     /**
      * hasTransport determines if there is a transport that handles the
      * provided site alias.
+     *
+     * @param AliasRecord $siteAlias
+     * @return boolean
      */
     public function hasTransport(AliasRecord $siteAlias)
     {
@@ -63,6 +71,9 @@ class TransportManager
 
     /**
      * getTransport returns a transport that is applicable to the provided site alias.
+     *
+     * @param AliasRecord $siteAlias
+     * @return TransportInterface
      */
     public function getTransport(AliasRecord $siteAlias)
     {
@@ -75,6 +86,9 @@ class TransportManager
 
     /**
      * getTransportFactory returns a factory for the provided site alias.
+     *
+     * @param AliasRecord $siteAlias
+     * @return TransportFactoryInterface
      */
     protected function getTransportFactory(AliasRecord $siteAlias)
     {
@@ -83,6 +97,6 @@ class TransportManager
                 return $factory;
             }
         }
-        return false;
+        return null;
     }
 }

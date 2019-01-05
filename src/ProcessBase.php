@@ -6,6 +6,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Process\Process;
 use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 /**
@@ -66,7 +67,7 @@ class ProcessBase extends Process
      *
      * @param OutputStyle $output
      */
-    public function setRealtimeOutput($output, $stderr = null)
+    public function setRealtimeOutput(OutputInterface $output, $stderr = null)
     {
         $this->output = $output;
         $this->stderr = $stderr instanceof ConsoleOutputInterface ? $stderr->getErrorOutput() : $stderr;
