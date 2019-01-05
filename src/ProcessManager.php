@@ -69,7 +69,7 @@ class ProcessManager
      */
     public function hasTransport(AliasRecord $siteAlias)
     {
-        return $this->getTransportFactory($siteAlias) !== false;
+        return $this->getTransportFactory($siteAlias) !== null;
     }
 
     /**
