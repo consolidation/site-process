@@ -52,7 +52,7 @@ class ProcessBase extends Process
         if (method_exists('\Symfony\Component\Process\Process', 'fromShellCommandline')) {
             return Process::fromShellCommandline($command, $cwd, $env, $input, $timeout);
         }
-        return new Process($command, $cwd, $env, $input, $timeout);
+        return new self($command, $cwd, $env, $input, $timeout);
     }
 
     /**

@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.3.1 - 2019/Jan/6
+
+* Fix bug in ProcessBase::fromShellCommandline
+
 ### 0.3.0 - 2019/Jan/5
 
 * Rename Transport Manager to Process Manager.
