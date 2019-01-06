@@ -17,20 +17,27 @@ For comparison purposes, the `Process` obejct may be created to run an applicati
 ```
 $process = new Process(['ls', '-lsa']);
 ```
-Similarly, a remote call can be done using the general-purpose `SiteProcess` API:
+Similarly, a remote call can be done using the general-purpose `SiteProcess` API, which is accessible via the ProcessManager object:
 ```
-$process = new SiteProcess($site_alias, ['ls', '-lsa', '{root}']);
+$processManager = ProcessManager::createDefault();
+$process = $processManager->siteProcess($site_alias, ['ls', '-lsa', '{root}']);
 ```
 In this example, if `$site_alias` represents a site on the same system, then the `ls -lsa` command will run locally. If, on the other hand, it represents a remote site, then the `ls -lsa` command will be wrapped in an ssh call to the remote system. In either case, the `{root}` reference will be replaced with the value of the attribute of the site alias named `root`. An exception will be thrown if the named attribute does not exist.
 
 Options may also be specified as an associative array provided as a third parameter:
 ```
-$process = new SiteProcess($site_alias, ['git', 'status'], ['untracked-files' => 'no']);
+$process = $processManager->siteProcess($site_alias, ['git', 'status'], ['untracked-files' => 'no']);
 ```
 This is equivalent to:
 ```
-$process = new SiteProcess($site_alias, ['git', '--untracked-files=no', 'status']);
+$process = $processManager->siteProcess($site_alias, ['git', '--untracked-files=no', 'status']);
 ```
+
+## Symfony 4
+
+The Symfony Process component has different typehints in the parameters of several APIs in Symfony 4 than Symfony 3 does. This is due to the fact that Symfony 4 requires PHP 7.1.3 or later, which supports a number of typehints not permitted in earlier PHP versions. This difference is minor for most clients, but presents problems for code that subclasses Process, as it is not possible to be compatible with both the Symofny 3 and the Symfony 4 typehints at the same time.
+
+In the future, Symfony 4 will be supported in this library on a separate branch.
 
 ## Running the tests
 
@@ -47,7 +54,6 @@ The test suite may be run locally by way of some simple composer scripts:
 
 ## Deployment
 
-- Edit the `VERSION` file to contain the version to release with `-dev` appended, and commit the change.
 - Run `composer release`
 
 ## Built With

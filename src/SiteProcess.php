@@ -128,10 +128,10 @@ class SiteProcess extends ProcessBase
     /**
      * @inheritDoc
      */
-    public function start(callable $callback = null)
+    public function start(callable $callback = null, $env = array())
     {
         $cmd = $this->getCommandLine();
-        parent::start($callback);
+        parent::start($callback, $env);
     }
 
     /**

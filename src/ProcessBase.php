@@ -93,7 +93,7 @@ class ProcessBase extends Process
     /**
      * @return bool
      */
-    public function getVerbose()
+    public function isVerbose()
     {
         return $this->verbose;
     }
@@ -109,7 +109,7 @@ class ProcessBase extends Process
     /**
      * @return bool
      */
-    public function getSimulated()
+    public function isSimulated()
     {
         return $this->simulated;
     }
@@ -141,19 +141,19 @@ class ProcessBase extends Process
     /**
      * @inheritDoc
      */
-    public function start(callable $callback = null)
+    public function start(callable $callback = null, $env = array())
     {
         $cmd = $this->getCommandLine();
-        if ($this->getSimulated()) {
+        if ($this->isSimulated()) {
             $this->getLogger()->notice('Simulating: ' . $cmd);
             // Run a command that always succeeds.
             $this->setCommandLine('exit 0');
-        } elseif ($this->getVerbose()) {
+        } elseif ($this->isVerbose()) {
             $this->getLogger()->info('Executing: ' . $cmd);
         }
-        parent::start($callback);
+        parent::start($callback, $env);
         // Set command back to original value in case anyone asks.
-        if ($this->getSimulated()) {
+        if ($this->isSimulated()) {
             $this->setCommandLine($cmd);
         }
     }
