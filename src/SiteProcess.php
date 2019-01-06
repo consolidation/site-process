@@ -6,6 +6,7 @@ use Consolidation\SiteProcess\Transport\DockerComposeTransport;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
 use Consolidation\SiteProcess\Transport\LocalTransport;
 use Consolidation\SiteProcess\Transport\SshTransport;
+use Consolidation\SiteProcess\Transport\TransportInterface;
 use Consolidation\Config\Util\Interpolator;
 use Consolidation\SiteProcess\Util\ShellOperatorInterface;
 use Consolidation\SiteProcess\Util\Escape;
@@ -30,16 +31,17 @@ class SiteProcess extends ProcessBase
     protected $optionsPassedAsArgs;
     /** @var string */
     protected $cd;
-    /** @var TransportManager */
-    protected $transportManager;
+    /** @var TransportInterface */
+    protected $transport;
 
     /**
      * Process arguments and options per the site alias and build the
      * actual command to run.
      */
-    public function __construct(AliasRecord $siteAlias, $args, $options = [], $optionsPassedAsArgs = [])
+    public function __construct(AliasRecord $siteAlias, TransportInterface $transport, $args, $options = [], $optionsPassedAsArgs = [])
     {
         $this->siteAlias = $siteAlias;
+        $this->transport = $transport;
         $this->args = $args;
         $this->options = $options;
         $this->optionsPassedAsArgs = $optionsPassedAsArgs;
@@ -94,17 +96,9 @@ class SiteProcess extends ProcessBase
         return $transport->wrap($processedArgs);
     }
 
-    public function setTransportManager($transportManager)
+    public function setTransport($transport)
     {
-        $this->transportManager = $transportManager;
-    }
-
-    protected function getTransportManager()
-    {
-        if (!$this->transportManager) {
-            $this->transportManager = TransportManager::createDefault();
-        }
-        return $this->transportManager;
+        $this->transport = $transport;
     }
 
     /**
@@ -113,7 +107,7 @@ class SiteProcess extends ProcessBase
      */
     protected function getTransport(AliasRecord $siteAlias)
     {
-        return $this->getTransportManager()->getTransport($siteAlias);
+        return $this->transport;
     }
 
     /**
@@ -134,10 +128,10 @@ class SiteProcess extends ProcessBase
     /**
      * @inheritDoc
      */
-    public function start(callable $callback = null)
+    public function start(callable $callback = null, $env = array())
     {
         $cmd = $this->getCommandLine();
-        parent::start($callback);
+        parent::start($callback, $env);
     }
 
     /**

@@ -6,6 +6,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Style\OutputStyle;
 use Symfony\Component\Process\Process;
 use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 /**
@@ -38,6 +39,23 @@ class ProcessBase extends Process
     private $logger;
 
     /**
+     * Symfony 4 style constructor for creating Process instances from strings.
+     * @param string $command The commandline string to run
+     * @param string|null $cwd     The working directory or null to use the working dir of the current PHP process
+     * @param array|null $env     The environment variables or null to use the same environment as the current PHP process
+     * @param mixed|null $input   The input as stream resource, scalar or \Traversable, or null for no input
+     * @param int|float|null $timeout The timeout in seconds or null to disable
+     * @return Process
+     */
+    public static function fromShellCommandline($command, $cwd = null, array $env = null, $input = null, $timeout = 60)
+    {
+        if (method_exists('\Symfony\Component\Process\Process', 'fromShellCommandline')) {
+            return Process::fromShellCommandline($command, $cwd, $env, $input, $timeout);
+        }
+        return new Process($command, $cwd, $env, $input, $timeout);
+    }
+
+    /**
      * realtimeStdout returns the output stream that realtime output
      * should be sent to (if applicable)
      *
@@ -66,7 +84,7 @@ class ProcessBase extends Process
      *
      * @param OutputStyle $output
      */
-    public function setRealtimeOutput($output, $stderr = null)
+    public function setRealtimeOutput(OutputInterface $output, $stderr = null)
     {
         $this->output = $output;
         $this->stderr = $stderr instanceof ConsoleOutputInterface ? $stderr->getErrorOutput() : $stderr;
@@ -75,7 +93,7 @@ class ProcessBase extends Process
     /**
      * @return bool
      */
-    public function getVerbose()
+    public function isVerbose()
     {
         return $this->verbose;
     }
@@ -91,7 +109,7 @@ class ProcessBase extends Process
     /**
      * @return bool
      */
-    public function getSimulated()
+    public function isSimulated()
     {
         return $this->simulated;
     }
@@ -123,19 +141,19 @@ class ProcessBase extends Process
     /**
      * @inheritDoc
      */
-    public function start(callable $callback = null)
+    public function start(callable $callback = null, $env = array())
     {
         $cmd = $this->getCommandLine();
-        if ($this->getSimulated()) {
+        if ($this->isSimulated()) {
             $this->getLogger()->notice('Simulating: ' . $cmd);
             // Run a command that always succeeds.
             $this->setCommandLine('exit 0');
-        } elseif ($this->getVerbose()) {
+        } elseif ($this->isVerbose()) {
             $this->getLogger()->info('Executing: ' . $cmd);
         }
-        parent::start($callback);
+        parent::start($callback, $env);
         // Set command back to original value in case anyone asks.
-        if ($this->getSimulated()) {
+        if ($this->isSimulated()) {
             $this->setCommandLine($cmd);
         }
     }
