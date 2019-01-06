@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.3.0 - 2019/Jan/5
+
+* Rename Transport Manager to Process Manager.
+* Require clients use Process Manager to get a SiteProcess instance.
+
 ### 0.2.0 - 2019/Jan/3
 
 * Add Transport Manager.
