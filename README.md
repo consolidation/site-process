@@ -56,12 +56,6 @@ The test suite may be run locally by way of some simple composer scripts:
 
 - Run `composer release`
 
-## Built With
-
-* [Composer](https://getcomposer.org/) - Dependency Management
-* [Robo](https://robo.li/) - PHP Task Runner
-* [Symfony](https://symfony.com/) - PHP Framework
-
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for submitting pull requests to us.
