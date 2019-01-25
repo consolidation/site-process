@@ -6,6 +6,7 @@ use Consolidation\SiteProcess\SiteProcess;
 use Consolidation\SiteProcess\Util\Escape;
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\Shell;
+use Consolidation\Config\ConfigInterface;
 
 /**
  * SshTransport knows how to wrap a command such that it runs on a remote
@@ -15,10 +16,12 @@ class SshTransport implements TransportInterface
 {
     protected $tty;
     protected $siteAlias;
+    protected $config;
 
-    public function __construct(AliasRecord $siteAlias)
+    public function __construct(AliasRecord $siteAlias, ConfigInterface $config)
     {
         $this->siteAlias = $siteAlias;
+        $this->config = $config;
     }
 
     /**
@@ -67,7 +70,7 @@ class SshTransport implements TransportInterface
     protected function getTransportOptions()
     {
         $transportOptions = [
-            Shell::preEscaped($this->siteAlias->get('ssh.options', '-o PasswordAuthentication=no')),
+            Shell::preEscaped($this->siteAlias->getConfig($this->config, 'ssh.options', '-o PasswordAuthentication=no')),
             $this->siteAlias->remoteHostWithUser(),
         ];
         if ($this->tty) {
