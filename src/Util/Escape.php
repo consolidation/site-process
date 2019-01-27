@@ -61,6 +61,9 @@ class Escape
      */
     public static function isWindows($os)
     {
+        // In most cases, $os will be NULL and PHP_OS will be returned. However,
+        // if an OS is specified in $os, return that instead.
+        $os = $os ?: PHP_OS;
         return strtoupper(substr($os, 0, 3)) === 'WIN';
     }
 
