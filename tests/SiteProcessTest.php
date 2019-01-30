@@ -229,8 +229,8 @@ class SiteProcessTest extends TestCase
                 NULL,
             ],
             [
-                '{"foo":"b\"ar"}',
-                '{"foo":"b\"ar"}',
+                '{"foo":"b\'ar"}',
+                '{"foo":"b\'ar"}',
                 NULL,
             ],
             [
