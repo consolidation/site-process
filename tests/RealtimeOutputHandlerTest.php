@@ -2,6 +2,7 @@
 
 namespace Consolidation\SiteProcess;
 
+use Consolidation\SiteProcess\Util\Escape;
 use PHPUnit\Framework\TestCase;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
 use Consolidation\SiteAlias\AliasRecord;
@@ -21,18 +22,28 @@ class RealtimeOutputHandlerTest extends TestCase
                 'hello, world',
                 '',
                 ['echo', 'hello, world'],
+                'LINUX',
+            ],
+
+            [
+                '"hello, world"',
+                '',
+                ['echo', 'hello, world'],
+                'WIN'
             ],
 
             [
                 'README.md',
                 '',
                 ['ls', 'README.md'],
+                'LINUX',
             ],
 
             [
                 '',
                 'no/such/file: No such file or directory',
                 ['ls', 'no/such/file'],
+                'LINUX',
             ],
         ];
     }
@@ -42,8 +53,11 @@ class RealtimeOutputHandlerTest extends TestCase
      *
      * @dataProvider realtimeOutputHandlerTestValues
      */
-    public function testRealtimeOutputHandler($expectedStdout, $expectedStderr, $args)
+    public function testRealtimeOutputHandler($expectedStdout, $expectedStderr, $args, $os)
     {
+        if (Escape::isWindows(NULL) != Escape::isWindows($os)) {
+          $this->markTestSkipped("OS isn't supported");
+        }
         $stdin = new ArrayInput([]);
         $stdout = new BufferedOutput();
         $stderr = new BufferedOutput();
