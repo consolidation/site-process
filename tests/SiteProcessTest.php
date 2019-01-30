@@ -186,7 +186,7 @@ class SiteProcessTest extends TestCase
         $optionsPassedAsArgs,
         $os)
     {
-        if (Escape::isWindows(NULL) != Escape::isWindows($os)) {
+        if (Escape::isWindows() != Escape::isWindows($os)) {
           $this->markTestSkipped("OS isn't supported");
         }
         if ($useTty && Escape::isWindows($os)) {
@@ -251,7 +251,7 @@ class SiteProcessTest extends TestCase
         $data,
         $os)
     {
-        if (Escape::isWindows(NULL) != Escape::isWindows($os)) {
+        if (Escape::isWindows() != Escape::isWindows($os)) {
           $this->markTestSkipped("OS isn't supported");
         }
         $args = ['echo', $data];

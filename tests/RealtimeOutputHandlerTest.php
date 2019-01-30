@@ -55,7 +55,7 @@ class RealtimeOutputHandlerTest extends TestCase
      */
     public function testRealtimeOutputHandler($expectedStdout, $expectedStderr, $args, $os)
     {
-        if (Escape::isWindows(NULL) != Escape::isWindows($os)) {
+        if (Escape::isWindows() != Escape::isWindows($os)) {
           $this->markTestSkipped("OS isn't supported");
         }
         $stdin = new ArrayInput([]);

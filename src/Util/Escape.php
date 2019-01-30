@@ -58,8 +58,12 @@ class Escape
 
     /**
      * isWindows determines whether the provided OS is Windows.
+     *
+     * @param string|null $os The OS to escape for.
+     *
+     * @return boolean
      */
-    public static function isWindows($os)
+    public static function isWindows($os = null)
     {
         // In most cases, $os will be NULL and PHP_OS will be returned. However,
         // if an OS is specified in $os, return that instead.
