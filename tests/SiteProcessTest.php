@@ -229,6 +229,11 @@ class SiteProcessTest extends TestCase
                 NULL,
             ],
             [
+                '{"foo":"b\"ar"}',
+                '{"foo":"b\"ar"}',
+                NULL,
+            ],
+            [
                 '{"foo":"bar"}',
                 'Ignored leading data {"foo":"bar"} Ignored trailing data',
                 NULL,
