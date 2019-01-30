@@ -117,13 +117,13 @@ class Escape
     public static function windowsArg($arg)
     {
         if ('' === $arg || null === $arg) {
-          return '""';
+            return '""';
         }
         if (false !== strpos($arg, "\0")) {
-          $arg = str_replace("\0", '?', $arg);
+            $arg = str_replace("\0", '?', $arg);
         }
         if (!preg_match('/[\/()%!^"<>&|\s]/', $arg)) {
-          return $arg;
+            return $arg;
         }
         // Double up existing backslashes
         $arg = preg_replace('/(\\\\+)$/', '$1$1', $arg);
