@@ -172,10 +172,6 @@ class ProcessBase extends Process
         }
         $output = preg_replace('#^[^{]*#', '', $output);
         $output = preg_replace('#[^}]*$#', '', $output);
-        // Doubled double quotes were converted to \\". Revert to double quote.
-        $output = str_replace('\\"', '"', $output);
-        // Revert of doubled backslashes.
-        $output = preg_replace('#\\\\{2}#', '\\', $output);
         if (!$json = json_decode($output, true)) {
             throw new \InvalidArgumentException('Unable to decode output into JSON.');
         }

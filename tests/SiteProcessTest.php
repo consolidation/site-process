@@ -4,7 +4,6 @@ namespace Consolidation\SiteProcess;
 
 use PHPUnit\Framework\TestCase;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
-use Consolidation\SiteProcess\Util\Escape;
 use Consolidation\SiteAlias\AliasRecord;
 
 class SiteProcessTest extends TestCase
@@ -23,7 +22,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -34,7 +32,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -45,7 +42,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al', '/path1', '/path2'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -56,7 +52,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -67,7 +62,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -78,7 +72,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -89,7 +82,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -100,7 +92,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al', '/path1', '/path2'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -111,7 +102,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al', '/path1', '/path2'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -122,7 +112,6 @@ class SiteProcessTest extends TestCase
                 ['ls', '-al', '/path1', '/path2'],
                 [],
                 [],
-                NULL,
             ],
 
             [
@@ -133,18 +122,6 @@ class SiteProcessTest extends TestCase
                 ['drush', 'status'],
                 ['fields' => 'root,uri'],
                 [],
-                'LINUX',
-            ],
-
-            [
-                'drush status --fields=root,uri',
-                  false,
-                  false,
-                  [],
-                  ['drush', 'status'],
-                  ['fields' => 'root,uri'],
-                  [],
-                  'WIN',
             ],
 
             [
@@ -155,7 +132,6 @@ class SiteProcessTest extends TestCase
                 ['drush', 'rsync', 'a', 'b',],
                 [],
                 ['exclude' => 'vendor'],
-                NULL,
             ],
 
             [
@@ -166,7 +142,6 @@ class SiteProcessTest extends TestCase
                 ['drush', 'rsync', 'a', 'b', '--', '--include=vendor/autoload.php'],
                 [],
                 ['exclude' => 'vendor'],
-                NULL,
             ],
         ];
     }
@@ -183,15 +158,8 @@ class SiteProcessTest extends TestCase
         $siteAliasData,
         $args,
         $options,
-        $optionsPassedAsArgs,
-        $os)
+        $optionsPassedAsArgs)
     {
-        if (Escape::isWindows() != Escape::isWindows($os)) {
-          $this->markTestSkipped("OS isn't supported");
-        }
-        if ($useTty && Escape::isWindows($os)) {
-          $this->markTestSkipped('Windows doesn\'t have /dev/tty support');
-        }
         $processManager = ProcessManager::createDefault();
         $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
         $siteProcess = $processManager->siteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
@@ -216,27 +184,18 @@ class SiteProcessTest extends TestCase
             [
                 'Output is empty.',
                 '',
-                'LINUX',
             ],
             [
                 'Unable to decode output into JSON.',
                 'No json data here',
-                NULL,
             ],
             [
                 '{"foo":"bar"}',
                 '{"foo":"bar"}',
-                NULL,
-            ],
-            [
-                '{"foo":"b\'ar"}',
-                '{"foo":"b\'ar"}',
-                NULL,
             ],
             [
                 '{"foo":"bar"}',
                 'Ignored leading data {"foo":"bar"} Ignored trailing data',
-                NULL,
             ],
         ];
     }
@@ -248,16 +207,11 @@ class SiteProcessTest extends TestCase
      */
     public function testSiteProcessJson(
         $expected,
-        $data,
-        $os)
+        $data)
     {
-        if (Escape::isWindows() != Escape::isWindows($os)) {
-          $this->markTestSkipped("OS isn't supported");
-        }
         $args = ['echo', $data];
         $processManager = ProcessManager::createDefault();
         $siteAlias = new AliasRecord([], '@alias.dev');
-        $siteAlias->set('os', $os);
         $siteProcess = $processManager->siteProcess($siteAlias, $args);
         $siteProcess->mustRun();
 
