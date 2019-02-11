@@ -27,8 +27,9 @@ class LocalTransport implements TransportInterface
     /**
      * @inheritdoc
      */
-    public function addChdir($cd, $args)
+    public function addChdir($cd, $args, $process)
     {
+        $process->setWorkingDirectory($cd);
         return $args;
     }
 }

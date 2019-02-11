@@ -52,7 +52,7 @@ class SshTransport implements TransportInterface
     /**
      * @inheritdoc
      */
-    public function addChdir($cd, $args)
+    public function addChdir($cd, $args, $process)
     {
         return array_merge(
             [
