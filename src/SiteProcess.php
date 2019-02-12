@@ -50,14 +50,28 @@ class SiteProcess extends ProcessBase
     }
 
     /**
-     * @inheritdoc
+     * @return string
      */
-    public function setWorkingDirectory($cwd)
+    public function getCd()
     {
-        $this->cd = $cwd;
-        return $this;
+        return $this->cd;
     }
 
+    /**
+     * @param string $cwd
+     */
+    public function setCd($cd)
+    {
+        $this->cd = $cd;
+    }
+
+    /**
+     *
+     * @param bool $shouldUseSiteRoot
+     * @return $this|\Symfony\Component\Process\Process
+     * @throws \Exception
+     * @deprecated.
+     */
     public function chdirToSiteRoot($shouldUseSiteRoot = true)
     {
         if (!$shouldUseSiteRoot || !$this->siteAlias->hasRoot()) {
