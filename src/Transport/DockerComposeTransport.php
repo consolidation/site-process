@@ -53,7 +53,7 @@ class DockerComposeTransport implements TransportInterface
     /**
      * @inheritdoc
      */
-    public function addChdir($cd, $arg)
+    public function addChdir($cd, $args)
     {
         $this->cd = $cd;
         return $args;
