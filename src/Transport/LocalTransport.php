@@ -9,11 +9,14 @@ use Symfony\Component\Process\Process;
  */
 class LocalTransport implements TransportInterface
 {
+    protected $process;
+
     /**
      * @inheritdoc
      */
     public function configure(Process $process)
     {
+        $this->process = $process;
     }
 
     /**
@@ -27,9 +30,9 @@ class LocalTransport implements TransportInterface
     /**
      * @inheritdoc
      */
-    public function addChdir($cd, $args, $process)
+    public function addChdir($cd, $args)
     {
-        $process->setWorkingDirectory($cd);
+        $this->process->setWorkingDirectory($cd);
         return $args;
     }
 }

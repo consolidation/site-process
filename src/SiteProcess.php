@@ -99,7 +99,7 @@ class SiteProcess extends ProcessBase
 
         // Ask the transport to drop in a 'cd' if needed.
         if ($this->cd) {
-            $selectedArgs = $transport->addChdir($this->cd, $selectedArgs, $this);
+            $selectedArgs = $transport->addChdir($this->cd, $selectedArgs);
         }
 
         // Do any necessary interpolation on the selected arguments.

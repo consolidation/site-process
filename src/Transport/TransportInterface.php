@@ -34,5 +34,5 @@ interface TransportInterface
     /**
      * addChdir adds an appropriate 'chdir' / 'cd' command for the transport.
      */
-    public function addChdir($cd, $args, $process);
+    public function addChdir($cd, $args);
 }
