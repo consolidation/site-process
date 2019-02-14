@@ -2,12 +2,8 @@
 
 namespace Consolidation\SiteProcess\Transport;
 
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\Style\OutputStyle;
-use Symfony\Component\Process\Process;
-use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
+use Consolidation\SiteProcess\SiteProcess;
 use Consolidation\SiteProcess\Util\Escape;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\Shell;
 
@@ -26,9 +22,9 @@ class SshTransport implements TransportInterface
     }
 
     /**
-     * inheritdoc
+     * @inheritdoc
      */
-    public function configure(Process $process)
+    public function configure(SiteProcess $process)
     {
         $this->tty = $process->isTty();
     }

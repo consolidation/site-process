@@ -2,21 +2,19 @@
 
 namespace Consolidation\SiteProcess\Transport;
 
-use Symfony\Component\Process\Process;
+use Consolidation\SiteProcess\SiteProcess;
 
 /**
  * LocalTransport just runs the command on the local system.
  */
 class LocalTransport implements TransportInterface
 {
-    protected $process;
-
     /**
      * @inheritdoc
      */
-    public function configure(Process $process)
+    public function configure(SiteProcess $process)
     {
-        $this->process = $process;
+        $process->setWorkingDirectory($process->getCd());
     }
 
     /**
@@ -32,7 +30,6 @@ class LocalTransport implements TransportInterface
      */
     public function addChdir($cd, $args)
     {
-        $this->process->setWorkingDirectory($cd);
         return $args;
     }
 }
