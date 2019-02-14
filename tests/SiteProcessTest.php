@@ -164,12 +164,9 @@ class SiteProcessTest extends TestCase
         $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
         $siteProcess = $processManager->siteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
         $siteProcess->setTty($useTty);
-        if ($cd) {
-            $siteProcess->setWorkingDirectory($cd);
-        }
-        else {
-            $siteProcess->chdirToSiteRoot();
-        }
+        // The transport handles the chdir during processArgs().
+        $fallback = $siteAlias->hasRoot() ? $siteAlias->root() : null;
+        $siteProcess->setCd($cd ?: $fallback);
 
         $actual = $siteProcess->getCommandLine();
         $this->assertEquals($expected, $actual);
