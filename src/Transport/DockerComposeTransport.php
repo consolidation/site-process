@@ -2,12 +2,7 @@
 
 namespace Consolidation\SiteProcess\Transport;
 
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\Style\OutputStyle;
-use Symfony\Component\Process\Process;
-use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
-use Consolidation\SiteProcess\Util\Escape;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Consolidation\SiteProcess\SiteProcess;
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\Shell;
 
@@ -19,7 +14,7 @@ class DockerComposeTransport implements TransportInterface
 {
     protected $tty;
     protected $siteAlias;
-    protected $cd;
+    protected $cd_remote;
 
     public function __construct(AliasRecord $siteAlias)
     {
@@ -27,15 +22,15 @@ class DockerComposeTransport implements TransportInterface
     }
 
     /**
-     * inheritdoc
+     * @inheritdoc
      */
-    public function configure(Process $process)
+    public function configure(SiteProcess $process)
     {
         $this->tty = $process->isTty();
     }
 
     /**
-     * inheritdoc
+     * @inheritdoc
      */
     public function wrap($args)
     {
@@ -55,7 +50,7 @@ class DockerComposeTransport implements TransportInterface
      */
     public function addChdir($cd, $args)
     {
-        $this->cd = $cd;
+        $this->cd_remote = $cd;
         return $args;
     }
 
@@ -74,8 +69,8 @@ class DockerComposeTransport implements TransportInterface
         if (!$this->tty) {
             array_unshift($transportOptions, '-T');
         }
-        if ($this->cd) {
-            $transportOptions = array_merge(['--workdir', $this->cd], $transportOptions);
+        if ($this->cd_remote) {
+            $transportOptions = array_merge(['--workdir', $this->cd_remote], $transportOptions);
         }
         return array_filter($transportOptions);
     }

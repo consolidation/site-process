@@ -147,8 +147,8 @@ class ProcessBase extends Process
         $cmd = $this->getCommandLine();
         if ($this->isSimulated()) {
             $this->getLogger()->notice('Simulating: ' . $cmd);
-            // Run a command that always succeeds.
-            $this->setCommandLine('exit 0');
+            // Run a command that always succeeds (on Linux and Windows).
+            $this->setCommandLine('true');
         } elseif ($this->isVerbose()) {
             $this->getLogger()->info('Executing: ' . $cmd);
         }

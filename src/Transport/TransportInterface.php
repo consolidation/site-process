@@ -2,22 +2,26 @@
 
 namespace Consolidation\SiteProcess\Transport;
 
-use Symfony\Component\Process\Process;
+use Consolidation\SiteProcess\SiteProcess;
 
 /**
  * SshTransport knows how to wrap a command such that it runs on a remote
  * system via the ssh cli.
  *
  * There is always a transport for every factory, and visa-versa.
+ *
  * @see Consolidation\SiteProcess\Factory\TransportFactoryInterface
  */
 interface TransportInterface
 {
+
     /**
      * Configure ourselves based on the settings of the process object
      * (e.g. isTty()).
+     *
+     * @param \Consolidation\SiteProcess\SiteProcess $process
      */
-    public function configure(Process $process);
+    public function configure(SiteProcess $process);
 
     /**
      * wrapWithTransport examines the provided site alias; if it is a local
