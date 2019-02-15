@@ -4,6 +4,7 @@ namespace Consolidation\SiteProcess\Factory;
 
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Transport\DockerComposeTransport;
+use Consolidation\Config\ConfigInterface;
 
 /**
  * DockerComposeTransportFactory will create an DockerComposeTransport for
@@ -23,8 +24,8 @@ class DockerComposeTransportFactory implements TransportFactoryInterface
     /**
      * @inheritdoc
      */
-    public function create(AliasRecord $siteAlias)
+    public function create(AliasRecord $siteAlias, ConfigInterface $config)
     {
-        return new DockerComposeTransport($siteAlias);
+        return new DockerComposeTransport($siteAlias, $config);
     }
 }
