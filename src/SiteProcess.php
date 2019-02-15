@@ -54,7 +54,8 @@ class SiteProcess extends ProcessBase
      *
      * @return string|null
      */
-    public function getWorkingDirectory() {
+    public function getWorkingDirectory()
+    {
         return $this->cd_remote;
     }
 
@@ -65,7 +66,8 @@ class SiteProcess extends ProcessBase
      *
      * @return \Consolidation\SiteProcess\SiteProcess
      */
-    public function setWorkingDirectory($cd_remote) {
+    public function setWorkingDirectory($cd_remote)
+    {
         $this->cd_remote = $cd_remote;
         return $this;
     }
@@ -77,7 +79,8 @@ class SiteProcess extends ProcessBase
      *
      * @return \Consolidation\SiteProcess\SiteProcess
      */
-    public function setWorkingDirectoryLocal($cd) {
+    public function setWorkingDirectoryLocal($cd)
+    {
         return parent::setWorkingDirectory($cd);
     }
 
@@ -86,7 +89,8 @@ class SiteProcess extends ProcessBase
      *
      * @return string|null;
      */
-    public function getWorkingDirectoryLocal() {
+    public function getWorkingDirectoryLocal()
+    {
         return parent::getWorkingDirectory();
     }
 
