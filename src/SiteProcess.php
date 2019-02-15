@@ -30,7 +30,7 @@ class SiteProcess extends ProcessBase
     /** @var string[] */
     protected $optionsPassedAsArgs;
     /** @var string */
-    protected $cd;
+    protected $cd_remote;
     /** @var TransportInterface */
     protected $transport;
 
@@ -50,19 +50,44 @@ class SiteProcess extends ProcessBase
     }
 
     /**
-     * @return string
+     * Get a starting directory for the remote process.
+     *
+     * @return string|null
      */
-    public function getCd()
-    {
-        return $this->cd;
+    public function getWorkingDirectory() {
+        return $this->cd_remote;
     }
 
     /**
-     * @param string $cwd
+     * Set a starting directory for the remote process.
+     *
+     * @param string $cd_remote
+     *
+     * @return \Consolidation\SiteProcess\SiteProcess
      */
-    public function setCd($cd)
-    {
-        $this->cd = $cd;
+    public function setWorkingDirectory($cd_remote) {
+        $this->cd_remote = $cd_remote;
+        return $this;
+    }
+
+    /**
+     * Set a starting directory for the initial/local process.
+     *
+     * @param string $cd
+     *
+     * @return \Consolidation\SiteProcess\SiteProcess
+     */
+    public function setWorkingDirectoryLocal($cd) {
+        return parent::setWorkingDirectory($cd);
+    }
+
+    /**
+     * Get the starting directory for the initial/local process.
+     *
+     * @return string|null;
+     */
+    public function getWorkingDirectoryLocal() {
+        return parent::getWorkingDirectory();
     }
 
     /**
@@ -70,7 +95,6 @@ class SiteProcess extends ProcessBase
      * @param bool $shouldUseSiteRoot
      * @return $this|\Symfony\Component\Process\Process
      * @throws \Exception
-     * @deprecated.
      */
     public function chdirToSiteRoot($shouldUseSiteRoot = true)
     {
@@ -98,8 +122,8 @@ class SiteProcess extends ProcessBase
         );
 
         // Ask the transport to drop in a 'cd' if needed.
-        if ($this->cd) {
-            $selectedArgs = $transport->addChdir($this->cd, $selectedArgs);
+        if ($this->getWorkingDirectory()) {
+            $selectedArgs = $transport->addChdir($this->getWorkingDirectory(), $selectedArgs);
         }
 
         // Do any necessary interpolation on the selected arguments.

@@ -14,7 +14,7 @@ class LocalTransport implements TransportInterface
      */
     public function configure(SiteProcess $process)
     {
-        $process->setWorkingDirectory($process->getCd());
+        $process->setWorkingDirectoryLocal($process->getWorkingDirectory());
     }
 
     /**

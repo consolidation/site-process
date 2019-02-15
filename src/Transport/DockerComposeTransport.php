@@ -14,7 +14,7 @@ class DockerComposeTransport implements TransportInterface
 {
     protected $tty;
     protected $siteAlias;
-    protected $cd;
+    protected $cd_remote;
 
     public function __construct(AliasRecord $siteAlias)
     {
@@ -50,7 +50,7 @@ class DockerComposeTransport implements TransportInterface
      */
     public function addChdir($cd, $args)
     {
-        $this->cd = $cd;
+        $this->cd_remote = $cd;
         return $args;
     }
 
@@ -69,8 +69,8 @@ class DockerComposeTransport implements TransportInterface
         if (!$this->tty) {
             array_unshift($transportOptions, '-T');
         }
-        if ($this->cd) {
-            $transportOptions = array_merge(['--workdir', $this->cd], $transportOptions);
+        if ($this->cd_remote) {
+            $transportOptions = array_merge(['--workdir', $this->cd_remote], $transportOptions);
         }
         return array_filter($transportOptions);
     }

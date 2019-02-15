@@ -166,7 +166,7 @@ class SiteProcessTest extends TestCase
         $siteProcess->setTty($useTty);
         // The transport handles the chdir during processArgs().
         $fallback = $siteAlias->hasRoot() ? $siteAlias->root() : null;
-        $siteProcess->setCd($cd ?: $fallback);
+        $siteProcess->setWorkingDirectory($cd ?: $fallback);
 
         $actual = $siteProcess->getCommandLine();
         $this->assertEquals($expected, $actual);

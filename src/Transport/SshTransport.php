@@ -48,12 +48,12 @@ class SshTransport implements TransportInterface
     /**
      * @inheritdoc
      */
-    public function addChdir($cd, $args)
+    public function addChdir($cd_remote, $args)
     {
         return array_merge(
             [
                 'cd',
-                $cd,
+                $cd_remote,
                 Shell::op('&&'),
             ],
             $args
