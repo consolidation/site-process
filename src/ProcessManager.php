@@ -51,6 +51,14 @@ class ProcessManager
     }
 
     /**
+     * Get a reference to the config object
+     */
+    protected function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
      * Return a site process configured with an appropriate transport
      *
      * @param AliasRecord $siteAlias Target for command
