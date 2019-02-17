@@ -58,16 +58,9 @@ class Escape
 
     /**
      * isWindows determines whether the provided OS is Windows.
-     *
-     * @param string|null $os The OS to escape for.
-     *
-     * @return boolean
      */
-    public static function isWindows($os = null)
+    public static function isWindows($os)
     {
-        // In most cases, $os will be NULL and PHP_OS will be returned. However,
-        // if an OS is specified in $os, return that instead.
-        $os = $os ?: PHP_OS;
         return strtoupper(substr($os, 0, 3)) === 'WIN';
     }
 
@@ -120,22 +113,17 @@ class Escape
      */
     public static function windowsArg($arg)
     {
-        if ('' === $arg || null === $arg) {
-            return '""';
-        }
-        if (false !== strpos($arg, "\0")) {
-            $arg = str_replace("\0", '?', $arg);
-        }
-        if (!preg_match('/[\/()%!^"<>&|\s]/', $arg)) {
-            return $arg;
-        }
         // Double up existing backslashes
-        $arg = preg_replace('/(\\\\+)$/', '$1$1', $arg);
+        $arg = preg_replace('/\\\/', '\\\\\\\\', $arg);
+
+        // Double up double quotes
+        $arg = preg_replace('/"/', '""', $arg);
+
+        // Double up percents.
+        // $arg = preg_replace('/%/', '%%', $arg);
 
         // Replacing whitespace for good measure (see comment above).
         $arg = str_replace(["\t", "\n", "\r", "\0", "\x0B"], ' ', $arg);
-
-        $arg = str_replace(['"', '^', '%', '!'], ['""', '"^^"', '"^%"', '"^!"'], $arg);
 
         // Add surrounding quotes.
         $arg = '"' . $arg . '"';
