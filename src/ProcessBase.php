@@ -176,9 +176,9 @@ class ProcessBase extends Process
         if (Escape::isWindows()) {
             // Doubled double quotes were converted to \\".
             // Revert to double quote.
-            $output = str_replace('\\"', '"', $output);
+            // $output = str_replace('\\"', '"', $output);
             // Revert of doubled backslashes.
-            $output = preg_replace('#\\\\{2}#', '\\', $output);
+            // $output = preg_replace('#\\\\{2}#', '\\', $output);
         }
         if (!$json = json_decode($output, true)) {
             throw new \InvalidArgumentException('Unable to decode output into JSON.');
