@@ -135,7 +135,7 @@ class Escape
         // Replacing whitespace for good measure (see comment above).
         $arg = str_replace(["\t", "\n", "\r", "\0", "\x0B"], ' ', $arg);
 
-        $arg = str_replace(['"', '^', '%', '!'], ['""', '"^^"', '"^%"', '"^!"'], $arg);
+        //$arg = str_replace(['"', '^', '%', '!'], ['""', '"^^"', '"^%"', '"^!"'], $arg);
 
         // Add surrounding quotes.
         $arg = '"' . $arg . '"';
