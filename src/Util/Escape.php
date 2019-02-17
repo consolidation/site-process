@@ -130,7 +130,7 @@ class Escape
             return $arg;
         }
         // Double up existing backslashes
-        $arg = preg_replace('/(\\\\+)$/', '$1$1', $arg);
+        $arg = preg_replace('/\\\/', '\\\\\\\\', $arg);
 
         // Replacing whitespace for good measure (see comment above).
         $arg = str_replace(["\t", "\n", "\r", "\0", "\x0B"], ' ', $arg);
