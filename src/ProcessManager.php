@@ -11,6 +11,8 @@ use Consolidation\SiteProcess\Transport\LocalTransport;
 use Symfony\Component\Process\Process;
 use Consolidation\Config\Config;
 use Consolidation\Config\ConfigInterface;
+use Consolidation\Config\ConfigAwareInterface;
+use Consolidation\Config\ConfigAwareTrait;
 
 /**
  * ProcessManager will create a SiteProcess to run a command on a given
@@ -19,8 +21,10 @@ use Consolidation\Config\ConfigInterface;
  * ProcessManager also manages a collection of transport factories, and
  * will produce transport instances as needed for provided site aliases.
  */
-class ProcessManager
+class ProcessManager implements ConfigAwareInterface
 {
+    use ConfigAwareTrait;
+
     protected $transportFactories = [];
     protected $config;
 
@@ -40,22 +44,6 @@ class ProcessManager
         $processManager->add(new DockerComposeTransportFactory());
 
         return $processManager;
-    }
-
-    /**
-     * Set a reference to the config object.
-     */
-    public function setConfig(ConfigInterface $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * Get a reference to the config object
-     */
-    protected function getConfig()
-    {
-        return $this->config;
     }
 
     /**
