@@ -26,7 +26,6 @@ class ProcessManager implements ConfigAwareInterface
     use ConfigAwareTrait;
 
     protected $transportFactories = [];
-    protected $config;
 
     public function __construct()
     {
