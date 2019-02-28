@@ -171,8 +171,6 @@ class ProcessBase extends Process
         if (empty($output)) {
             throw new \InvalidArgumentException('Output is empty.');
         }
-        $output = preg_replace('#^[^{]*#', '', $output);
-        $output = preg_replace('#[^}]*$#', '', $output);
         if (Escape::isWindows()) {
             // Doubled double quotes were converted to \\".
             // Revert to double quote.
@@ -180,10 +178,40 @@ class ProcessBase extends Process
             // Revert of doubled backslashes.
             $output = preg_replace('#\\\\{2}#', '\\', $output);
         }
-        if (!$json = json_decode($output, true)) {
+        $output = $this->removeNonJsonJunk($output);
+        $json = json_decode($output, true);
+        if (!isset($json)) {
             throw new \InvalidArgumentException('Unable to decode output into JSON.');
         }
         return $json;
+    }
+
+    /**
+     * Allow for a certain amount of resiliancy in the output received when
+     * json is expected.
+     *
+     * @param string $data
+     * @return string
+     */
+    protected function removeNonJsonJunk($data)
+    {
+        // Exit early if we have no output.
+        $data = trim($data);
+        if (empty($data)) {
+            return $data;
+        }
+        // If the data is a simple quoted string, or an array, then exit.
+        if ((($data[0] == '"') && ($data[strlen($data) - 1] == '"')) ||
+            (($data[0] == "[") && ($data[strlen($data) - 1] == "]"))
+        ) {
+            return $data;
+        }
+        // If the json is not a simple string or a simple array, then is must
+        // be an associative array. We will remove non-json garbage characters
+        // before and after the enclosing curley-braces.
+        $data = preg_replace('#^[^{]*#', '', $data);
+        $data = preg_replace('#[^}]*$#', '', $data);
+        return $data;
     }
 
     /**

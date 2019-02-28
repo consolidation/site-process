@@ -235,6 +235,21 @@ class SiteProcessTest extends TestCase
                 'Ignored leading data {"foo":"bar"} Ignored trailing data',
                 NULL,
             ],
+            [
+                '["a","b","c"]',
+                '["a", "b", "c"]',
+                NULL,
+            ],
+            [
+                '"string"',
+                '"string"',
+                NULL,
+            ],
+            [
+                '[]',
+                '[]',
+                NULL,
+            ],
         ];
     }
 
@@ -248,8 +263,8 @@ class SiteProcessTest extends TestCase
         $data,
         $os)
     {
-        if (Escape::isWindows() != Escape::isWindows($os)) {
-          $this->markTestSkipped("OS isn't supported");
+        if (Escape::isWindows()) {
+          $this->markTestSkipped("Windows is not working yet. PRs welcome.");
         }
         $args = ['echo', $data];
         $processManager = ProcessManager::createDefault();
