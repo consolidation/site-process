@@ -171,7 +171,6 @@ class ProcessBase extends Process
         if (empty($output)) {
             throw new \InvalidArgumentException('Output is empty.');
         }
-        $output = $this->removeNonJsonJunk($output);
         if (Escape::isWindows()) {
             // Doubled double quotes were converted to \\".
             // Revert to double quote.
@@ -179,6 +178,7 @@ class ProcessBase extends Process
             // Revert of doubled backslashes.
             $output = preg_replace('#\\\\{2}#', '\\', $output);
         }
+        $output = $this->removeNonJsonJunk($output);
         $json = json_decode($output, true);
         if (!isset($json)) {
             throw new \InvalidArgumentException('Unable to decode output into JSON.');
