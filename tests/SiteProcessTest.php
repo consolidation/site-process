@@ -263,8 +263,8 @@ class SiteProcessTest extends TestCase
         $data,
         $os)
     {
-        if (Escape::isWindows() != Escape::isWindows($os)) {
-          $this->markTestSkipped("OS isn't supported");
+        if (Escape::isWindows()) {
+          $this->markTestSkipped("Windows is not working yet. PRs welcome.");
         }
         $args = ['echo', $data];
         $processManager = ProcessManager::createDefault();

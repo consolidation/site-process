@@ -193,7 +193,7 @@ class ProcessBase extends Process
      * @param string $data
      * @return string
      */
-    public function removeNonJsonJunk($data)
+    protected function removeNonJsonJunk($data)
     {
         // Exit early if we have no output.
         $data = trim($data);
