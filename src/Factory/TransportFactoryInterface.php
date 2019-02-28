@@ -4,6 +4,7 @@ namespace Consolidation\SiteProcess\Factory;
 
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Transport\TransportInterface;
+use Consolidation\Config\ConfigInterface;
 
 /**
  * TransportFactoryInterface defines a transport factory that is responsible
@@ -29,5 +30,5 @@ interface TransportFactoryInterface
      * @param AliasRecord $siteAlias
      * @return TransportInterface
      */
-    public function create(AliasRecord $siteAlias);
+    public function create(AliasRecord $siteAlias, ConfigInterface $config);
 }

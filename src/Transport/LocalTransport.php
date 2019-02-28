@@ -2,7 +2,7 @@
 
 namespace Consolidation\SiteProcess\Transport;
 
-use Symfony\Component\Process\Process;
+use Consolidation\SiteProcess\SiteProcess;
 
 /**
  * LocalTransport just runs the command on the local system.
@@ -12,8 +12,9 @@ class LocalTransport implements TransportInterface
     /**
      * @inheritdoc
      */
-    public function configure(Process $process)
+    public function configure(SiteProcess $process)
     {
+        $process->setWorkingDirectoryLocal($process->getWorkingDirectory());
     }
 
     /**

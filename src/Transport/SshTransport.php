@@ -2,14 +2,11 @@
 
 namespace Consolidation\SiteProcess\Transport;
 
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\Style\OutputStyle;
-use Symfony\Component\Process\Process;
-use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
+use Consolidation\SiteProcess\SiteProcess;
 use Consolidation\SiteProcess\Util\Escape;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\Shell;
+use Consolidation\Config\ConfigInterface;
 
 /**
  * SshTransport knows how to wrap a command such that it runs on a remote
@@ -19,16 +16,18 @@ class SshTransport implements TransportInterface
 {
     protected $tty;
     protected $siteAlias;
+    protected $config;
 
-    public function __construct(AliasRecord $siteAlias)
+    public function __construct(AliasRecord $siteAlias, ConfigInterface $config)
     {
         $this->siteAlias = $siteAlias;
+        $this->config = $config;
     }
 
     /**
-     * inheritdoc
+     * @inheritdoc
      */
-    public function configure(Process $process)
+    public function configure(SiteProcess $process)
     {
         $this->tty = $process->isTty();
     }
@@ -52,12 +51,12 @@ class SshTransport implements TransportInterface
     /**
      * @inheritdoc
      */
-    public function addChdir($cd, $args)
+    public function addChdir($cd_remote, $args)
     {
         return array_merge(
             [
                 'cd',
-                $cd,
+                $cd_remote,
                 Shell::op('&&'),
             ],
             $args
@@ -71,7 +70,7 @@ class SshTransport implements TransportInterface
     protected function getTransportOptions()
     {
         $transportOptions = [
-            Shell::preEscaped($this->siteAlias->get('ssh.options', '-o PasswordAuthentication=no')),
+            Shell::preEscaped($this->siteAlias->getConfig($this->config, 'ssh.options', '-o PasswordAuthentication=no')),
             $this->siteAlias->remoteHostWithUser(),
         ];
         if ($this->tty) {

@@ -2,14 +2,10 @@
 
 namespace Consolidation\SiteProcess\Transport;
 
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\Style\OutputStyle;
-use Symfony\Component\Process\Process;
-use Consolidation\SiteProcess\Util\RealtimeOutputHandler;
-use Consolidation\SiteProcess\Util\Escape;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Consolidation\SiteProcess\SiteProcess;
 use Consolidation\SiteAlias\AliasRecord;
 use Consolidation\SiteProcess\Util\Shell;
+use Consolidation\Config\ConfigInterface;
 
 /**
  * DockerComposeTransport knows how to wrap a command such that it executes
@@ -19,23 +15,25 @@ class DockerComposeTransport implements TransportInterface
 {
     protected $tty;
     protected $siteAlias;
-    protected $cd;
+    protected $cd_remote;
+    protected $config;
 
-    public function __construct(AliasRecord $siteAlias)
+    public function __construct(AliasRecord $siteAlias, ConfigInterface $config)
     {
         $this->siteAlias = $siteAlias;
+        $this->config = $config;
     }
 
     /**
-     * inheritdoc
+     * @inheritdoc
      */
-    public function configure(Process $process)
+    public function configure(SiteProcess $process)
     {
         $this->tty = $process->isTty();
     }
 
     /**
-     * inheritdoc
+     * @inheritdoc
      */
     public function wrap($args)
     {
@@ -55,7 +53,7 @@ class DockerComposeTransport implements TransportInterface
      */
     public function addChdir($cd, $args)
     {
-        $this->cd = $cd;
+        $this->cd_remote = $cd;
         return $args;
     }
 
@@ -65,15 +63,17 @@ class DockerComposeTransport implements TransportInterface
      */
     protected function getTransportOptions()
     {
-        $transportOptions[] = $this->siteAlias->get('docker.service', '');
+        $transportOptions = [
+            $this->siteAlias->getConfig($this->config, 'docker.service', ''),
+        ];
         if ($options = $this->siteAlias->get('docker.exec.options', '')) {
             array_unshift($transportOptions, Shell::preEscaped($options));
         }
         if (!$this->tty) {
             array_unshift($transportOptions, '-T');
         }
-        if ($this->cd) {
-            $transportOptions = array_merge(['--workdir', $this->cd], $transportOptions);
+        if ($this->cd_remote) {
+            $transportOptions = array_merge(['--workdir', $this->cd_remote], $transportOptions);
         }
         return array_filter($transportOptions);
     }

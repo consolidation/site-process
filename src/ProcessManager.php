@@ -9,6 +9,10 @@ use Consolidation\SiteProcess\Factory\DockerComposeTransportFactory;
 use Consolidation\SiteProcess\Factory\TransportFactoryInterface;
 use Consolidation\SiteProcess\Transport\LocalTransport;
 use Symfony\Component\Process\Process;
+use Consolidation\Config\Config;
+use Consolidation\Config\ConfigInterface;
+use Consolidation\Config\ConfigAwareInterface;
+use Consolidation\Config\ConfigAwareTrait;
 
 /**
  * ProcessManager will create a SiteProcess to run a command on a given
@@ -17,9 +21,16 @@ use Symfony\Component\Process\Process;
  * ProcessManager also manages a collection of transport factories, and
  * will produce transport instances as needed for provided site aliases.
  */
-class ProcessManager
+class ProcessManager implements ConfigAwareInterface
 {
+    use ConfigAwareTrait;
+
     protected $transportFactories = [];
+
+    public function __construct()
+    {
+        $this->config = new Config();
+    }
 
     /**
      * createDefault creates a Transport manager and add the default transports to it.
@@ -110,7 +121,7 @@ class ProcessManager
     {
         $factory = $this->getTransportFactory($siteAlias);
         if ($factory) {
-            return $factory->create($siteAlias);
+            return $factory->create($siteAlias, $this->config);
         }
         return new LocalTransport();
     }
