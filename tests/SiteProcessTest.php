@@ -235,6 +235,21 @@ class SiteProcessTest extends TestCase
                 'Ignored leading data {"foo":"bar"} Ignored trailing data',
                 NULL,
             ],
+            [
+                '["a","b","c"]',
+                '["a", "b", "c"]',
+                NULL,
+            ],
+            [
+                '"string"',
+                '"string"',
+                NULL,
+            ],
+            [
+                '[]',
+                '[]',
+                NULL,
+            ],
         ];
     }
 
