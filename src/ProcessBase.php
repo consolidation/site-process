@@ -173,7 +173,8 @@ class ProcessBase extends Process
         }
         $output = preg_replace('#^[^{]*#', '', $output);
         $output = preg_replace('#[^}]*$#', '', $output);
-        if (Escape::isWindows()) {
+        // Try to fix invalid json if needed.
+        if (Escape::isWindows() && !json_decode($output, true)) {
             // Doubled double quotes were converted to \\".
             // Revert to double quote.
             $output = str_replace('\\"', '"', $output);
