@@ -201,8 +201,7 @@ class ProcessBase extends Process
             return $data;
         }
         // If the data is a simple quoted string, or an array, then exit.
-        if (
-            (($data[0] == '"') && ($data[strlen($data) - 1] == '"')) ||
+        if ((($data[0] == '"') && ($data[strlen($data) - 1] == '"')) ||
             (($data[0] == "[") && ($data[strlen($data) - 1] == "]"))
         ) {
             return $data;
