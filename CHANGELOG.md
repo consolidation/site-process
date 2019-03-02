@@ -1,7 +1,8 @@
 # Changelog
 
-### 2.0.0-beta1 - 2.0.0-beta3
+### 2.0.0-beta1 - 2.0.0-beta4
 
+- Use SiteAliasWithConfig (#30)
 - Use ConfigAwareInterface/Trait (#26)
 - Allow configuration to be injected into ProcessManager. (#22)
 - setWorkingDirectory() controls remote execution dir (#25)
