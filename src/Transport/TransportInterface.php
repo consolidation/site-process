@@ -14,7 +14,6 @@ use Consolidation\SiteProcess\SiteProcess;
  */
 interface TransportInterface
 {
-
     /**
      * Configure ourselves based on the settings of the process object
      * (e.g. isTty()).
@@ -29,7 +28,6 @@ interface TransportInterface
      * alias points at a remote system, though, then the arguments are
      * escaped and wrapped in an appropriate ssh command.
      *
-     * @param AliasRecord $siteAlias alias record of target site.
      * @param array $args arguments provided by caller.
      * @return array command and arguments to execute.
      */

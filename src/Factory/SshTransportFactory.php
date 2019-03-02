@@ -2,7 +2,7 @@
 
 namespace Consolidation\SiteProcess\Factory;
 
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\AliasRecordInterface;
 use Consolidation\SiteProcess\Transport\SshTransport;
 use Consolidation\Config\ConfigInterface;
 
@@ -14,7 +14,7 @@ class SshTransportFactory implements TransportFactoryInterface
     /**
      * @inheritdoc
      */
-    public function check(AliasRecord $siteAlias)
+    public function check(AliasRecordInterface $siteAlias)
     {
         // TODO: deprecate and eventually remove 'isRemote()', and move the logic here.
         return $siteAlias->isRemote();
@@ -23,8 +23,8 @@ class SshTransportFactory implements TransportFactoryInterface
     /**
      * @inheritdoc
      */
-    public function create(AliasRecord $siteAlias, ConfigInterface $config)
+    public function create(AliasRecordInterface $siteAlias)
     {
-        return new SshTransport($siteAlias, $config);
+        return new SshTransport($siteAlias);
     }
 }

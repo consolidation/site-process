@@ -1,7 +1,6 @@
 <?php
 namespace Consolidation\SiteProcess\Util;
 
-use Consolidation\SiteAlias\AliasRecord;
 use Symfony\Component\Process\Process;
 use Consolidation\Config\Util\Interpolator;
 use Symfony\Component\Console\Output\OutputInterface;

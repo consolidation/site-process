@@ -2,7 +2,7 @@
 
 namespace Consolidation\SiteProcess\Factory;
 
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\AliasRecordInterface;
 use Consolidation\SiteProcess\Transport\DockerComposeTransport;
 use Consolidation\Config\ConfigInterface;
 
@@ -15,7 +15,7 @@ class DockerComposeTransportFactory implements TransportFactoryInterface
     /**
      * @inheritdoc
      */
-    public function check(AliasRecord $siteAlias)
+    public function check(AliasRecordInterface $siteAlias)
     {
         // TODO: deprecate and eventually remove 'isContainer()', and move the logic here.
         return $siteAlias->isContainer();
@@ -24,8 +24,8 @@ class DockerComposeTransportFactory implements TransportFactoryInterface
     /**
      * @inheritdoc
      */
-    public function create(AliasRecord $siteAlias, ConfigInterface $config)
+    public function create(AliasRecordInterface $siteAlias)
     {
-        return new DockerComposeTransport($siteAlias, $config);
+        return new DockerComposeTransport($siteAlias);
     }
 }

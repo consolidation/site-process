@@ -3,7 +3,7 @@
 namespace Consolidation\SiteProcess;
 
 use Psr\Log\LoggerInterface;
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\AliasRecordInterface;
 use Consolidation\SiteProcess\Factory\SshTransportFactory;
 use Consolidation\SiteProcess\Factory\DockerComposeTransportFactory;
 use Consolidation\SiteProcess\Factory\TransportFactoryInterface;
@@ -13,6 +13,7 @@ use Consolidation\Config\Config;
 use Consolidation\Config\ConfigInterface;
 use Consolidation\Config\ConfigAwareInterface;
 use Consolidation\Config\ConfigAwareTrait;
+use Consolidation\SiteAlias\SiteAliasWithConfig;
 
 /**
  * ProcessManager will create a SiteProcess to run a command on a given
@@ -25,11 +26,29 @@ class ProcessManager implements ConfigAwareInterface
 {
     use ConfigAwareTrait;
 
+    /** @var ConfigInterface */
+    protected $configRuntime;
+
     protected $transportFactories = [];
 
     public function __construct()
     {
         $this->config = new Config();
+        $this->configRuntime = new Config();
+    }
+
+    /**
+     * setConfigRuntime sets the config object that holds runtime config
+     * items, i.e. config set from the commandline rather than a config file.
+     * Configuration priority (highest to lowest) is:
+     *   - config runtime
+     *   - site alias
+     *   - config files
+     */
+    public function setConfigRuntime(ConfigInterface $configRuntime)
+    {
+        $this->configRuntime = $configRuntime;
+        return $this;
     }
 
     /**
@@ -48,13 +67,13 @@ class ProcessManager implements ConfigAwareInterface
     /**
      * Return a site process configured with an appropriate transport
      *
-     * @param AliasRecord $siteAlias Target for command
+     * @param AliasRecordInterface $siteAlias Target for command
      * @param array $args Command arguments
      * @param array $options Associative array of command options
      * @param array $optionsPassedAsArgs Associtive array of options to be passed as arguments (after double-dash)
      * @return Process
      */
-    public function siteProcess(AliasRecord $siteAlias, $args = [], $options = [], $optionsPassedAsArgs = [])
+    public function siteProcess(AliasRecordInterface $siteAlias, $args = [], $options = [], $optionsPassedAsArgs = [])
     {
         $transport = $this->getTransport($siteAlias);
         $process = new SiteProcess($siteAlias, $transport, $args, $options, $optionsPassedAsArgs);
@@ -103,10 +122,10 @@ class ProcessManager implements ConfigAwareInterface
      * hasTransport determines if there is a transport that handles the
      * provided site alias.
      *
-     * @param AliasRecord $siteAlias
+     * @param AliasRecordInterface $siteAlias
      * @return boolean
      */
-    public function hasTransport(AliasRecord $siteAlias)
+    public function hasTransport(AliasRecordInterface $siteAlias)
     {
         return $this->getTransportFactory($siteAlias) !== null;
     }
@@ -114,14 +133,17 @@ class ProcessManager implements ConfigAwareInterface
     /**
      * getTransport returns a transport that is applicable to the provided site alias.
      *
-     * @param AliasRecord $siteAlias
+     * @param AliasRecordInterface $siteAlias
      * @return TransportInterface
      */
-    public function getTransport(AliasRecord $siteAlias)
+    public function getTransport(AliasRecordInterface $siteAlias)
     {
         $factory = $this->getTransportFactory($siteAlias);
+
+        $siteAliasWithConfig = new SiteAliasWithConfig($this->configRuntime, $siteAlias, $this->config);
+
         if ($factory) {
-            return $factory->create($siteAlias, $this->config);
+            return $factory->create($siteAliasWithConfig);
         }
         return new LocalTransport();
     }
@@ -129,10 +151,10 @@ class ProcessManager implements ConfigAwareInterface
     /**
      * getTransportFactory returns a factory for the provided site alias.
      *
-     * @param AliasRecord $siteAlias
+     * @param AliasRecordInterface $siteAlias
      * @return TransportFactoryInterface
      */
-    protected function getTransportFactory(AliasRecord $siteAlias)
+    protected function getTransportFactory(AliasRecordInterface $siteAlias)
     {
         foreach ($this->transportFactories as $factory) {
             if ($factory->check($siteAlias)) {
