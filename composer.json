@@ -24,8 +24,8 @@
     },
     "require": {
         "php": ">=5.6.0",
-        "consolidation/site-alias": "^2.1.1",
         "consolidation/config": "^1.2",
+        "consolidation/site-alias": "dev-site-alias-with-config",
         "symfony/process": "^3.4"
     },
     "require-dev": {

@@ -3,7 +3,7 @@
 namespace Consolidation\SiteProcess\Transport;
 
 use Consolidation\SiteProcess\SiteProcess;
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\AliasRecordInterface;
 use Consolidation\SiteProcess\Util\Shell;
 use Consolidation\Config\ConfigInterface;
 
@@ -16,12 +16,10 @@ class DockerComposeTransport implements TransportInterface
     protected $tty;
     protected $siteAlias;
     protected $cd_remote;
-    protected $config;
 
-    public function __construct(AliasRecord $siteAlias, ConfigInterface $config)
+    public function __construct(AliasRecordInterface $siteAlias)
     {
         $this->siteAlias = $siteAlias;
-        $this->config = $config;
     }
 
     /**
@@ -64,7 +62,7 @@ class DockerComposeTransport implements TransportInterface
     protected function getTransportOptions()
     {
         $transportOptions = [
-            $this->siteAlias->getConfig($this->config, 'docker.service', ''),
+            $this->siteAlias->get('docker.service', ''),
         ];
         if ($options = $this->siteAlias->get('docker.exec.options', '')) {
             array_unshift($transportOptions, Shell::preEscaped($options));

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63b35bfea71d5c8b96919a13523a2e28",
+    "content-hash": "d9dab756d8f6ed72598bd9f1396bab7c",
     "packages": [
         {
             "name": "consolidation/config",
@@ -89,16 +89,16 @@
         },
         {
             "name": "consolidation/site-alias",
-            "version": "2.1.1",
+            "version": "dev-site-alias-with-config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/site-alias.git",
-                "reference": "13588daf533c9a8df4c9495e3418685cd06867c4"
+                "reference": "c7cd427cf4e60773f66f9690e449d6cd3fe1454d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/site-alias/zipball/13588daf533c9a8df4c9495e3418685cd06867c4",
-                "reference": "13588daf533c9a8df4c9495e3418685cd06867c4",
+                "url": "https://api.github.com/repos/consolidation/site-alias/zipball/c7cd427cf4e60773f66f9690e449d6cd3fe1454d",
+                "reference": "c7cd427cf4e60773f66f9690e449d6cd3fe1454d",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +156,7 @@
                 }
             ],
             "description": "Manage alias records for local and remote sites.",
-            "time": "2019-01-03T14:40:53+00:00"
+            "time": "2019-03-02T01:58:24+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -3778,7 +3778,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "consolidation/site-alias": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

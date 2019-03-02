@@ -4,7 +4,7 @@ namespace Consolidation\SiteProcess\Transport;
 
 use Consolidation\SiteProcess\SiteProcess;
 use Consolidation\SiteProcess\Util\Escape;
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\AliasRecordInterface;
 use Consolidation\SiteProcess\Util\Shell;
 use Consolidation\Config\ConfigInterface;
 
@@ -16,12 +16,10 @@ class SshTransport implements TransportInterface
 {
     protected $tty;
     protected $siteAlias;
-    protected $config;
 
-    public function __construct(AliasRecord $siteAlias, ConfigInterface $config)
+    public function __construct(AliasRecordInterface $siteAlias)
     {
         $this->siteAlias = $siteAlias;
-        $this->config = $config;
     }
 
     /**
@@ -70,7 +68,7 @@ class SshTransport implements TransportInterface
     protected function getTransportOptions()
     {
         $transportOptions = [
-            Shell::preEscaped($this->siteAlias->getConfig($this->config, 'ssh.options', '-o PasswordAuthentication=no')),
+            Shell::preEscaped($this->siteAlias->get('ssh.options', '-o PasswordAuthentication=no')),
             $this->siteAlias->remoteHostWithUser(),
         ];
         if ($this->tty) {
