@@ -13,6 +13,7 @@ use Consolidation\Config\Config;
 use Consolidation\Config\ConfigInterface;
 use Consolidation\Config\ConfigAwareInterface;
 use Consolidation\Config\ConfigAwareTrait;
+use Consolidation\SiteAlias\SiteAliasWithConfig;
 
 /**
  * ProcessManager will create a SiteProcess to run a command on a given
