@@ -4,7 +4,7 @@ namespace Consolidation\SiteProcess;
 
 use PHPUnit\Framework\TestCase;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\SiteAlias;
 use Consolidation\SiteProcess\Util\Escape;
 
 class EscapeTest extends TestCase
@@ -49,7 +49,7 @@ class EscapeTest extends TestCase
         $expectToBeWindows,
         $siteAliasData)
     {
-        $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
+        $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
         $actual = $siteAlias->os();
         $this->assertEquals($expected, $actual);
         $actuallyIsWindows = Escape::isWindows($siteAlias->os());
@@ -165,7 +165,7 @@ class EscapeTest extends TestCase
         $arg,
         $siteAliasData)
     {
-        $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
+        $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
 
         $actual = Escape::forSite($siteAlias, $arg);
         $this->assertEquals($expected, $actual);

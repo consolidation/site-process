@@ -3,7 +3,7 @@
 namespace Consolidation\SiteProcess;
 
 use Psr\Log\LoggerInterface;
-use Consolidation\SiteAlias\AliasRecordInterface;
+use Consolidation\SiteAlias\SiteAliasInterface;
 use Consolidation\SiteProcess\Factory\SshTransportFactory;
 use Consolidation\SiteProcess\Factory\DockerComposeTransportFactory;
 use Consolidation\SiteProcess\Factory\TransportFactoryInterface;
@@ -67,13 +67,13 @@ class ProcessManager implements ConfigAwareInterface
     /**
      * Return a site process configured with an appropriate transport
      *
-     * @param AliasRecordInterface $siteAlias Target for command
+     * @param SiteAliasInterface $siteAlias Target for command
      * @param array $args Command arguments
      * @param array $options Associative array of command options
      * @param array $optionsPassedAsArgs Associtive array of options to be passed as arguments (after double-dash)
      * @return Process
      */
-    public function siteProcess(AliasRecordInterface $siteAlias, $args = [], $options = [], $optionsPassedAsArgs = [])
+    public function siteProcess(SiteAliasInterface $siteAlias, $args = [], $options = [], $optionsPassedAsArgs = [])
     {
         $transport = $this->getTransport($siteAlias);
         $process = new SiteProcess($siteAlias, $transport, $args, $options, $optionsPassedAsArgs);
@@ -122,10 +122,10 @@ class ProcessManager implements ConfigAwareInterface
      * hasTransport determines if there is a transport that handles the
      * provided site alias.
      *
-     * @param AliasRecordInterface $siteAlias
+     * @param SiteAliasInterface $siteAlias
      * @return boolean
      */
-    public function hasTransport(AliasRecordInterface $siteAlias)
+    public function hasTransport(SiteAliasInterface $siteAlias)
     {
         return $this->getTransportFactory($siteAlias) !== null;
     }
@@ -133,14 +133,14 @@ class ProcessManager implements ConfigAwareInterface
     /**
      * getTransport returns a transport that is applicable to the provided site alias.
      *
-     * @param AliasRecordInterface $siteAlias
+     * @param SiteAliasInterface $siteAlias
      * @return TransportInterface
      */
-    public function getTransport(AliasRecordInterface $siteAlias)
+    public function getTransport(SiteAliasInterface $siteAlias)
     {
         $factory = $this->getTransportFactory($siteAlias);
 
-        $siteAliasWithConfig = new SiteAliasWithConfig($this->configRuntime, $siteAlias, $this->config);
+        $siteAliasWithConfig = SiteAliasWithConfig::create($siteAlias, $this->config, $this->configRuntime);
 
         if ($factory) {
             return $factory->create($siteAliasWithConfig);
@@ -151,10 +151,10 @@ class ProcessManager implements ConfigAwareInterface
     /**
      * getTransportFactory returns a factory for the provided site alias.
      *
-     * @param AliasRecordInterface $siteAlias
+     * @param SiteAliasInterface $siteAlias
      * @return TransportFactoryInterface
      */
-    protected function getTransportFactory(AliasRecordInterface $siteAlias)
+    protected function getTransportFactory(SiteAliasInterface $siteAlias)
     {
         foreach ($this->transportFactories as $factory) {
             if ($factory->check($siteAlias)) {

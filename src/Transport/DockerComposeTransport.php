@@ -3,7 +3,7 @@
 namespace Consolidation\SiteProcess\Transport;
 
 use Consolidation\SiteProcess\SiteProcess;
-use Consolidation\SiteAlias\AliasRecordInterface;
+use Consolidation\SiteAlias\SiteAliasInterface;
 use Consolidation\SiteProcess\Util\Shell;
 use Consolidation\Config\ConfigInterface;
 
@@ -17,7 +17,7 @@ class DockerComposeTransport implements TransportInterface
     protected $siteAlias;
     protected $cd_remote;
 
-    public function __construct(AliasRecordInterface $siteAlias)
+    public function __construct(SiteAliasInterface $siteAlias)
     {
         $this->siteAlias = $siteAlias;
     }

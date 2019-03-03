@@ -5,7 +5,7 @@ namespace Consolidation\SiteProcess;
 use PHPUnit\Framework\TestCase;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
 use Consolidation\SiteProcess\Util\Escape;
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\SiteAlias;
 
 class SiteProcessTest extends TestCase
 {
@@ -193,7 +193,7 @@ class SiteProcessTest extends TestCase
           $this->markTestSkipped('Windows doesn\'t have /dev/tty support');
         }
         $processManager = ProcessManager::createDefault();
-        $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
+        $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
         $siteProcess = $processManager->siteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
         $siteProcess->setTty($useTty);
         // The transport handles the chdir during processArgs().
@@ -268,7 +268,7 @@ class SiteProcessTest extends TestCase
         }
         $args = ['echo', $data];
         $processManager = ProcessManager::createDefault();
-        $siteAlias = new AliasRecord([], '@alias.dev');
+        $siteAlias = new SiteAlias([], '@alias.dev');
         $siteAlias->set('os', $os);
         $siteProcess = $processManager->siteProcess($siteAlias, $args);
         $siteProcess->mustRun();

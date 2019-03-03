@@ -1,7 +1,7 @@
 <?php
 namespace Consolidation\SiteProcess\Util;
 
-use Consolidation\SiteAlias\AliasRecordInterface;
+use Consolidation\SiteAlias\SiteAliasInterface;
 use Symfony\Component\Process\Process;
 use Consolidation\SiteProcess\Transport\TransportInterface;
 
@@ -17,7 +17,7 @@ class ArgumentProcessor
      * selectArgs selects the appropriate set of arguments for the command
      * to be executed and orders them as needed.
      *
-     * @param AliasRecordInterface $siteAlias Description of
+     * @param SiteAliasInterface $siteAlias Description of
      * @param array $args Command and arguments to execute (source)
      * @param array $options key / value pair of option and value in include
      *   in final arguments
@@ -25,7 +25,7 @@ class ArgumentProcessor
      *   to include in final arguments after the '--' argument.
      * @return array Command and arguments to execute
      */
-    public function selectArgs(AliasRecordInterface $siteAlias, $args, $options = [], $optionsPassedAsArgs = [])
+    public function selectArgs(SiteAliasInterface $siteAlias, $args, $options = [], $optionsPassedAsArgs = [])
     {
         // Split args into three arrays separated by the `--`
         list($leadingArgs, $dashDash, $remaingingArgs) = $this->findArgSeparator($args);

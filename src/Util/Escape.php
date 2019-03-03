@@ -1,7 +1,7 @@
 <?php
 namespace Consolidation\SiteProcess\Util;
 
-use Consolidation\SiteAlias\AliasRecordInterface;
+use Consolidation\SiteAlias\SiteAliasInterface;
 use Symfony\Component\Process\Process;
 use Consolidation\Config\Util\Interpolator;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,7 +15,7 @@ class Escape
     /**
      * argsForSite escapes each argument in an array for the given site.
      */
-    public static function argsForSite(AliasRecordInterface $siteAlias, $args)
+    public static function argsForSite(SiteAliasInterface $siteAlias, $args)
     {
         return array_map(
             function ($arg) use ($siteAlias) {
@@ -28,7 +28,7 @@ class Escape
     /**
      * forSite escapes the provided argument for the specified alias record.
      */
-    public static function forSite(AliasRecordInterface $siteAlias, $arg)
+    public static function forSite(SiteAliasInterface $siteAlias, $arg)
     {
         return static::shellArg($arg, $siteAlias->os());
     }

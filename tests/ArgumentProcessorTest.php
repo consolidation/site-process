@@ -4,7 +4,7 @@ namespace Consolidation\SiteProcess;
 
 use PHPUnit\Framework\TestCase;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\SiteAlias;
 
 class ArgumentProcessorTest extends TestCase
 {
@@ -60,7 +60,7 @@ class ArgumentProcessorTest extends TestCase
         $options,
         $optionsPassedAsArgs)
     {
-        $siteAlias = new AliasRecord($siteAliasData, '@alias.dev');
+        $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
         $processor = new ArgumentProcessor();
 
         $actual = $processor->selectArgs($siteAlias, $args, $options, $optionsPassedAsArgs);

@@ -5,7 +5,7 @@ namespace Consolidation\SiteProcess;
 use Consolidation\SiteProcess\Util\Escape;
 use PHPUnit\Framework\TestCase;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
-use Consolidation\SiteAlias\AliasRecord;
+use Consolidation\SiteAlias\SiteAlias;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\ArrayInput;
