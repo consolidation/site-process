@@ -140,7 +140,7 @@ class ProcessManager implements ConfigAwareInterface
     {
         $factory = $this->getTransportFactory($siteAlias);
 
-        $siteAliasWithConfig = new SiteAliasWithConfig($this->configRuntime, $siteAlias, $this->config);
+        $siteAliasWithConfig = new SiteAliasWithConfig($siteAlias, $this->config, $this->configRuntime);
 
         if ($factory) {
             return $factory->create($siteAliasWithConfig);
