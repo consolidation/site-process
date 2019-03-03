@@ -2,7 +2,7 @@
 
 namespace Consolidation\SiteProcess\Factory;
 
-use Consolidation\SiteAlias\AliasRecordInterface;
+use Consolidation\SiteAlias\SiteAliasInterface;
 use Consolidation\SiteProcess\Transport\TransportInterface;
 use Consolidation\Config\ConfigInterface;
 
@@ -20,15 +20,15 @@ interface TransportFactoryInterface
 {
     /**
      * Check to see if a provided site alias is applicable to this transport type.
-     * @param AliasRecordInterface $siteAlias
+     * @param SiteAliasInterface $siteAlias
      * @return bool
      */
-    public function check(AliasRecordInterface $siteAlias);
+    public function check(SiteAliasInterface $siteAlias);
 
     /**
      * Create a transport instance for an applicable site alias.
-     * @param AliasRecordInterface $siteAlias
+     * @param SiteAliasInterface $siteAlias
      * @return TransportInterface
      */
-    public function create(AliasRecordInterface $siteAlias);
+    public function create(SiteAliasInterface $siteAlias);
 }

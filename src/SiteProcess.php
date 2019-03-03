@@ -1,7 +1,7 @@
 <?php
 namespace Consolidation\SiteProcess;
 
-use Consolidation\SiteAlias\AliasRecordInterface;
+use Consolidation\SiteAlias\SiteAliasInterface;
 use Consolidation\SiteProcess\Transport\DockerComposeTransport;
 use Consolidation\SiteProcess\Util\ArgumentProcessor;
 use Consolidation\SiteProcess\Transport\LocalTransport;
@@ -21,7 +21,7 @@ use Consolidation\SiteProcess\Util\Escape;
  */
 class SiteProcess extends ProcessBase
 {
-    /** @var AliasRecordInterface */
+    /** @var SiteAliasInterface */
     protected $siteAlias;
     /** @var string[] */
     protected $args;
@@ -38,7 +38,7 @@ class SiteProcess extends ProcessBase
      * Process arguments and options per the site alias and build the
      * actual command to run.
      */
-    public function __construct(AliasRecordInterface $siteAlias, TransportInterface $transport, $args, $options = [], $optionsPassedAsArgs = [])
+    public function __construct(SiteAliasInterface $siteAlias, TransportInterface $transport, $args, $options = [], $optionsPassedAsArgs = [])
     {
         $this->siteAlias = $siteAlias;
         $this->transport = $transport;
@@ -147,7 +147,7 @@ class SiteProcess extends ProcessBase
      * Ask the transport manager for the correct transport for the
      * provided alias.
      */
-    protected function getTransport(AliasRecordInterface $siteAlias)
+    protected function getTransport(SiteAliasInterface $siteAlias)
     {
         return $this->transport;
     }
@@ -198,7 +198,7 @@ class SiteProcess extends ProcessBase
      * It is possible to use dot notation in the keys to access nested elements
      * within the site alias record.
      *
-     * @param AliasRecordInterface $siteAlias
+     * @param SiteAliasInterface $siteAlias
      * @param type $args
      * @return type
      */

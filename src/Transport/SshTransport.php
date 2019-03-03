@@ -4,7 +4,7 @@ namespace Consolidation\SiteProcess\Transport;
 
 use Consolidation\SiteProcess\SiteProcess;
 use Consolidation\SiteProcess\Util\Escape;
-use Consolidation\SiteAlias\AliasRecordInterface;
+use Consolidation\SiteAlias\SiteAliasInterface;
 use Consolidation\SiteProcess\Util\Shell;
 use Consolidation\Config\ConfigInterface;
 
@@ -17,7 +17,7 @@ class SshTransport implements TransportInterface
     protected $tty;
     protected $siteAlias;
 
-    public function __construct(AliasRecordInterface $siteAlias)
+    public function __construct(SiteAliasInterface $siteAlias)
     {
         $this->siteAlias = $siteAlias;
     }
