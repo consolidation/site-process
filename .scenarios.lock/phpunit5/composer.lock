@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5abb8a8a3c310c6a39e84096ac31d3ea",
+    "content-hash": "47ef8839c5b47e264267dccde7e5ba8d",
     "packages": [
         {
             "name": "consolidation/config",
@@ -89,16 +89,16 @@
         },
         {
             "name": "consolidation/site-alias",
-            "version": "3.0.0-alpha1",
+            "version": "dev-code-cleanup",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/site-alias.git",
-                "reference": "cbf66ca26ad897b13162164905e099abf386035a"
+                "reference": "a423b9c5bd587cce715d7b521850b52636f4d3f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/site-alias/zipball/cbf66ca26ad897b13162164905e099abf386035a",
-                "reference": "cbf66ca26ad897b13162164905e099abf386035a",
+                "url": "https://api.github.com/repos/consolidation/site-alias/zipball/a423b9c5bd587cce715d7b521850b52636f4d3f8",
+                "reference": "a423b9c5bd587cce715d7b521850b52636f4d3f8",
                 "shasum": ""
             },
             "require": {
@@ -133,7 +133,7 @@
                     }
                 },
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "3.x-dev"
                 }
             },
             "autoload": {
@@ -156,7 +156,7 @@
                 }
             ],
             "description": "Manage alias records for local and remote sites.",
-            "time": "2019-03-02T05:48:32+00:00"
+            "time": "2019-03-03T17:51:57+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -3779,7 +3779,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "consolidation/site-alias": 15
+        "consolidation/site-alias": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
