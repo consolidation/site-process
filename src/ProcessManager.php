@@ -57,7 +57,15 @@ class ProcessManager implements ConfigAwareInterface
     public static function createDefault()
     {
         $processManager = new self();
+        return static::addTransports($processManager);
+    }
 
+    /**
+     * addTransports adds the avaiable transports to the
+     * provided process manager.
+     */
+    public static function addTransports(ProcessManager $processManager)
+    {
         $processManager->add(new SshTransportFactory());
         $processManager->add(new DockerComposeTransportFactory());
 
