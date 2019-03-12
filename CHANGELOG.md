@@ -1,6 +1,6 @@
 # Changelog
 
-### 2.0.0-beta1 - 2.0.0-beta6
+### 2.0.0 - 2019/Mar/12
 
 * Add a separaate 'addTransports' method for clients that wish to subclass the process manager (#32)
 * Rename AliasRecord to SiteAlias;  Use SiteAliasWithConfig::create (#31)
