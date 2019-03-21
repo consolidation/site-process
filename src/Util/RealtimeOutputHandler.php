@@ -57,7 +57,7 @@ class RealtimeOutputHandler
      */
     public function setStdoutMarker($marker)
     {
-        $this->$stdoutMarker = $marker;
+        $this->stdoutMarker = $marker;
         return $this;
     }
 
