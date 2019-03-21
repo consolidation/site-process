@@ -209,24 +209,9 @@ class ProcessBase extends Process
         // If the json is not a simple string or a simple array, then is must
         // be an associative array. We will remove non-json garbage characters
         // before and after the enclosing curley-braces.
-        $data = preg_replace('#^[^{]*#', '', $data);
-
-        // The regex will fail if the json string is longer than the backtrack
-        // limit. This will set the string to NULL even if the string contains
-        // only valid json, effectively destroying the data it contained. We
-        // therefore have to split te string if it is longer than the backtrack
-        // limit and only run te regex on the remainder, after which we put the
-        // string back together.
-        $maxLength = ini_get('pcre.backtrack_limit');
-        $strLength = strlen($data);
-        $begin = "";
-        if ($strLength > $maxLength) {
-          $splitPoint = $strLength - $maxLength;
-          $begin = substr($data, 0, $splitPoint);
-          $data = substr($data, $splitPoint);
-        }
-        $data = $begin . preg_replace('#[^}]*$#', '', $data);
-
+        $start = strpos($data, '{');
+        $end = strrpos($data, '}') + 1;
+        $data = substr($data, $start, $end - $start);
         return $data;
     }
 
