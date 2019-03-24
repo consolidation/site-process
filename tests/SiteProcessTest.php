@@ -126,6 +126,17 @@ class SiteProcessTest extends TestCase
             ],
 
             [
+                "docker-compose -p project exec --workdir src --user root drupal ls -al /path1 /path2",
+                'src',
+                true,
+                ['docker' => ['service' => 'drupal', 'project' => 'project', 'exec' => ['options' => '--user root']]],
+                ['ls', '-al', '/path1', '/path2'],
+                [],
+                [],
+                NULL,
+            ],
+
+            [
                 "drush status '--fields=root,uri'",
                 false,
                 false,
