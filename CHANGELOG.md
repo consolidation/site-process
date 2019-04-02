@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.0.1 - 2019/Apr/2
+
+* Do not format output in RealTimeOutput
+
 ### 2.0.0 - 2019/Mar/12
 
 * Add a separaate 'addTransports' method for clients that wish to subclass the process manager (#32)
