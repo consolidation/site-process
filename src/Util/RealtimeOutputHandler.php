@@ -104,7 +104,7 @@ class RealtimeOutputHandler
         if (Process::ERR === $type) {
             $this->stderr->write($this->addMarker($buffer, $this->stderrMarker));
         } else {
-            $this->stdout->write($this->addMarker($buffer, $this->stdoutMarker));
+            $this->stdout->write($this->addMarker($buffer, $this->stdoutMarker), false, OutputInterface::OUTPUT_RAW);
         }
     }
 
