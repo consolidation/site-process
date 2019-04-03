@@ -32,6 +32,50 @@ This is equivalent to:
 ```
 $process = $processManager->siteProcess($site_alias, ['git', '--untracked-files=no', 'status']);
 ```
+### Transports
+#### SSH
+Wraps a command so that it runs on a remote system via the ssh cli.
+
+Example:
+```yaml
+local:
+  host: localhost
+  uri: http://localhost
+  ssh:
+    options: -o PasswordAuthentication=no -i $HOME/.ssh/id_rsa 
+
+```
+#### Docker Compose
+Wraps a command so that it runs on a remote system via docker-compose.
+
+Example:
+```yaml
+local:
+  host: localhost
+  uri: http://localhost
+  docker:
+    service: drupal
+    project: dockerComposeProjectName
+    compose:
+      options: --project dockerComposeProjectName --file docker-compose.yml --project-directory dockerComposeWorkDir
+    exec:
+      options: --user www-data
+
+```
+
+The above would execute commands prefixed with:
+```
+docker-compose --project dockerComposeProjectName --file docker-compose.yml --project-directory dockerComposeWorkDir exec --user www-data -T drupal
+```
+
+`docker.project` and `compose.options --project` do the same thing, docker.project existed before options.
+
+`docker.service` is the exact name of the service as it appears in docker-compos.yml
+
+Check the [docker-compose](https://docs.docker.com/compose/reference/overview/) manual for all available options.
+
+#### Local
+Runs the command on the local system.
 
 ## Symfony 4
 
