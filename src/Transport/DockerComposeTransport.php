@@ -62,8 +62,13 @@ class DockerComposeTransport implements TransportInterface
     protected function getTransport()
     {
         $transport = ['docker-compose'];
-        if ($project = $this->siteAlias->get('docker.project', '')) {
+        $project = $this->siteAlias->get('docker.project', '');
+        $options = $this->siteAlias->get('docker.compose.options', '');
+        if ($project && (strpos($options, '-p') === false || strpos($options, '--project') === false)) {
             $transport = array_merge($transport, ['-p', $project]);
+        }
+        if ($options) {
+            $transport[] = Shell::preEscaped($options);
         }
         return array_merge($transport, ['exec']);
     }
