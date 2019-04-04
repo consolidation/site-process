@@ -22,7 +22,6 @@ class DockerComposeTransportTest extends TestCase
                         'compose' => [
                             'options' => '--project project --project-directory projectDir --file myCompose.yml'
                         ],
-                        'file' => 'docker-compose.yml',
                         'exec' => ['options' => '--user root']
                     ]
                 ],
@@ -32,6 +31,30 @@ class DockerComposeTransportTest extends TestCase
                 [
                     'docker' => [
                         'service' => 'drupal',
+                    ]
+                ],
+            ],
+            [
+                'docker-compose --project project2 --file myCompose.yml exec -T drupal ls',
+                [
+                    'docker' => [
+                        'service' => 'drupal',
+                        'project' => 'project1',
+                        'compose' => [
+                            'options' => '--project project2 --file myCompose.yml'
+                        ]
+                    ]
+                ],
+            ],
+            [
+                'docker-compose -p project1 --file myCompose.yml exec -T drupal ls',
+                [
+                    'docker' => [
+                        'service' => 'drupal',
+                        'project' => 'project1',
+                        'compose' => [
+                            'options' => '--file myCompose.yml'
+                        ]
                     ]
                 ],
             ],

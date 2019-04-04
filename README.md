@@ -55,7 +55,6 @@ local:
   uri: http://localhost
   docker:
     service: drupal
-    project: dockerComposeProjectName
     compose:
       options: --project dockerComposeProjectName --file docker-compose.yml --project-directory dockerComposeWorkDir
     exec:
