@@ -45,6 +45,16 @@ local:
     options: -o PasswordAuthentication=no -i $HOME/.ssh/id_rsa 
 
 ```
+### Vagrant
+Wraps commands so they run with `vagrant ssh -c`.
+
+Example:
+```yaml
+local:
+  uri: http://localhost
+  vagrant:
+```
+
 #### Docker Compose
 Wraps a command so that it runs on a remote system via docker-compose.
 

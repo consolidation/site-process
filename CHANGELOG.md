@@ -2,6 +2,7 @@
 
 ### 2.0.2 -
 * When the transport is Docker, allow setting any docker-compose flags in the alias file
+* Added vagrant transport
 
 ### 2.0.1 - 2019/Apr/2
 
