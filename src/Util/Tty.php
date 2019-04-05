@@ -20,5 +20,4 @@ class Tty
         }
         return (bool) @proc_open('echo 1 >/dev/null', array(array('file', '/dev/tty', 'r'), array('file', '/dev/tty', 'w'), array('file', '/dev/tty', 'w')), $pipes);
     }
-
 }
