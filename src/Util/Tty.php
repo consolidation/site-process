@@ -15,6 +15,10 @@ class Tty
      */
     public static function isTtySupported()
     {
+        // Start off by checking STDIN with `posix_isatty`, as that appears to be more reliable
+        if (function_exists('posix_isatty')) {
+            return posix_isatty(STDIN);
+        }
         if (method_exists('\Symfony\Component\Process\Process', 'isTtySupported')) {
             return Process::isTtySupported();
         }
