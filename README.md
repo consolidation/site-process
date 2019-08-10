@@ -13,7 +13,7 @@ A thin wrapper around the Symfony Process Component that allows applications to 
 
 Site Process is a thin wrapper around the [Symfony Process Component](https://symfony.com/doc/3.4/components/process) that allows applications to use the [Site Alias library](https://github.com/consolidation/site-alias) to specify the target for a remote call.
 
-For comparison purposes, the `Process` obejct may be created to run an application on the local system using the standard Symfony Process Component API like so:
+For comparison purposes, the `Process` object may be created to run an application on the local system using the standard Symfony Process Component API like so:
 ```
 $process = new Process(['ls', '-lsa']);
 ```
