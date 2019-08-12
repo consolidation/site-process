@@ -227,7 +227,7 @@ class SiteProcessTest extends TestCase
                 'LINUX',
             ],
             [
-                'Unable to decode output into JSON.',
+                "Unable to decode output into JSON: Syntax error\n\nNo json data here",
                 'No json data here',
                 NULL,
             ],
