@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.0.4 - 2019/Aug/12
+
+* Bugfix: Better error reporting when json output fails to parse. (#46)
+
 ### 2.0.3 - 2019/Jun/4
 
 * Bugfix: Use posix_isatty when available. (#43)
