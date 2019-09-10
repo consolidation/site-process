@@ -149,7 +149,8 @@ class SiteProcess extends ProcessBase
      * @todo Check if this needs to depend on linux/win.
      * @todo Check if this needs to be delegated to transport.
      */
-    public function addEnvVars($envVars, $args) {
+    public function addEnvVars($envVars, $args)
+    {
         $envArgs = ['env'];
         foreach ($envVars as $key => $value) {
             $envArgs[] = Escape::forSite($this->siteAlias, $key) . '='
