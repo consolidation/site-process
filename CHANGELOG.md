@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.1.0 - 2019/Sep/10
+
+* Added environment variables in aliases (#47)
+
 ### 2.0.4 - 2019/Aug/12
 
 * Bugfix: Better error reporting when json output fails to parse. (#46)
