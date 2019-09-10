@@ -8,6 +8,7 @@ use Consolidation\SiteProcess\Transport\LocalTransport;
 use Consolidation\SiteProcess\Transport\SshTransport;
 use Consolidation\SiteProcess\Transport\TransportInterface;
 use Consolidation\Config\Util\Interpolator;
+use Consolidation\SiteProcess\Util\Shell;
 use Consolidation\SiteProcess\Util\ShellOperatorInterface;
 use Consolidation\SiteProcess\Util\Escape;
 
@@ -125,6 +126,11 @@ class SiteProcess extends ProcessBase
             $this->optionsPassedAsArgs
         );
 
+        // Set environment variables if needed.
+        if ($this->siteAlias->has('env-vars')) {
+            $selectedArgs = $this->addEnvVars($this->siteAlias->get('env-vars'), $selectedArgs);
+        }
+
         // Ask the transport to drop in a 'cd' if needed.
         if ($this->getWorkingDirectory()) {
             $selectedArgs = $transport->addChdir($this->getWorkingDirectory(), $selectedArgs);
@@ -136,6 +142,21 @@ class SiteProcess extends ProcessBase
         // Wrap the command with 'ssh' or some other transport if this is
         // a remote command; otherwise, leave it as-is.
         return $transport->wrap($processedArgs);
+    }
+
+    /**
+     * Wrap the command/args in an env call.
+     * @todo Check if this needs to depend on linux/win.
+     * @todo Check if this needs to be delegated to transport.
+     */
+    public function addEnvVars($envVars, $args)
+    {
+        $envArgs = ['env'];
+        foreach ($envVars as $key => $value) {
+            $envArgs[] = Escape::forSite($this->siteAlias, $key) . '='
+            . Escape::forSite($this->siteAlias, $value);
+        }
+        return array_merge($envArgs, $args);
     }
 
     public function setTransport($transport)
