@@ -117,6 +117,15 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for su
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [releases](https://github.com/consolidation/site-process/releases) page.
 
+| Branch       | Symfony Versions | PHP Versions
+| ------------ | ---------------- | ------------
+| master (4.x) | ^4               | 7.1+
+| 2.x          | ^2 | ^3          | 5.6+
+
+Note that all 3.x releases of consolidation/site-process were skipped simply to align the 4.x versions with Symfony 4.x support.
+
+Note that the API of consolidation/site-process itself is compatible between the 2.x and 4.x versions, so most clients that work with both Symfony 3 and Symfony 4 should be able to require `"consolidation/site-process": "^2 | ^4"` without problems.
+
 ## Authors
 
 * [Greg Anderson](https://github.com/greg-1-anderson)
