@@ -125,7 +125,7 @@ class ProcessBase extends Process
     /**
      * @inheritDoc
      */
-    public function start(callable $callback = null, $env = array())
+    public function start(callable $callback = null, array $env = [])
     {
         $cmd = $this->getCommandLine();
         if ($this->isSimulated()) {
