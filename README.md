@@ -2,10 +2,10 @@
 
 A thin wrapper around the Symfony Process Component that allows applications to use the Site Alias library to specify the target for a remote call. 
 
-[![Travis CI](https://travis-ci.org/consolidation/site-process.svg?branch=master)](https://travis-ci.org/consolidation/site-process)
+[![Travis CI](https://travis-ci.org/consolidation/site-process.svg?branch=main)](https://travis-ci.org/consolidation/site-process)
 [![Windows CI](https://ci.appveyor.com/api/projects/status/a4u1r5pj9jo1enje?svg=true)](https://ci.appveyor.com/project/greg-1-anderson/site-process)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/consolidation/site-process/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/consolidation/site-process/?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/consolidation/site-process/badge.svg?branch=master)](https://coveralls.io/github/consolidation/site-process?branch=master) 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/consolidation/site-process/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/consolidation/site-process/?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/consolidation/site-process/badge.svg?branch=main)](https://coveralls.io/github/consolidation/site-process?branch=main) 
 [![License](https://img.shields.io/badge/license-MIT-408677.svg)](LICENSE)
 
 
@@ -113,7 +113,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 | Branch       | Symfony Versions | PHP Versions
 | ------------ | ---------------- | ------------
-| master (4.x) | ^4               | 7.1+
+| main (4.x) | ^4               | 7.1+
 | 2.x          | ^2 | ^3          | 5.6+
 
 Note that all 3.x releases of consolidation/site-process were skipped simply to align the 4.x versions with Symfony 4.x support.
