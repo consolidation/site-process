@@ -72,7 +72,7 @@ class RealtimeOutputHandlerTest extends TestCase
             $this->assertEquals('', trim($stderr->fetch()));
         }
         else {
-            $this->assertContains($expectedStderr, trim($stderr->fetch()));
+            $this->assertStringContainsString($expectedStderr, trim($stderr->fetch()));
         }
     }
 }
