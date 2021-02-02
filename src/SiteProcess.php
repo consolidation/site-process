@@ -11,6 +11,8 @@ use Consolidation\Config\Util\Interpolator;
 use Consolidation\SiteProcess\Util\Shell;
 use Consolidation\SiteProcess\Util\ShellOperatorInterface;
 use Consolidation\SiteProcess\Util\Escape;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 /**
  * A wrapper around Symfony Process that uses site aliases
@@ -200,6 +202,19 @@ class SiteProcess extends ProcessBase
     {
         $cmd = $this->getCommandLine();
         parent::start($callback, $env);
+    }
+
+    public function mustRun(callable $callback = null, array $env = []): \Symfony\Component\Process\Process
+    {
+        if (0 !== $this->run($callback, $env)) {
+            // Be less verbose when there is nothing in stdout or stderr.
+            if (empty($this->getOutput()) && empty($this->getErrorOutput())) {
+                $this->disableOutput();
+            }
+            throw new ProcessFailedException($this);
+        }
+
+        return $this;
     }
 
     /**
