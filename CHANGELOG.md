@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.1.0 - 2021/Feb/20
+
+* Support PHP 8
+
 ### 4.0.0 - 2020/May/27
 
 * Support symfony/process ^4.4, and other symfony components ^5
