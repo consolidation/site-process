@@ -226,9 +226,10 @@ class ProcessBase extends Process
      */
     private function overrideCommandLine($commandline)
     {
-        $property = new \ReflectionProperty(Process::class, "commandline");
-        $property->setAccessible(true);
-        $property->setValue($this, $commandline);
+        $commandlineSetter = function($commandline) {
+            $this->commandline = $commandline;
+        };
+        $commandlineSetter->bindTo($this, Process::class)();
         return $this;
     }
 }
