@@ -229,7 +229,7 @@ class ProcessBase extends Process
         $commandlineSetter = function ($commandline) {
             $this->commandline = $commandline;
         };
-        $commandlineSetter->bindTo($this, Process::class)();
+        $commandlineSetter->bindTo($this, Process::class)($commandline);
         return $this;
     }
 }
