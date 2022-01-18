@@ -1,5 +1,10 @@
 # Changelog
 
+### 4.1.2 - 2022/Jan/18
+
+* Support symfony/process ^5 via illicit access to a private member (#58)
+* Avoid verbose output when we have nothing to say in ProcessFailedException. (#54)
+
 ### 4.1.1 - 2022/Jan/3
 
 * Support PHP 8.1. (n.b. No code changes to library; this release is merely to enable testing on 8.1 and explicitly declare support.)
