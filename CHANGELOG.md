@@ -1,6 +1,6 @@
 # Changelog
 
-### 4.1.2 - 2022/Jan/18
+### 4.1.3 / 4.1.2 - 2022/Jan/18
 
 * Support symfony/process ^5 via illicit access to a private member (#58)
 * Avoid verbose output when we have nothing to say in ProcessFailedException. (#54)
