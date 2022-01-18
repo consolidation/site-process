@@ -190,7 +190,7 @@ class SiteProcess extends ProcessBase
             $processedArgs = $this->processArgs();
             $commandLine = Escape::argsForSite($this->siteAlias, $processedArgs);
             $commandLine = implode(' ', $commandLine);
-            $this->setCommandLine($commandLine);
+            $this->overrideCommandLine($commandLine);
         }
         return $commandLine;
     }
@@ -255,5 +255,23 @@ class SiteProcess extends ProcessBase
             },
             $args
         );
+    }
+
+    /**
+     * Overrides the command line to be executed.
+     *
+     * @param string|array $commandline The command to execute
+     *
+     * @return $this
+     *
+     * @todo refactor library so this hack to get around changes in
+     *   symfony/process 5 is unnecessary.
+     */
+    private function overrideCommandLine($commandline)
+    {
+        $property = new \ReflectionProperty(Process::class, "commandline");
+        $property->setAccessible(true);
+        $property->setValue($this, $commandline);
+        return $this;
     }
 }

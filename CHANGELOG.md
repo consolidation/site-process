@@ -1,5 +1,13 @@
 # Changelog
 
+### 4.1.1 - 2022/Jan/3
+
+* Support PHP 8.1. (n.b. No code changes to library; this release is merely to enable testing on 8.1 and explicitly declare support.)
+
+### 4.1.0 - 2021/Feb/20
+
+* Support PHP 8
+
 ### 4.0.0 - 2020/May/27
 
 * Support symfony/process ^4.4, and other symfony components ^5
