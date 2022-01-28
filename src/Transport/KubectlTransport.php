@@ -51,9 +51,11 @@ class KubectlTransport implements TransportInterface
             "--tty=$tty",
             "--stdin=$interactive",
             $resource,
-            "--container=$container",
-            "--",
         ];
+        if ($container) {
+            $transport[] = "--container=$container";
+        }
+        $transport[] = "--";
 
         return array_merge(
             $transport,
