@@ -3,7 +3,6 @@
 namespace Consolidation\SiteProcess\Transport;
 
 use Consolidation\SiteProcess\SiteProcess;
-use Consolidation\SiteProcess\Util\Escape;
 use Consolidation\SiteAlias\SiteAliasInterface;
 use Consolidation\SiteProcess\Util\Shell;
 
@@ -57,10 +56,7 @@ class KubectlTransport implements TransportInterface
         }
         $transport[] = "--";
 
-        return array_merge(
-            $transport,
-            Escape::argsForSite($this->siteAlias, $args)
-        );
+        return array_merge($transport, $args);
     }
 
     /**

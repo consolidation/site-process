@@ -17,6 +17,7 @@ class KubectlTransportTest extends TestCase
             // Everything explicit.
             [
                 'kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal --container=drupal -- ls',
+                ['ls'],
                 [
                     'kubectl' => [
                         'tty' => false,
@@ -31,6 +32,19 @@ class KubectlTransportTest extends TestCase
             // Minimal. Kubectl will pick a container.
             [
                 'kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal -- ls',
+                ['ls'],
+                [
+                    'kubectl' => [
+                        'namespace' => 'vv',
+                        'resource' => 'deploy/drupal',
+                    ]
+                ],
+            ],
+
+            // Don't escape arguments after "--"
+            [
+                'kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal -- asdf "double" \'single\'',
+                ['asdf', '"double"', "'single'"],
                 [
                     'kubectl' => [
                         'namespace' => 'vv',
@@ -44,11 +58,11 @@ class KubectlTransportTest extends TestCase
     /**
      * @dataProvider wrapTestValues
      */
-    public function testWrap($expected, $siteAliasData)
+    public function testWrap($expected, $args, $siteAliasData)
     {
         $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
         $dockerTransport = new KubectlTransport($siteAlias);
-        $actual = $dockerTransport->wrap(['ls']);
+        $actual = $dockerTransport->wrap($args);
         $this->assertEquals($expected, implode(' ', $actual));
     }
 }
