@@ -47,8 +47,8 @@ class CustomTransportTest extends TestCase
     public function testWrap($expected, $siteAliasData)
     {
         $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
-        $dockerTransport = new CustomTransport($siteAlias);
-        $actual = $dockerTransport->wrap(['ls']);
+        $customTransport = new CustomTransport($siteAlias);
+        $actual = $customTransport->wrap(['ls']);
         $this->assertEquals($expected, implode(' ', $actual));
     }
 }

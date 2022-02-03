@@ -35,13 +35,14 @@ class CustomTransport implements TransportInterface
      */
     public function wrap($args)
     {
-        $transport = Shell::preEscaped($this->siteAlias->get('custom.command', ''));
+        $cmd = $this->siteAlias->get('custom.command', '');
+        $transport = $cmd ? [Shell::preEscaped($cmd)] : [];
         $commandToExecute = $this->getCommandToExecute($args);
 
-        return array_merge(
+        return array_filter(array_merge(
             $transport,
             $commandToExecute
-        );
+        ));
     }
 
     /**
