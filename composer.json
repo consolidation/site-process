@@ -27,7 +27,7 @@
         "consolidation/config": "^2",
         "consolidation/site-alias": "^3",
         "symfony/process": "^6",
-        "symfony/console": "^6"
+        "symfony/console": "^5.4 || ^6"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3",
