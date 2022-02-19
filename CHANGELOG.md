@@ -1,6 +1,6 @@
 # Changelog
 
-### Unreleased
+### 4.2.0 - 2022/Feb/18
 
 * Support kubectl transport (#60)
 
