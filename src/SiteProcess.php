@@ -57,7 +57,7 @@ class SiteProcess extends ProcessBase
      *
      * @return string|null
      */
-    public function getWorkingDirectory()
+    public function getWorkingDirectory(): ?string
     {
         return $this->cd_remote;
     }
@@ -69,7 +69,7 @@ class SiteProcess extends ProcessBase
      *
      * @return \Consolidation\SiteProcess\SiteProcess
      */
-    public function setWorkingDirectory($cd_remote)
+    public function setWorkingDirectory($cd_remote): static
     {
         $this->cd_remote = $cd_remote;
         return $this;
@@ -183,7 +183,7 @@ class SiteProcess extends ProcessBase
     /**
      * @inheritDoc
      */
-    public function getCommandLine()
+    public function getCommandLine(): string
     {
         $commandLine = parent::getCommandLine();
         if (empty($commandLine)) {
@@ -204,7 +204,7 @@ class SiteProcess extends ProcessBase
         parent::start($callback, $env);
     }
 
-    public function mustRun(callable $callback = null, array $env = []): \Symfony\Component\Process\Process
+    public function mustRun(callable $callback = null, array $env = []): static
     {
         if (0 !== $this->run($callback, $env)) {
             // Be less verbose when there is nothing in stdout or stderr.
@@ -220,7 +220,7 @@ class SiteProcess extends ProcessBase
     /**
      * @inheritDoc
      */
-    public function wait(callable $callback = null)
+    public function wait(callable $callback = null): int
     {
         $return = parent::wait($callback);
         return $return;
