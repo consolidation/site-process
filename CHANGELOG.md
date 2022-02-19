@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.0.0 - 2022/Feb/18
+
+* Support symfony/process ^6
+
 ### 4.2.0 - 2022/Feb/18
 
 * Support kubectl transport (#60)
