@@ -4,6 +4,14 @@
 
 * Adds a new option to site aliases which lets users specify any command to wrap invoked processes (#61).
 
+### 5.0.0 - 2022/Feb/18
+
+* Support symfony/process ^6
+
+### 4.2.0 - 2022/Feb/18
+
+* Support kubectl transport (#60)
+
 ### 4.1.3 / 4.1.2 - 2022/Jan/18
 
 * Support symfony/process ^5 via illicit access to a private member (#58)
