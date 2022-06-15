@@ -56,7 +56,7 @@ class KubectlTransport implements TransportInterface
             $transport[] = "--container=$container";
         }
         if ($kubeconfig) {
-           $transport[] = "--kubeconfig=$kubeconfig";
+            $transport[] = "--kubeconfig=$kubeconfig";
         }
         $transport[] = "--";
 

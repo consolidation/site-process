@@ -52,6 +52,22 @@ class KubectlTransportTest extends TestCase
                     ]
                 ],
             ],
+
+            // With kubeconfig.
+            [
+                'kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal --container=drupal --kubeconfig=/path/to/config.yaml -- ls',
+                ['ls'],
+                [
+                    'kubectl' => [
+                        'tty' => false,
+                        'interactive' => false,
+                        'namespace' => 'vv',
+                        'resource' => 'deploy/drupal',
+                        'container' => 'drupal',
+                        'kubeconfig' => '/path/to/config.yaml',
+                    ]
+                ],
+            ],
         ];
     }
 
