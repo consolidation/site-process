@@ -1,5 +1,9 @@
 # Changelog
 
+### Unreleased
+
+* Adds a new option to site aliases which lets users specify any command to wrap invoked processes (#61).
+
 ### 5.0.0 - 2022/Feb/18
 
 * Support symfony/process ^6

@@ -6,6 +6,7 @@ use Consolidation\SiteProcess\Factory\KubectlTransportFactory;
 use Consolidation\SiteProcess\Factory\VagrantTransportFactory;
 use Psr\Log\LoggerInterface;
 use Consolidation\SiteAlias\SiteAliasInterface;
+use Consolidation\SiteProcess\Factory\CustomTransportFactory;
 use Consolidation\SiteProcess\Factory\SshTransportFactory;
 use Consolidation\SiteProcess\Factory\DockerComposeTransportFactory;
 use Consolidation\SiteProcess\Factory\TransportFactoryInterface;
@@ -72,6 +73,7 @@ class ProcessManager implements ConfigAwareInterface
         $processManager->add(new KubectlTransportFactory());
         $processManager->add(new DockerComposeTransportFactory());
         $processManager->add(new VagrantTransportFactory());
+        $processManager->add(new CustomTransportFactory());
 
         return $processManager;
     }
