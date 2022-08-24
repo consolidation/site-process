@@ -20,7 +20,7 @@ class SkprTransportTest extends TestCase
                 ['ls'],
                 [
                     'skpr' => [
-                        'environment' => 'dev',
+                        'env' => 'dev',
                     ]
                 ],
             ],
@@ -31,7 +31,7 @@ class SkprTransportTest extends TestCase
                 ['monday', '"tuesday"', "'wednesday'"],
                 [
                     'skpr' => [
-                        'environment' => 'dev'
+                        'env' => 'dev'
                     ]
                 ],
             ],
