@@ -64,13 +64,14 @@ class DockerComposeTransport implements TransportInterface
         $transport = ['docker-compose'];
         $project = $this->siteAlias->get('docker.project', '');
         $options = $this->siteAlias->get('docker.compose.options', '');
+        $command = $this->siteAlias->get('docker.compose.command', 'exec');
         if ($project && (strpos($options, '-p') === false || strpos($options, '--project') === false)) {
             $transport = array_merge($transport, ['-p', $project]);
         }
         if ($options) {
             $transport[] = Shell::preEscaped($options);
         }
-        return array_merge($transport, ['exec']);
+        return array_merge($transport, [$command]);
     }
 
     /**
