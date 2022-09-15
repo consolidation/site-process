@@ -78,10 +78,10 @@ docker-compose --project dockerComposeProjectName --file docker-compose.yml --pr
 
 `docker.project` and `compose.options --project` do the same thing, docker.project existed before options.
 
-`docker.service` is the exact name of the service as it appears in docker-compos.yml
+`docker.service` is the exact name of the service as it appears in docker-compose.yml
 
 The default behaviour is to use `docker-compose exec` to invoke a command on a running container.
-You can change this to use `docker-compose run` for containers which by default are not running, with the property `composer.command`.
+You can change this to use `docker-compose run` for containers which by default are not running, with the property `compose.command`.
 
 Check the [docker-compose](https://docs.docker.com/compose/reference/overview/) manual for all available options.
 
