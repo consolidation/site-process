@@ -1,5 +1,10 @@
 # Changelog
 
+### 5.1.0 - 2022/Sep/15
+
+* Support use of "docker-compose run". (#67)
+* Support kubeconfig on KubectlTransport.php (#64)
+
 ### 5.0.0 - 2022/Feb/18
 
 * Support symfony/process ^6
