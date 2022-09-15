@@ -61,6 +61,7 @@ jobs:
         run: |
           mkdir -p tools
           composer --working-dir=tools require roave/backward-compatibility-check:^5
+          composer config --no-plugins allow-plugins.ocramius/package-versions true
 
       - name: Run roave/backward-compatibility-check
         if: false
@@ -125,7 +126,7 @@ jobs:
 
       - name: Make sure composer.json is valid before we start modifyig it
         run: composer validate
-        
+
       - name: Clear platform php configuration in case we need to update phpunit
         run: composer config --unset platform.php
 
@@ -148,12 +149,12 @@ jobs:
         if: matrix.os != 'windows-latest'
         shell: 'script -q -e -c "bash {0}"'
         run: composer unit
-      
+
       # Run without "script" on Windows
       - name: Run tests with phpunit
         if: matrix.os == 'windows-latest'
         run: composer unit
-      
+
       - name: Publish code coverage to Codecov
         if: matrix.os == 'ubuntu-latest' && matrix.php-version == '8.0'
         run: bash <(curl -s https://codecov.io/bash)
