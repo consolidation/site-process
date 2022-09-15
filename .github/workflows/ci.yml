@@ -61,7 +61,7 @@ jobs:
         run: |
           mkdir -p tools
           composer --working-dir=tools require roave/backward-compatibility-check:^5
-          composer config --no-plugins allow-plugins.ocramius/package-versions true
+          composer --working-dir=tools config --no-plugins allow-plugins.ocramius/package-versions true
 
       - name: Run roave/backward-compatibility-check
         if: false
