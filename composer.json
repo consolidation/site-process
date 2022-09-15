@@ -52,6 +52,9 @@
         "sort-packages": true,
         "platform": {
             "php": "8.0.14"
+        },
+        "allow-plugins": {
+            "ocramius/package-versions": true
         }
     },
     "extra": {
