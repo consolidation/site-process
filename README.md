@@ -115,7 +115,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 | Branch       | Symfony Versions | PHP Versions
 | ------------ | ---------------- | ------------
-| main (4.x) | ^4               | 7.1+
+| main (5.x)   | ^5 | ^6          | 8.0+
+| 4.x          | ^4               | 7.1+
 | 2.x          | ^2 | ^3          | 5.6+
 
 Note that all 3.x releases of consolidation/site-process were skipped simply to align the 4.x versions with Symfony 4.x support.
