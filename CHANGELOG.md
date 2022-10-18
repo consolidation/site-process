@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.2.1 - 2022/Oct/18
+
+* Allow site-alias ^4
+
 ### 4.2.0 - 2022/Feb/18
 
 * Support kubectl transport (#60)
