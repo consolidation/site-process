@@ -25,7 +25,7 @@
     "require": {
         "php": ">=8.0.14",
         "consolidation/config": "^2",
-        "consolidation/site-alias": "^3",
+        "consolidation/site-alias": "^3 || ^4",
         "symfony/process": "^6",
         "symfony/console": "^5.4 || ^6"
     },
