@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.1.1 - 2022/Oct/18
+
+* Allow site-alias ^4
+
 ### 5.1.0 - 2022/Sep/15
 
 * Support use of "docker-compose run". (#67)
