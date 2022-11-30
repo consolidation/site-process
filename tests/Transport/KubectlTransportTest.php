@@ -68,6 +68,38 @@ class KubectlTransportTest extends TestCase
                     ]
                 ],
             ],
+
+            // With entrypoint as string.
+            [
+                'kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal --container=drupal -- /docker-entrypoint ls',
+                ['ls'],
+                [
+                    'kubectl' => [
+                        'tty' => false,
+                        'interactive' => false,
+                        'namespace' => 'vv',
+                        'resource' => 'deploy/drupal',
+                        'container' => 'drupal',
+                        'entrypoint' => '/docker-entrypoint',
+                    ]
+                ],
+            ],
+
+            // With entrypoint as array.
+            [
+                'kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal --container=drupal -- /docker-entrypoint --debug ls',
+                ['ls'],
+                [
+                    'kubectl' => [
+                        'tty' => false,
+                        'interactive' => false,
+                        'namespace' => 'vv',
+                        'resource' => 'deploy/drupal',
+                        'container' => 'drupal',
+                        'entrypoint' => ['/docker-entrypoint', '--debug'],
+                    ]
+                ],
+            ],
         ];
     }
 
