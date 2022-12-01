@@ -43,6 +43,7 @@ class KubectlTransport implements TransportInterface
         $resource = $this->siteAlias->get('kubectl.resource');
         $container = $this->siteAlias->get('kubectl.container');
         $kubeconfig = $this->siteAlias->get('kubectl.kubeconfig');
+        $entrypoint = $this->siteAlias->get('kubectl.entrypoint');
 
         $transport = [
             'kubectl',
@@ -59,6 +60,9 @@ class KubectlTransport implements TransportInterface
             $transport[] = "--kubeconfig=$kubeconfig";
         }
         $transport[] = "--";
+        if ($entrypoint) {
+            $transport = is_array($entrypoint) ? [...$transport, ...$entrypoint] : [...$transport, $entrypoint];
+        }
 
         return array_merge($transport, $args);
     }
