@@ -3,6 +3,7 @@
 namespace Consolidation\SiteProcess;
 
 use Consolidation\SiteProcess\Factory\KubectlTransportFactory;
+use Consolidation\SiteProcess\Factory\SkprTransportFactory;
 use Consolidation\SiteProcess\Factory\VagrantTransportFactory;
 use Psr\Log\LoggerInterface;
 use Consolidation\SiteAlias\SiteAliasInterface;
@@ -70,6 +71,7 @@ class ProcessManager implements ConfigAwareInterface
     {
         $processManager->add(new SshTransportFactory());
         $processManager->add(new KubectlTransportFactory());
+        $processManager->add(new SkprTransportFactory());
         $processManager->add(new DockerComposeTransportFactory());
         $processManager->add(new VagrantTransportFactory());
 
