@@ -1,5 +1,10 @@
 # Changelog
 
+### 5.2.0 - 2022/Dec/6
+
+* Transport support for Skpr (#66)
+* Allow to set an entrypoint on KubectlTransport (#70)
+
 ### 5.1.1 - 2022/Oct/18
 
 * Allow site-alias ^4
