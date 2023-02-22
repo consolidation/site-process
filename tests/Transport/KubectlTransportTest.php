@@ -100,6 +100,37 @@ class KubectlTransportTest extends TestCase
                     ]
                 ],
             ],
+
+            // With root.
+            [
+                "kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal -- sh -c 'cd /path/to/drupal && ls'",
+                ['ls'],
+                [
+                    'root' => '/path/to/drupal',
+                    'kubectl' => [
+                        'tty' => false,
+                        'interactive' => false,
+                        'namespace' => 'vv',
+                        'resource' => 'deploy/drupal',
+                    ]
+                ],
+            ],
+
+            // With root and cd_root set to false.
+            [
+                'kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal -- ls',
+                ['ls'],
+                [
+                    'root' => '/path/to/drupal',
+                    'kubectl' => [
+                        'tty' => false,
+                        'interactive' => false,
+                        'namespace' => 'vv',
+                        'resource' => 'deploy/drupal',
+                        'cd_root' => false,
+                    ]
+                ],
+            ],
         ];
     }
 
@@ -110,6 +141,9 @@ class KubectlTransportTest extends TestCase
     {
         $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
         $dockerTransport = new KubectlTransport($siteAlias);
+        if (isset($siteAliasData['root'])) {
+            $dockerTransport->addChdir($siteAliasData['root']);
+        }
         $actual = $dockerTransport->wrap($args);
         $this->assertEquals($expected, implode(' ', $actual));
     }
