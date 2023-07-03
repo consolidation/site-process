@@ -39,7 +39,9 @@ class DockerComposeTransportTest extends TestCase
                 [
                     'docker' => [
                         'service' => 'drupal',
-                        'version' => '2',
+                        'compose' => [
+                            'version' => '2',
+                        ],
                     ]
                 ],
             ],
@@ -48,7 +50,9 @@ class DockerComposeTransportTest extends TestCase
                 [
                     'docker' => [
                         'service' => 'drupal',
-                        'version' => '1',
+                        'compose' => [
+                            'version' => '1',
+                        ]
                     ]
                 ],
             ],

@@ -1,5 +1,9 @@
 # Changelog
 
+### 4.2.2 - 2023/Jul/4
+
+* Allow Docker Compose v2
+
 ### 4.2.1 - 2022/Oct/18
 
 * Allow site-alias ^4
