@@ -65,6 +65,7 @@ local:
   docker:
     service: drupal
     compose:
+      version: 1
       options: --project dockerComposeProjectName --file docker-compose.yml --project-directory dockerComposeWorkDir
     exec:
       options: --user www-data
@@ -78,7 +79,12 @@ docker-compose --project dockerComposeProjectName --file docker-compose.yml --pr
 
 `docker.project` and `compose.options --project` do the same thing, docker.project existed before options.
 
-`docker.service` is the exact name of the service as it appears in docker-compos.yml
+`docker.service` is the exact name of the service as it appears in docker-compose.yml
+
+`docker.compose.version` defaults to `1`.  Set to `2` to use the new syntax:
+```
+docker compose --project dockerComposeProjectName --file docker-compose.yml --project-directory dockerComposeWorkDir exec --user www-data -T drupal
+```
 
 Check the [docker-compose](https://docs.docker.com/compose/reference/overview/) manual for all available options.
 

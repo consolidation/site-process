@@ -35,6 +35,28 @@ class DockerComposeTransportTest extends TestCase
                 ],
             ],
             [
+                'docker compose exec -T drupal ls',
+                [
+                    'docker' => [
+                        'service' => 'drupal',
+                        'compose' => [
+                            'version' => '2',
+                        ],
+                    ]
+                ],
+            ],
+            [
+                'docker-compose exec -T drupal ls',
+                [
+                    'docker' => [
+                        'service' => 'drupal',
+                        'compose' => [
+                            'version' => '1',
+                        ]
+                    ]
+                ],
+            ],
+            [
                 'docker-compose --project project2 --file myCompose.yml exec -T drupal ls',
                 [
                     'docker' => [
