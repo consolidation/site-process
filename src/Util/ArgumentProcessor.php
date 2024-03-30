@@ -13,6 +13,9 @@ use Consolidation\SiteProcess\Transport\TransportInterface;
  */
 class ArgumentProcessor
 {
+
+    const SHORT_OPTION = '-short';
+
     /**
      * selectArgs selects the appropriate set of arguments for the command
      * to be executed and orders them as needed.
@@ -28,7 +31,7 @@ class ArgumentProcessor
     public function selectArgs(SiteAliasInterface $siteAlias, $args, $options = [], $optionsPassedAsArgs = [])
     {
         // Split args into three arrays separated by the `--`
-        list($leadingArgs, $dashDash, $remaingingArgs) = $this->findArgSeparator($args);
+        [$leadingArgs, $dashDash, $remaingingArgs] = $this->findArgSeparator($args);
         $convertedOptions = $this->convertOptions($options);
         $convertedOptionsPassedAsArgs = $this->convertOptions($optionsPassedAsArgs);
 
@@ -83,7 +86,7 @@ class ArgumentProcessor
         foreach ($options as $option => $value) {
             if ($value === true || $value === null) {
                 $result[] = "--$option";
-            } elseif ($value === '-short') {
+            } elseif ($value === self::SHORT_OPTION) {
                 $result[] = "-$option";
             } elseif ($value === false) {
                 // Ignore this option.
