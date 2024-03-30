@@ -83,6 +83,8 @@ class ArgumentProcessor
         foreach ($options as $option => $value) {
             if ($value === true || $value === null) {
                 $result[] = "--$option";
+            } elseif ($value === '-short') {
+                $result[] = "-$option";
             } elseif ($value === false) {
                 // Ignore this option.
             } else {
