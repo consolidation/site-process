@@ -13,8 +13,17 @@ use Consolidation\SiteProcess\Transport\TransportInterface;
  */
 class ArgumentProcessor
 {
+    private $short_options = ['vv', 'vvv'];
 
-    const SHORT_OPTION = '-short';
+    public function getShortOptions(): array
+    {
+        return $this->short_options;
+    }
+
+    public function setShortOptions(array $short_options): void
+    {
+        $this->short_options = $short_options;
+    }
 
     /**
      * selectArgs selects the appropriate set of arguments for the command
@@ -31,7 +40,7 @@ class ArgumentProcessor
     public function selectArgs(SiteAliasInterface $siteAlias, $args, $options = [], $optionsPassedAsArgs = [])
     {
         // Split args into three arrays separated by the `--`
-        [$leadingArgs, $dashDash, $remaingingArgs] = $this->findArgSeparator($args);
+        list($leadingArgs, $dashDash, $remaingingArgs) = $this->findArgSeparator($args);
         $convertedOptions = $this->convertOptions($options);
         $convertedOptionsPassedAsArgs = $this->convertOptions($optionsPassedAsArgs);
 
@@ -84,17 +93,21 @@ class ArgumentProcessor
     {
         $result = [];
         foreach ($options as $option => $value) {
+            $dashes = str_repeat('-', $this->dashCount($option));
             if ($value === true || $value === null) {
-                $result[] = "--$option";
-            } elseif ($value === self::SHORT_OPTION) {
-                $result[] = "-$option";
+                $result[] = $dashes . $option;
             } elseif ($value === false) {
                 // Ignore this option.
             } else {
-                $result[] = "--{$option}={$value}";
+                $result[] = "{$dashes}{$option}={$value}";
             }
         }
 
         return $result;
+    }
+
+    protected function dashCount($name): int
+    {
+        return in_array($name, $this->getShortOptions()) ? 1 : 2;
     }
 }
