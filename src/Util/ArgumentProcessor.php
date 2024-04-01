@@ -13,6 +13,18 @@ use Consolidation\SiteProcess\Transport\TransportInterface;
  */
 class ArgumentProcessor
 {
+    private $short_options = ['vv', 'vvv'];
+
+    public function getShortOptions(): array
+    {
+        return $this->short_options;
+    }
+
+    public function setShortOptions(array $short_options): void
+    {
+        $this->short_options = $short_options;
+    }
+
     /**
      * selectArgs selects the appropriate set of arguments for the command
      * to be executed and orders them as needed.
@@ -81,15 +93,21 @@ class ArgumentProcessor
     {
         $result = [];
         foreach ($options as $option => $value) {
+            $dashes = str_repeat('-', $this->dashCount($option));
             if ($value === true || $value === null) {
-                $result[] = "--$option";
+                $result[] = $dashes . $option;
             } elseif ($value === false) {
                 // Ignore this option.
             } else {
-                $result[] = "--{$option}={$value}";
+                $result[] = "{$dashes}{$option}={$value}";
             }
         }
 
         return $result;
+    }
+
+    protected function dashCount($name): int
+    {
+        return in_array($name, $this->getShortOptions()) ? 1 : 2;
     }
 }
