@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.3.0 - 2024/Apr/1
+
+* Allow short options. Needed to pass along -vvv (#76)
+
 ### 5.2.0 - 2022/Dec/6
 
 * Transport support for Skpr (#66)
