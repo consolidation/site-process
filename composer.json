@@ -22,12 +22,22 @@
             "Consolidation\\SiteProcess\\": "tests/src"
         }
     },
+    "repositories": {
+        "sf7_site-alias": {
+            "type": "vcs",
+            "url": "https://github.com/larowlan/site-alias"
+        },
+        "sf7_config": {
+            "type": "vcs",
+            "url": "https://github.com/larowlan/config"
+        }
+    },
     "require": {
         "php": ">=8.0.14",
-        "consolidation/config": "^2",
-        "consolidation/site-alias": "^3 || ^4",
-        "symfony/process": "^6",
-        "symfony/console": "^5.4 || ^6"
+        "consolidation/config": "^2 || dev-symfony7",
+        "consolidation/site-alias": "^3 || ^4 || dev-symfony7",
+        "symfony/process": "^6 || ^7",
+        "symfony/console": "^5.4 || ^6 || ^7"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3",
