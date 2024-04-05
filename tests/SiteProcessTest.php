@@ -214,6 +214,9 @@ class SiteProcessTest extends TestCase
         if ($useTty && Escape::isWindows($os)) {
           $this->markTestSkipped('Windows doesn\'t have /dev/tty support');
         }
+        if ($useTty && getenv('CI')) {
+          $this->markTestSkipped('CI doesn\'t provide /dev/tty support');
+        }
         $processManager = ProcessManager::createDefault();
         $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
         $siteProcess = $processManager->siteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
