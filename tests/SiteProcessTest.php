@@ -214,7 +214,7 @@ class SiteProcessTest extends TestCase
         if ($useTty && Escape::isWindows($os)) {
           $this->markTestSkipped('Windows doesn\'t have /dev/tty support');
         }
-        if ($useTty && getenv('CI')) {
+        if ($useTty && getenv('CI') && (version_compare("8.2.0", PHP_VERSION) >= 0)) {
           $this->markTestSkipped('CI doesn\'t provide /dev/tty support');
         }
         $processManager = ProcessManager::createDefault();
