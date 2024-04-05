@@ -214,6 +214,13 @@ class SiteProcessTest extends TestCase
         if ($useTty && Escape::isWindows($os)) {
           $this->markTestSkipped('Windows doesn\'t have /dev/tty support');
         }
+        // Symfony 7 won't let us use setTty when there isn't an actual tty,
+        // whereas Symfony 6 is more forgiving. (Our test doesn't actually need
+        // the tty.) Since I don't know a good way to detect Symfony 7+, I instead
+        // allow the test to run on PHP < 8.2.0, since Symfony 7 requires PHP 8.2+.
+        if ($useTty && getenv('CI') && (version_compare("8.2.0", PHP_VERSION) <= 0)) {
+          $this->markTestSkipped('CI doesn\'t provide /dev/tty support');
+        }
         $processManager = ProcessManager::createDefault();
         $siteAlias = new SiteAlias($siteAliasData, '@alias.dev');
         $siteProcess = $processManager->siteProcess($siteAlias, $args, $options, $optionsPassedAsArgs);
