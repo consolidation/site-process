@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.4.0
+
+* Support Symfony 7
+
 ### 5.3.0 - 2024/Apr/1
 
 * Allow short options. Needed to pass along -vvv (#76)
