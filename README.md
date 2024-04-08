@@ -1,6 +1,6 @@
 # Site Process
 
-A thin wrapper around the Symfony Process Component that allows applications to use the Site Alias library to specify the target for a remote call. 
+A thin wrapper around the Symfony Process Component that allows applications to use the Site Alias library to specify the target for a remote call.
 
 [![ci](https://github.com/consolidation/site-process/workflows/CI/badge.svg)](https://travis-ci.org/consolidation/site-process)
 [![scrutinizer](https://scrutinizer-ci.com/g/consolidation/site-process/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/consolidation/site-process/?branch=master)
@@ -32,6 +32,18 @@ This is equivalent to:
 $process = $processManager->siteProcess($site_alias, ['git', '--untracked-files=no', 'status']);
 ```
 ### Transports
+
+The transport for a site alias is automatically determined based on its config. The
+transport can be specified explicitly using the `transport` property.
+
+Available transports:
+
+* ssh
+* kubectl
+* skpr
+* docker-dompose
+* vagrant
+
 #### SSH
 Wraps a command so that it runs on a remote system via the ssh cli.
 
@@ -41,7 +53,7 @@ local:
   host: localhost
   uri: http://localhost
   ssh:
-    options: -o PasswordAuthentication=no -i $HOME/.ssh/id_rsa 
+    options: -o PasswordAuthentication=no -i $HOME/.ssh/id_rsa
 
 ```
 ### Vagrant
@@ -97,7 +109,7 @@ The test suite may be run locally by way of some simple composer scripts:
 | Run all tests    | `composer test`
 | PHPUnit tests    | `composer unit`
 | PHP linter       | `composer lint`
-| Code style       | `composer cs`     
+| Code style       | `composer cs`
 | Fix style errors | `composer cbf`
 
 
