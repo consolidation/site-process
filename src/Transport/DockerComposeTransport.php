@@ -61,7 +61,12 @@ class DockerComposeTransport implements TransportInterface
      */
     protected function getTransport()
     {
-        $transport = ['docker-compose'];
+        $version = $this->siteAlias->get('docker.compose.version', '1');
+        if ($version == 2) {
+            $transport = ['docker', 'compose'];
+        } else {
+            $transport = ['docker-compose'];
+        }
         $project = $this->siteAlias->get('docker.project', '');
         $options = $this->siteAlias->get('docker.compose.options', '');
         $command = $this->siteAlias->get('docker.compose.command', 'exec');
