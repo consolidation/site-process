@@ -198,13 +198,13 @@ class SiteProcess extends ProcessBase
     /**
      * @inheritDoc
      */
-    public function start(callable $callback = null, array $env = []): void
+    public function start(?callable $callback = null, array $env = []): void
     {
         $cmd = $this->getCommandLine();
         parent::start($callback, $env);
     }
 
-    public function mustRun(callable $callback = null, array $env = []): static
+    public function mustRun(?callable $callback = null, array $env = []): static
     {
         if (0 !== $this->run($callback, $env)) {
             // Be less verbose when there is nothing in stdout or stderr.
@@ -220,7 +220,7 @@ class SiteProcess extends ProcessBase
     /**
      * @inheritDoc
      */
-    public function wait(callable $callback = null): int
+    public function wait(?callable $callback = null): int
     {
         $return = parent::wait($callback);
         return $return;
