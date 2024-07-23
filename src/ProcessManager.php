@@ -103,7 +103,7 @@ class ProcessManager implements ConfigAwareInterface
      * @param int|float|null $timeout The timeout in seconds or null to disable
      * @return Process
      */
-    public function process($command, $cwd = null, array $env = null, $input = null, $timeout = 60)
+    public function process($command, $cwd = null, ?array $env = null, $input = null, $timeout = 60)
     {
         return new ProcessBase($command, $cwd, $env, $input, $timeout);
     }
@@ -117,7 +117,7 @@ class ProcessManager implements ConfigAwareInterface
      * @param int|float|null $timeout The timeout in seconds or null to disable
      * @return Process
      */
-    public function shell($command, $cwd = null, array $env = null, $input = null, $timeout = 60)
+    public function shell($command, $cwd = null, ?array $env = null, $input = null, $timeout = 60)
     {
         return ProcessBase::fromShellCommandline($command, $cwd, $env, $input, $timeout);
     }
