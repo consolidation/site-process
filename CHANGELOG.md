@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.4.2 - 2024/Dec/13
+
+* PHP 8.4 support
+
 ### 5.4.1 - 2024/Jul/10
 
 * Allow Docker Compose v2
