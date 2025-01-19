@@ -66,13 +66,13 @@ class DockerComposeTransport implements TransportInterface
         if ($version == 2) {
             $transport = ['docker'];
             if ($host != '') {
-                $transport[] = Shell::preEscaped('-H' . $host);
+                $transport[] = Shell::preEscaped('-H ' . $host);
             }
             $transport[] = 'compose';
         } else {
             $transport = ['docker-compose'];
             if ($host != '') {
-                $transport[] = Shell::preEscaped('-H' . $host);
+                $transport[] = Shell::preEscaped('-H ' . $host);
             }
         }
         $project = $this->siteAlias->get('docker.project', '');
