@@ -137,6 +137,17 @@ class SiteProcessTest extends TestCase
             ],
 
             [
+                "kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal -- ls -al /path1 /path2",
+                false,
+                false,
+                ['transport' => 'kubectl', 'host' => 'server.net', 'kubectl' => ['namespace' => 'vv', 'resource' => 'deploy/drupal']],
+                ['ls', '-al', '/path1', '/path2'],
+                [],
+                [],
+                NULL,
+            ],
+
+            [
                 "drush status '--fields=root,uri'",
                 false,
                 false,

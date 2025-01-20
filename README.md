@@ -32,6 +32,18 @@ This is equivalent to:
 $process = $processManager->siteProcess($site_alias, ['git', '--untracked-files=no', 'status']);
 ```
 ### Transports
+
+The transport for a site alias is automatically determined based on its config. The
+transport can be specified explicitly using the `transport` property.
+
+Available transports:
+
+* ssh
+* kubectl
+* skpr
+* docker-dompose
+* vagrant
+
 #### SSH
 Wraps a command so that it runs on a remote system via the ssh cli.
 
