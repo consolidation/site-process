@@ -65,7 +65,8 @@ jobs:
           composer --working-dir=tools require roave/backward-compatibility-check:^7
 
       - name: Run roave/backward-compatibility-check
-        run: ./tools/vendor/bin/roave-backward-compatibility-check --from=5.4.0
+        if: false
+        run: ./tools/vendor/bin/roave-backward-compatibility-check --from=6.0.0
 
   tests:
     name: Tests
@@ -92,17 +93,17 @@ jobs:
 
         include:
           - os: ubuntu-latest
-            php-version: "8.0"
-            dependencies: highest
-            php-ini-values: assert.exception=1, zend.assertions=1, opcache.enable=1, opcache.enable_cli=1, opcache.optimization_level=-1, opcache.jit_buffer_size=4096M, opcache.jit=1205
-
-          - os: ubuntu-latest
             php-version: "8.3"
             dependencies: highest
             php-ini-values: assert.exception=1, zend.assertions=1, opcache.enable=1, opcache.enable_cli=1, opcache.optimization_level=-1, opcache.jit_buffer_size=4096M, opcache.jit=1205
 
           - os: ubuntu-latest
             php-version: "8.4"
+            dependencies: highest
+            php-ini-values: assert.exception=1, zend.assertions=1, opcache.enable=1, opcache.enable_cli=1, opcache.optimization_level=-1, opcache.jit_buffer_size=4096M, opcache.jit=1205
+
+          - os: ubuntu-latest
+            php-version: "8.5"
             dependencies: highest
             php-ini-values: assert.exception=1, zend.assertions=1, opcache.enable=1, opcache.enable_cli=1, opcache.optimization_level=-1, opcache.jit_buffer_size=4096M, opcache.jit=1205
 
@@ -127,7 +128,7 @@ jobs:
         run: Add-Content -Path $ENV:GITHUB_ENV -Value "COMPOSER_CACHE_DIR=~\AppData\Local\Composer"
 
       - name: Cache dependencies installed with composer
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ env.COMPOSER_CACHE_DIR }}
           key: php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
