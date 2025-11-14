@@ -1,5 +1,10 @@
 # Changelog
 
+### 6.0.0 - 2025/Nov/14
+
+* PHP 8.5 support
+* B/C Break: Remove support for PHP 8.0 and 8.1.
+
 ### 5.4.2 - 2024/Dec/13
 
 * PHP 8.4 support

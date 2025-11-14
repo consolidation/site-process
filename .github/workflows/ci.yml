@@ -65,7 +65,7 @@ jobs:
           composer --working-dir=tools require roave/backward-compatibility-check:^7
 
       - name: Run roave/backward-compatibility-check
-        if: false
+        # if: false
         run: ./tools/vendor/bin/roave-backward-compatibility-check --from=6.0.0
 
   tests:
