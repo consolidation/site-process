@@ -79,6 +79,8 @@ docker-compose --project dockerComposeProjectName --file docker-compose.yml --pr
 
 `docker.project` and `compose.options --project` do the same thing, docker.project existed before options.
 
+`docker.host` connects to a remote docker host. You can use ssh if you don't want to open the docker port. `host: ssh://user@host`
+
 `docker.service` is the exact name of the service as it appears in docker-compose.yml
 
 `docker.compose.version` defaults to `1`. Set to `2` to use the new syntax:

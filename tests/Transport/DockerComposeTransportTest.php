@@ -80,6 +80,29 @@ class DockerComposeTransportTest extends TestCase
                     ]
                 ],
             ],
+            [
+                'docker-compose -H ssh://user@dockerhost -p project1 exec -T drupal ls',
+                [
+                    'docker' => [
+                        'service' => 'drupal',
+                        'host' => 'ssh://user@dockerhost',
+                        'project' => 'project1',
+                    ]
+                ],
+            ],
+            [
+                'docker -H ssh://user@dockerhost compose -p project1 exec -T drupal ls',
+                [
+                    'docker' => [
+                        'service' => 'drupal',
+                        'host' => 'ssh://user@dockerhost',
+                        'project' => 'project1',
+                        'compose' => [
+                            'version' => '2',
+                        ],
+                    ]
+                ],
+            ],
         ];
     }
 
