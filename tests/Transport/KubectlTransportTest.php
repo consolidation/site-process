@@ -16,13 +16,12 @@ class KubectlTransportTest extends TestCase
         return [
             // Everything explicit.
             [
-                'kubectl --cluster=b --namespace=vv exec --tty=false --stdin=false deploy/drupal --container=drupal -- ls',
+                'kubectl --namespace=vv exec --tty=false --stdin=false deploy/drupal --container=drupal -- ls',
                 ['ls'],
                 [
                     'kubectl' => [
                         'tty' => false,
                         'interactive' => false,
-                        'cluster' => 'cluster-b',
                         'namespace' => 'vv',
                         'resource' => 'deploy/drupal',
                         'container' => 'drupal',

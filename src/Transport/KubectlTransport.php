@@ -41,7 +41,6 @@ class KubectlTransport implements TransportInterface
     public function wrap($args)
     {
         # TODO: How/where do we complain if a required argument is not available?
-        $cluster = $this->siteAlias->get('kubectl.cluster');
         $namespace = $this->siteAlias->get('kubectl.namespace');
         $tty = $this->tty && $this->siteAlias->get('kubectl.tty', false) ? "true" : "false";
         $interactive = $this->tty && $this->siteAlias->get('kubectl.interactive', false) ? "true" : "false";
@@ -52,15 +51,7 @@ class KubectlTransport implements TransportInterface
 
         $transport = [
             'kubectl',
-        ];
-        if ($cluster) {
-            $transport[] = "--cluster=$cluster";
-        }
-        if ($namespace) {
-            $transport[] = "--namespace=$namespace";
-        }
-        $transport = [
-            ...$transport,
+            "--namespace=$namespace",
             'exec',
             "--tty=$tty",
             "--stdin=$interactive",
