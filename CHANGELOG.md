@@ -1,5 +1,10 @@
 # Changelog
 
+### 6.0.1 - 2026/Mar/28
+
+* Allow Symfony 8 (#87)
+* Add Symfony major version matrix to CI (#88)
+
 ### 6.0.0 - 2025/Nov/14
 
 * PHP 8.5 support
