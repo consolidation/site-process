@@ -180,7 +180,7 @@ jobs:
 
       - name: Require Symfony ${{ matrix.symfony }}
         if: matrix.symfony != ''
-        run: composer require --no-interaction --no-progress symfony/process:^${{ matrix.symfony }} symfony/console:^${{ matrix.symfony }}
+        run: composer require --no-interaction --no-progress --with-all-dependencies symfony/process:^${{ matrix.symfony }} symfony/console:^${{ matrix.symfony }}
 
       # Use "script" hack to give us a tty. See https://github.com/actions/runner/issues/241#issuecomment-745902718
       - name: Run tests with phpunit
