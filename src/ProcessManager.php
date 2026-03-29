@@ -69,11 +69,11 @@ class ProcessManager implements ConfigAwareInterface
      */
     public static function addTransports(ProcessManager $processManager)
     {
-        $processManager->add(new SshTransportFactory());
-        $processManager->add(new KubectlTransportFactory());
-        $processManager->add(new SkprTransportFactory());
-        $processManager->add(new DockerComposeTransportFactory());
-        $processManager->add(new VagrantTransportFactory());
+        $processManager->add(new SshTransportFactory(), 'ssh');
+        $processManager->add(new KubectlTransportFactory(), 'kubectl');
+        $processManager->add(new SkprTransportFactory(), 'skpr');
+        $processManager->add(new DockerComposeTransportFactory(), 'docker-compose');
+        $processManager->add(new VagrantTransportFactory(), 'vagrant');
 
         return $processManager;
     }
@@ -125,10 +125,15 @@ class ProcessManager implements ConfigAwareInterface
     /**
      * add a transport factory to our factory list
      * @param TransportFactoryInterface $factory
+     * @param string $name
      */
-    public function add(TransportFactoryInterface $factory)
+    public function add(TransportFactoryInterface $factory, string $name = null)
     {
-        $this->transportFactories[] = $factory;
+        if ($name) {
+            $this->transportFactories[$name] = $factory;
+        } else {
+            $this->transportFactories[] = $factory;
+        }
         return $this;
     }
 
@@ -170,8 +175,9 @@ class ProcessManager implements ConfigAwareInterface
      */
     protected function getTransportFactory(SiteAliasInterface $siteAlias)
     {
-        foreach ($this->transportFactories as $factory) {
-            if ($factory->check($siteAlias)) {
+        $transport = $siteAlias->get('transport');
+        foreach ($this->transportFactories as $key => $factory) {
+            if ((!$transport || $transport === $key) && $factory->check($siteAlias)) {
                 return $factory;
             }
         }
