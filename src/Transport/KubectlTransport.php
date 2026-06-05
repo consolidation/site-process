@@ -74,9 +74,11 @@ class KubectlTransport implements TransportInterface
     {
         return array_merge(
             [
-                'cd',
+                '/bin/sh',
+                '-c',
+                'cd "$1" && shift && "$@"',
+                '--',
                 $cd_remote,
-                Shell::op('&&'),
             ],
             $args
         );
